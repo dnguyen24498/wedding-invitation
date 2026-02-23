@@ -1,0 +1,1410 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    font-family: 'Cormorant', 'Playfair Display', serif;
+    background-color: #6b1010;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Custom scrollbar for timeline containers */
+.timeline-container::-webkit-scrollbar,
+.ceremony-container::-webkit-scrollbar {
+    width: 4px;
+}
+
+.timeline-container::-webkit-scrollbar-track,
+.ceremony-container::-webkit-scrollbar-track {
+    background: rgba(107, 16, 16, 0.1);
+    border-radius: 2px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb,
+.ceremony-container::-webkit-scrollbar-thumb {
+    background: rgba(107, 16, 16, 0.3);
+    border-radius: 2px;
+}
+
+.timeline-container::-webkit-scrollbar-thumb:hover,
+.ceremony-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(107, 16, 16, 0.5);
+}
+
+/* ===== SECTION 1: SAVE THE DATE ===== */
+.section-one {
+    height: 100vh;
+    background-color: #6b1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 15px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Side floral decorations */
+.side-floral {
+    position: absolute;
+    width: 200px;
+    height: auto;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.side-floral img {
+    width: 100%;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
+.side-floral-left {
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-15deg);
+}
+
+.side-floral-right {
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(15deg) scaleX(-1);
+}
+
+/* Additional floral elements */
+.side-floral-left::before,
+.side-floral-right::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(248, 245, 235, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.invitation-card {
+    background-color: #f8f5eb;
+    max-width: 900px;
+    width: 100%;
+    padding: 50px 60px;
+    position: relative;
+    margin: 10px;
+    z-index: 1;
+}
+
+/* Wavy vintage border using SVG */
+.vintage-border {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    pointer-events: none;
+    overflow: visible;
+}
+
+/* Top wavy line */
+.vintage-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 Q12.5,0 25,5 T50,5 T75,5 T100,5' fill='none' stroke='%236b1010' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+    background-size: 50px 10px;
+}
+
+/* Bottom wavy line */
+.vintage-border::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    height: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 Q12.5,10 25,5 T50,5 T75,5 T100,5' fill='none' stroke='%236b1010' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x;
+    background-size: 50px 10px;
+}
+
+/* Hide old border lines */
+.border-line {
+    position: absolute;
+    background: none;
+}
+
+/* Left wavy line */
+.border-left {
+    left: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 100' preserveAspectRatio='none'%3E%3Cpath d='M5,0 Q0,12.5 5,25 T5,50 T5,75 T5,100' fill='none' stroke='%236b1010' stroke-width='1.5'/%3E%3C/svg%3E") repeat-y;
+    background-size: 10px 50px;
+}
+
+/* Right wavy line */
+.border-right {
+    right: 0;
+    top: 20px;
+    bottom: 20px;
+    width: 10px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 100' preserveAspectRatio='none'%3E%3Cpath d='M5,0 Q10,12.5 5,25 T5,50 T5,75 T5,100' fill='none' stroke='%236b1010' stroke-width='1.5'/%3E%3C/svg%3E") repeat-y;
+    background-size: 10px 50px;
+}
+
+.border-top, .border-bottom {
+    display: none;
+}
+
+/* Decorative leaf corners - positioned to connect with wavy borders */
+.corner {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    overflow: visible;
+    z-index: 2;
+}
+
+.corner::before,
+.corner::after {
+    display: none;
+}
+
+.corner img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: sepia(20%) hue-rotate(-10deg) saturate(1.2);
+}
+
+/* Top-left: leaf curves from top border to left border */
+.corner-tl {
+    top: 5px;
+    left: 5px;
+    transform: rotate(180deg);
+}
+
+/* Top-right: leaf curves from top border to right border */
+.corner-tr {
+    top: 5px;
+    right: 5px;
+    transform: rotate(-90deg);
+}
+
+/* Bottom-left: leaf curves from left border to bottom border */
+.corner-bl {
+    bottom: 5px;
+    left: 5px;
+    transform: rotate(90deg);
+}
+
+/* Bottom-right: leaf curves from right border to bottom border */
+.corner-br {
+    bottom: 5px;
+    right: 5px;
+    transform: rotate(0deg);
+}
+
+/* Date header with floral */
+.date-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 15px;
+    opacity: 0;
+    animation: fadeInDown 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.date-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: #6b1010;
+}
+
+/* Floral illustration */
+.floral-illustration {
+    width: 50px;
+    height: 65px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.floral-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: sepia(100%) saturate(300%) brightness(70%) hue-rotate(-10deg);
+}
+
+/* Names section */
+.names-section {
+    text-align: center;
+    margin: 10px 0 15px;
+    padding: 5px 0;
+}
+
+.couple-names {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.6s;
+}
+
+.groom-name {
+    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
+    font-size: 52px;
+    font-weight: 400;
+    color: #6b1010;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+.and-text {
+    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
+    font-size: 26px;
+    font-weight: 400;
+    color: #6b1010;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin: 3px 0;
+}
+
+.bride-name {
+    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
+    font-size: 52px;
+    font-weight: 400;
+    color: #6b1010;
+    letter-spacing: 1px;
+    line-height: 1;
+}
+
+/* Name rows with icons */
+.name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.bride-row {
+    align-self: flex-start;
+    margin-left: 10%;
+}
+
+.groom-row {
+    align-self: flex-end;
+    margin-right: 10%;
+}
+
+/* Name icons (groom & bride) */
+.name-icon {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    object-fit: contain;
+    filter: sepia(100%) saturate(300%) hue-rotate(-10deg) brightness(0.5);
+    opacity: 0.85;
+    transform: translateY(-20%);
+}
+
+.groom-icon {
+    /* icon after groom name */
+}
+
+.bride-icon {
+    /* icon before bride name */
+}
+
+/* Horizontal lines */
+.divider-line {
+    height: 1px;
+    background-color: #6b1010;
+    margin: 15px 0;
+    transform: scaleX(0);
+    animation: expandLine 1s ease forwards;
+    animation-delay: 1s;
+}
+
+/* Invitation text */
+.invitation-text {
+    text-align: center;
+    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
+    font-size: 26px;
+    color: #6b1010;
+    line-height: 1.5;
+    margin: 15px 0;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1.2s;
+}
+
+/* Save the date button */
+.save-date-btn {
+    display: block;
+    width: fit-content;
+    margin: 20px auto 0;
+    padding: 12px 30px;
+    background-color: #6b1010;
+    color: #f8f5eb;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 1.4s;
+}
+
+.save-date-btn:hover {
+    background-color: #4a0b0b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(107, 16, 16, 0.3);
+}
+
+/* ===== SECTION 2: RSVP ===== */
+.section-two {
+    height: 100vh;
+    background-color: #6b1010;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 30px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    position: relative;
+}
+
+.rsvp-container {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 50px;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Left side - Contact info */
+.contact-section {
+    flex: 1;
+    color: #f8f5eb;
+    padding: 20px 0;
+}
+
+.contact-group {
+    margin-bottom: 25px;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.contact-group.animate {
+    animation: slideInLeft 0.8s ease forwards;
+}
+
+.contact-label {
+    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
+    font-size: 30px;
+    color: #f8f5eb;
+    margin-bottom: 5px;
+}
+
+.contact-value {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.contact-value a {
+    color: #f8f5eb;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.contact-value a:hover {
+    opacity: 0.8;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-icons a {
+    color: #f8f5eb;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: translateY(-3px);
+    opacity: 0.8;
+}
+
+/* Right side - RSVP */
+.rsvp-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f8f5eb;
+    text-align: center;
+}
+
+/* Bird illustration */
+.bird-illustration {
+    width: 120px;
+    height: 100px;
+    margin-top: -20px;
+    margin-bottom: 15px;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.bird-illustration.animate {
+    animation: fadeInDown 1s ease forwards;
+}
+
+.bird-illustration img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+.rsvp-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    margin: 15px 0;
+}
+
+.rsvp-divider::before,
+.rsvp-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #f8f5eb;
+    transform: scaleX(0);
+}
+
+.rsvp-divider.animate::before {
+    animation: expandLineLeft 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.rsvp-divider.animate::after {
+    animation: expandLineRight 1s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.rsvp-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0;
+}
+
+.rsvp-title.animate {
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.rsvp-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin: 15px 0;
+    opacity: 0;
+}
+
+.rsvp-date.animate {
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.7s;
+}
+
+.rsvp-bottom-line {
+    width: 100%;
+    max-width: 500px;
+    height: 1px;
+    background-color: #f8f5eb;
+    margin: 30px 0;
+    transform: scaleX(0);
+}
+
+.rsvp-bottom-line.animate {
+    animation: expandLine 1s ease forwards;
+    animation-delay: 0.9s;
+}
+
+.rsvp-note {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0;
+}
+
+.rsvp-note.animate {
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1.1s;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes expandLine {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes expandLineLeft {
+    from {
+        transform: scaleX(0);
+        transform-origin: right;
+    }
+    to {
+        transform: scaleX(1);
+        transform-origin: right;
+    }
+}
+
+@keyframes expandLineRight {
+    from {
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+    to {
+        transform: scaleX(1);
+        transform-origin: left;
+    }
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #f8f5eb;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards, bounce 2s infinite;
+    animation-delay: 2s, 2s;
+}
+
+.scroll-indicator i {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    40% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+    60% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .invitation-card {
+        padding: 60px 50px;
+    }
+
+    .vintage-border {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+    }
+
+    .corner {
+        width: 20px;
+        height: 20px;
+    }
+
+    .corner-tl::before,
+    .corner-tr::before,
+    .corner-bl::before,
+    .corner-br::before {
+        height: 20px;
+    }
+
+    .corner-tl::after,
+    .corner-tr::after,
+    .corner-bl::after,
+    .corner-br::after {
+        width: 20px;
+    }
+
+    .border-top,
+    .border-bottom {
+        left: 20px;
+        right: 20px;
+    }
+
+    .border-left,
+    .border-right {
+        top: 20px;
+        bottom: 20px;
+    }
+
+    .groom-name,
+    .bride-name {
+        font-size: 52px;
+    }
+
+    .and-text {
+        font-size: 26px;
+    }
+
+    .groom-name {
+        margin-left: 10%;
+    }
+
+    .bride-name {
+        margin-right: 10%;
+    }
+
+    .section-two {
+        padding: 40px 20px;
+    }
+
+    .rsvp-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .contact-section {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .rsvp-date {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 600px) {
+    .date-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .groom-name,
+    .bride-name {
+        font-size: 42px;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .and-text {
+        font-size: 22px;
+    }
+
+    .invitation-text {
+        font-size: 20px;
+    }
+
+    .rsvp-date {
+        font-size: 32px;
+    }
+}
+
+/* ===== SECTION WEDDING (Bride & Groom) ===== */
+.section-wedding {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Bride section - nền burgundy */
+.section-bride {
+    background-color: #6b1010;
+}
+
+/* Groom section - nền burgundy */
+.section-groom {
+    background-color: #6b1010;
+}
+
+.wedding-container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.wedding-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.wedding-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+}
+
+.wedding-title {
+    font-family: 'Dancing Script', 'Tangerine', cursive;
+    font-size: 46px;
+    font-weight: 700;
+    color: #f8f5eb;
+    margin: 0;
+}
+
+.wedding-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: rgba(248, 245, 235, 0.8);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.wedding-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f8f5eb;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.wedding-location {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 12px 25px;
+    background-color: #f8f5eb;
+    border-radius: 8px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.wedding-location:hover {
+    background-color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.wedding-location i {
+    color: #6b1010;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.wedding-location p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b1010;
+    margin: 0;
+    text-align: center;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+/* Wedding Timeline */
+.wedding-timeline {
+    position: relative;
+    padding-left: 0;
+    text-align: left;
+}
+
+.wedding-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #f8f5eb;
+}
+
+.wedding-item {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.wedding-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.wedding-item:last-child {
+    margin-bottom: 0;
+}
+
+.wedding-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #f8f5eb;
+    border-radius: 50%;
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    z-index: 1;
+}
+
+.wedding-title-line {
+    font-family: 'Dancing Script', 'Tangerine', cursive;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f8f5eb;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+.wedding-desc {
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    color: rgba(248, 245, 235, 0.8);
+    text-align: left;
+}
+
+/* ===== FLORAL DECORATIONS ===== */
+.floral-decor {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.12;
+}
+
+.floral-decor img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+}
+
+/* Random positions for florals */
+.floral-1 {
+    width: 80px;
+    top: 5%;
+    left: 3%;
+    transform: rotate(-20deg);
+}
+
+.floral-2 {
+    width: 100px;
+    top: 10%;
+    right: 5%;
+    transform: rotate(25deg) scaleX(-1);
+}
+
+.floral-3 {
+    width: 70px;
+    bottom: 15%;
+    left: 5%;
+    transform: rotate(15deg);
+}
+
+.floral-4 {
+    width: 90px;
+    bottom: 8%;
+    right: 3%;
+    transform: rotate(-30deg) scaleX(-1);
+}
+
+.floral-5 {
+    width: 95px;
+    top: 8%;
+    left: 2%;
+    transform: rotate(10deg);
+}
+
+.floral-6 {
+    width: 75px;
+    top: 5%;
+    right: 4%;
+    transform: rotate(-15deg) scaleX(-1);
+}
+
+.floral-7 {
+    width: 65px;
+    bottom: 10%;
+    left: 4%;
+    transform: rotate(-25deg);
+}
+
+.floral-8 {
+    width: 110px;
+    bottom: 5%;
+    right: 2%;
+    transform: rotate(20deg) scaleX(-1);
+}
+
+/* ===== CEREMONY SECTIONS (Hằng Thuận & Đón Dâu) ===== */
+/* Lễ Hằng Thuận - nền burgundy */
+.section-ceremony {
+    height: 100vh;
+    background-color: #6b1010;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Lễ Đón Dâu - nền burgundy */
+.section-dondau {
+    background-color: #6b1010;
+}
+
+.section-dondau .ceremony-title,
+.section-dondau .ceremony-date,
+.section-dondau .ceremony-icon,
+.section-dondau .ceremony-time,
+.section-dondau .ceremony-content h3 {
+    color: #f8f5eb;
+}
+
+.section-dondau .ceremony-content p {
+    color: rgba(248, 245, 235, 0.8);
+}
+
+.section-dondau .ceremony-location {
+    background-color: #f8f5eb;
+}
+
+.section-dondau .ceremony-location i,
+.section-dondau .ceremony-location p {
+    color: #6b1010;
+}
+
+.section-dondau .ceremony-dot {
+    background-color: #f8f5eb;
+    border-color: #f8f5eb;
+}
+
+.section-dondau .ceremony-timeline::before {
+    background-color: #f8f5eb;
+}
+
+.ceremony-container {
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.ceremony-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.ceremony-icon {
+    font-size: 28px;
+    color: #f8f5eb;
+}
+
+.ceremony-title {
+    font-family: 'Dancing Script', 'Tangerine', cursive;
+    font-size: 46px;
+    font-weight: 700;
+    color: #f8f5eb;
+    margin: 0;
+}
+
+.ceremony-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #f8f5eb;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.ceremony-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: #f8f5eb;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.ceremony-location:hover {
+    background-color: #fff;
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.ceremony-location i {
+    color: #6b1010;
+    font-size: 18px;
+}
+
+.ceremony-location p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b1010;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+.ceremony-timeline {
+    position: relative;
+    padding: 15px 0;
+    text-align: left;
+}
+
+.ceremony-timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #f8f5eb;
+}
+
+.ceremony-item {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 20px;
+}
+
+.ceremony-item:last-child {
+    margin-bottom: 0;
+}
+
+.ceremony-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #f8f5eb;
+    border-radius: 50%;
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    z-index: 1;
+}
+
+.ceremony-title-line {
+    font-family: 'Dancing Script', 'Tangerine', cursive;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f8f5eb;
+    margin-bottom: 3px;
+    text-align: left;
+}
+
+.ceremony-desc {
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    color: rgba(248, 245, 235, 0.8);
+    text-align: left;
+}
+
+/* Container căn giữa màn hình */
+.section-ceremony .ceremony-container,
+.section-wedding .wedding-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 600px) {
+    .ceremony-title {
+        font-size: 38px;
+    }
+}
+
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Vertical line */
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #6b1010;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-time {
+    flex: 1;
+    text-align: right;
+    padding-right: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #6b1010;
+    letter-spacing: 2px;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    background-color: #6b1010;
+    border: 2px solid #f8f5eb;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    box-shadow: 0 0 0 2px #6b1010;
+}
+
+.timeline-content {
+    flex: 1;
+    text-align: left;
+    padding-left: 25px;
+}
+
+.timeline-event-title {
+    font-family: 'Playfair Display', 'Cormorant', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #6b1010;
+    margin-bottom: 5px;
+}
+
+.timeline-event-desc {
+    font-family: 'Cormorant', serif;
+    font-size: 16px;
+    color: #8b5a5a;
+    line-height: 1.6;
+}
+
+/* Timeline item animations */
+.timeline-item {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+}
+
+.timeline-item.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Timeline responsive */
+@media (max-width: 700px) {
+    .timeline-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 60px;
+    }
+
+    .timeline-divider-vertical {
+        display: none;
+    }
+
+    .timeline-container {
+        max-width: 100%;
+    }
+
+    .main-wedding-title {
+        font-size: 48px;
+    }
+}
+
+@media (min-width: 701px) {
+    .timeline-row {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .timeline-container {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .timeline-title {
+        font-size: 42px;
+    }
+
+    .timeline-time {
+        font-size: 14px;
+        padding-right: 20px;
+    }
+
+    .timeline-content {
+        padding-left: 20px;
+    }
+
+    .timeline-event-title {
+        font-size: 18px;
+    }
+
+    .timeline-event-desc {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 600px) {
+    .timeline::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        flex-direction: column;
+        padding-left: 50px;
+    }
+
+    .timeline-time {
+        text-align: left;
+        padding-right: 0;
+        margin-bottom: 5px;
+    }
+
+    .timeline-dot {
+        left: 20px;
+    }
+
+    .timeline-content {
+        padding-left: 0;
+    }
+
+    .timeline-title {
+        font-size: 42px;
+    }
+}
