@@ -9,6 +9,13 @@ html {
     -webkit-overflow-scrolling: touch;
 }
 
+/* iOS Safari fix - dùng proximity để tránh scroll bị nhảy */
+@supports (-webkit-touch-callout: none) {
+    html {
+        scroll-snap-type: y proximity;
+    }
+}
+
 body {
     font-family: 'Cormorant', 'Playfair Display', serif;
     background-color: #6b1010;
@@ -50,7 +57,7 @@ body {
     padding: 20px 15px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    overflow: hidden;
+    overflow: clip; /* Dùng clip thay vì hidden để fix iOS */
     position: relative;
 }
 
