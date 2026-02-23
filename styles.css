@@ -5,8 +5,8 @@
 }
 
 html {
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
+    /* Tắt CSS scroll-snap, dùng JS thay thế */
+    scroll-behavior: smooth;
 }
 
 body {

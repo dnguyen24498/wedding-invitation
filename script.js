@@ -103,13 +103,111 @@ function setVH() {
 setVH();
 window.addEventListener('resize', setVH);
 
+// ===== CUSTOM SCROLL SNAP (JS-based for better mobile support) =====
+const sections = [];
+let isScrolling = false;
+let touchStartY = 0;
+let touchEndY = 0;
+let currentSection = 0;
+
+function initScrollSnap() {
+    // Get all sections
+    const sectionElements = document.querySelectorAll('.section-one, .section-ceremony, .section-wedding, .section-two');
+    sectionElements.forEach((section, index) => {
+        sections.push(section);
+    });
+    
+    if (sections.length === 0) return;
+    
+    // Touch events for mobile
+    document.addEventListener('touchstart', (e) => {
+        touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', (e) => {
+        if (isScrolling) return;
+        
+        touchEndY = e.changedTouches[0].clientY;
+        const diff = touchStartY - touchEndY;
+        const threshold = 50; // Minimum swipe distance
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0 && currentSection < sections.length - 1) {
+                // Swipe up - go to next section
+                currentSection++;
+                scrollToSection(currentSection);
+            } else if (diff < 0 && currentSection > 0) {
+                // Swipe down - go to previous section
+                currentSection--;
+                scrollToSection(currentSection);
+            }
+        }
+    }, { passive: true });
+    
+    // Mouse wheel for desktop
+    document.addEventListener('wheel', (e) => {
+        if (isScrolling) return;
+        
+        if (e.deltaY > 30 && currentSection < sections.length - 1) {
+            // Scroll down
+            currentSection++;
+            scrollToSection(currentSection);
+        } else if (e.deltaY < -30 && currentSection > 0) {
+            // Scroll up
+            currentSection--;
+            scrollToSection(currentSection);
+        }
+    }, { passive: true });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (isScrolling) return;
+        
+        if ((e.key === 'ArrowDown' || e.key === 'PageDown') && currentSection < sections.length - 1) {
+            currentSection++;
+            scrollToSection(currentSection);
+        } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && currentSection > 0) {
+            currentSection--;
+            scrollToSection(currentSection);
+        }
+    });
+}
+
+function scrollToSection(index) {
+    if (index < 0 || index >= sections.length) return;
+    
+    isScrolling = true;
+    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // Reset scrolling flag after animation
+    setTimeout(() => {
+        isScrolling = false;
+    }, 800);
+}
+
+// Update current section based on scroll position
+function updateCurrentSection() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    
+    sections.forEach((section, index) => {
+        const sectionTop = section.offsetTop;
+        if (scrollTop >= sectionTop - windowHeight / 2) {
+            currentSection = index;
+        }
+    });
+}
+
 window.addEventListener('load', () => {
     setVH();
+    initScrollSnap();
+    
     // Force scroll to top
     setTimeout(() => {
         window.scrollTo(0, 0);
         document.documentElement.scrollTop = 0;
         document.body.scrollTop = 0;
+        currentSection = 0;
         const section1 = document.querySelector('#section1');
         if (section1) {
             section1.scrollIntoView({ behavior: 'instant', block: 'start' });
