@@ -95,7 +95,16 @@ window.addEventListener('beforeunload', () => {
     window.scrollTo(0, 0);
 });
 
+// Fix iOS viewport height
+function setVH() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+setVH();
+window.addEventListener('resize', setVH);
+
 window.addEventListener('load', () => {
+    setVH();
     // Force scroll to top
     setTimeout(() => {
         window.scrollTo(0, 0);
@@ -110,6 +119,7 @@ window.addEventListener('load', () => {
 
 // Also handle DOMContentLoaded for faster response
 document.addEventListener('DOMContentLoaded', () => {
+    setVH();
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
 });
