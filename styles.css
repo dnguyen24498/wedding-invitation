@@ -6,6 +6,7 @@
 
 html {
     scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -41,6 +42,7 @@ body {
 /* ===== SECTION 1: SAVE THE DATE ===== */
 .section-one {
     height: 100vh;
+    height: 100svh; /* Small viewport height - stable on iOS */
     background-color: #6b1010;
     display: flex;
     justify-content: center;
@@ -393,6 +395,7 @@ body {
 /* ===== SECTION 2: RSVP ===== */
 .section-two {
     height: 100vh;
+    height: 100svh;
     background-color: #6b1010;
     display: flex;
     justify-content: center;
@@ -783,13 +786,12 @@ body {
 }
 
 @media (max-width: 600px) {
-    /* Mobile: dùng dvh để tính đúng chiều cao màn hình */
+    /* Mobile: dùng svh để ổn định trên iOS */
     .section-one,
     .section-two,
     .section-wedding,
     .section-ceremony {
-        height: 100vh;
-        height: 100dvh;
+        height: 100svh;
     }
 
     .section-one {
@@ -867,6 +869,7 @@ body {
 /* ===== SECTION WEDDING (Bride & Groom) ===== */
 .section-wedding {
     height: 100vh;
+    height: 100svh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1114,6 +1117,7 @@ body {
 /* Lễ Hằng Thuận - nền burgundy */
 .section-ceremony {
     height: 100vh;
+    height: 100svh;
     background-color: #6b1010;
     padding: 20px 15px;
     display: flex;
