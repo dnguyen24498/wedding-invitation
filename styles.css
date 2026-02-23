@@ -13,7 +13,6 @@ body {
     font-family: 'Cormorant', 'Playfair Display', serif;
     background-color: #6b1010;
     min-height: 100vh;
-    min-height: 100dvh;
     overflow-x: hidden;
 }
 
@@ -43,12 +42,11 @@ body {
 /* ===== SECTION 1: SAVE THE DATE ===== */
 .section-one {
     height: 100vh;
-    height: 100dvh; /* Dynamic viewport height for mobile */
     background-color: #6b1010;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 15px;
+    padding: 20px 15px;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     overflow: hidden;
@@ -396,7 +394,6 @@ body {
 /* ===== SECTION 2: RSVP ===== */
 .section-two {
     height: 100vh;
-    height: 100dvh;
     background-color: #6b1010;
     display: flex;
     justify-content: center;
@@ -787,76 +784,90 @@ body {
 }
 
 @media (max-width: 600px) {
+    /* Mobile: dùng dvh để tính đúng chiều cao màn hình */
+    .section-one,
+    .section-two,
+    .section-wedding,
+    .section-ceremony {
+        height: 100vh;
+        height: 100dvh;
+    }
+
     .section-one {
-        padding: 5px 10px;
+        padding: 0 8px;
     }
 
     .invitation-card {
-        padding: 30px 25px;
-        margin: 5px;
+        padding: 20px 18px;
+        margin: 0;
     }
 
     .date-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
     }
 
     .groom-name,
     .bride-name {
-        font-size: 38px;
-        margin-left: 5%;
-        margin-right: 5%;
+        font-size: 32px;
+        margin-left: 3%;
+        margin-right: 3%;
     }
 
     .and-text {
-        font-size: 20px;
-    }
-
-    .invitation-text {
         font-size: 18px;
     }
 
+    .invitation-text {
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+
     .rsvp-date {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .vintage-border {
-        top: 8px;
-        left: 8px;
-        right: 8px;
-        bottom: 8px;
+        top: 6px;
+        left: 6px;
+        right: 6px;
+        bottom: 6px;
     }
 
     .corner {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
     }
 
     .corner-tl {
-        top: 3px;
-        left: 3px;
+        top: 2px;
+        left: 2px;
     }
 
     .corner-tr {
-        top: 3px;
-        right: 3px;
+        top: 2px;
+        right: 2px;
     }
 
     .corner-bl {
-        bottom: 3px;
-        left: 3px;
+        bottom: 2px;
+        left: 2px;
     }
 
     .corner-br {
-        bottom: 3px;
-        right: 3px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .save-the-date-btn {
+        padding: 12px 30px;
+        font-size: 12px;
     }
 }
 
 /* ===== SECTION WEDDING (Bride & Groom) ===== */
 .section-wedding {
     height: 100vh;
-    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1104,7 +1115,6 @@ body {
 /* Lễ Hằng Thuận - nền burgundy */
 .section-ceremony {
     height: 100vh;
-    height: 100dvh;
     background-color: #6b1010;
     padding: 20px 15px;
     display: flex;
