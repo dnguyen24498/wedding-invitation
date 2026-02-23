@@ -81,13 +81,35 @@ if (scrollIndicator) {
 }
 
 // Always scroll to section 1 on page load/refresh
-window.addEventListener('load', () => {
-    // Reset scroll position to top
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
-    }
+// Disable browser scroll restoration
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
+// Multiple methods to ensure scroll to top on all devices
+window.scrollTo(0, 0);
+document.documentElement.scrollTop = 0;
+document.body.scrollTop = 0;
+
+window.addEventListener('beforeunload', () => {
     window.scrollTo(0, 0);
-    document.querySelector('#section1').scrollIntoView({
-        behavior: 'instant'
-    });
+});
+
+window.addEventListener('load', () => {
+    // Force scroll to top
+    setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        const section1 = document.querySelector('#section1');
+        if (section1) {
+            section1.scrollIntoView({ behavior: 'instant', block: 'start' });
+        }
+    }, 0);
+});
+
+// Also handle DOMContentLoaded for faster response
+document.addEventListener('DOMContentLoaded', () => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
 });
