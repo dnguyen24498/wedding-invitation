@@ -477,6 +477,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 .then(function () {
                     showFormMessage('Cảm ơn bạn đã xác nhận! 🎉', 'success');
                     rsvpForm.reset();
+
+                    // Notify via n8n webhook (fire & forget)
+                    var webhookUrl = 'https://n8n.nguynx.uk/webhook/rsvp';
+                    try {
+                        fetch(webhookUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(data)
+                        }).catch(function () { /* silent fail */ });
+                    } catch (e) { /* silent fail */ }
                 })
                 .catch(function (err) {
                     console.error('Firestore error:', err);
