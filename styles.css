@@ -910,88 +910,41 @@ body {
     }
 }
 
-/* ===== SECTION 2: RSVP ===== */
-.section-two {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-    height: auto;
+/* ===== RSVP MODAL OVERRIDES ===== */
+.modal-rsvp-content {
     background-color: #4d151b;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 20px;
-    position: relative;
-    touch-action: none;
+    max-width: 460px;
+    max-height: 90vh;
 }
 
-.rsvp-container {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 1000px;
-    margin: 0 auto;
-    z-index: 1;
+.modal-rsvp-content .modal-close {
+    color: rgba(248, 245, 235, 0.6);
+    background: rgba(248, 245, 235, 0.08);
 }
 
-/* Left side - Contact info */
-.contact-section {
-    flex: 1;
+.modal-rsvp-content .modal-close:hover {
     color: #f8f5eb;
-    padding: 20px 0;
+    background: rgba(248, 245, 235, 0.15);
 }
 
-.contact-group {
-    margin-bottom: 25px;
-    opacity: 0;
-    transform: translateX(-30px);
+.modal-rsvp-content .modal-body {
+    overflow-y: auto;
+    max-height: 90vh;
+    -webkit-overflow-scrolling: touch;
 }
 
-.contact-group.animate {
-    animation: slideInLeft 0.8s ease forwards;
+@media (max-width: 600px) {
+    .modal-rsvp-content {
+        max-width: 95%;
+        max-height: 85vh;
+    }
+    .modal-rsvp-content .modal-body {
+        padding: 20px 16px;
+        max-height: 85vh;
+    }
 }
 
-.contact-label {
-    font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
-    font-size: 30px;
-    color: #f8f5eb;
-    margin-bottom: 5px;
-}
-
-.contact-value {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 1px;
-}
-
-.contact-value a {
-    color: #f8f5eb;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-}
-
-.contact-value a:hover {
-    opacity: 0.8;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.social-icons a {
-    color: #f8f5eb;
-    font-size: 20px;
-    transition: all 0.3s ease;
-}
-
-.social-icons a:hover {
-    transform: translateY(-3px);
-    opacity: 0.8;
-}
-
-/* Right side - RSVP */
+/* ===== RSVP MODAL FORM STYLES ===== */
 .rsvp-section {
     display: flex;
     flex-direction: column;
@@ -1001,6 +954,7 @@ body {
     text-align: center;
     width: 100%;
     max-width: 600px;
+    margin: 0 auto;
 }
 
 /* Bird illustration */
@@ -1521,16 +1475,24 @@ body {
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 10;
     opacity: 0;
     -webkit-animation: fadeIn 0.8s ease forwards;
     animation: fadeIn 0.8s ease forwards;
 }
 
-/* Section 1 initial delay — wait for card animations */
+/* Section 1 initial scroll-down: fixed gradient strip at bottom */
 .scroll-indicator.scroll-initial {
     -webkit-animation-delay: 2.2s;
     animation-delay: 2.2s;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-transform: none;
+    transform: none;
+    width: 100%;
+    padding: 18px 0 10px;
+    background: linear-gradient(to top, rgba(77, 21, 27, 1) 40%, rgba(77, 21, 27, 0));
 }
 
 /* Down arrow — bottom of section */
@@ -1551,6 +1513,16 @@ body {
     text-transform: uppercase;
     color: rgba(248, 245, 235, 0.6);
     margin-bottom: 8px;
+}
+
+/* Brighter text & arrows on section 1 initial strip */
+.scroll-initial .scroll-indicator-text {
+    color: rgba(248, 245, 235, 0.8);
+}
+
+.scroll-initial .chevron {
+    border-right-color: rgba(248, 245, 235, 0.65) !important;
+    border-bottom-color: rgba(248, 245, 235, 0.65) !important;
 }
 
 .scroll-indicator-arrows {
@@ -1714,10 +1686,6 @@ body {
         margin-right: 10%;
     }
 
-    .section-two {
-        padding: 30px 20px;
-    }
-
     .rsvp-date {
         font-size: 30px;
     }
@@ -1729,11 +1697,6 @@ body {
     .section-wedding,
     .section-ceremony {
         height: calc(var(--vh, 1vh) * 100);
-    }
-
-    .section-two {
-        min-height: calc(var(--vh, 1vh) * 100);
-        height: auto;
     }
 
     .section-one {
@@ -2050,6 +2013,109 @@ body {
     bottom: 5%;
     right: 2%;
     transform: rotate(20deg) scaleX(-1);
+}
+
+/* ===== SECTION: THANK YOU / LỜI CẢM ƠN ===== */
+.section-thankyou {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+    background-color: #4d151b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    touch-action: none;
+    padding: 40px 30px;
+}
+
+.thankyou-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 520px;
+    text-align: center;
+    z-index: 1;
+}
+
+.thankyou-icon-top {
+    font-size: 32px;
+    color: rgba(236, 229, 205, 0.5);
+    margin-bottom: 28px;
+    animation: thankyouPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes thankyouPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+.thankyou-text {
+    font-family: 'Cormorant Garamond', 'Cormorant', serif;
+    font-size: 26px;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.7;
+    color: #f8f5eb;
+    letter-spacing: 0.5px;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.thankyou-text.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.thankyou-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+    width: 100%;
+    max-width: 300px;
+    opacity: 0;
+    transition: opacity 1.2s ease 0.4s;
+}
+
+.thankyou-divider.animate {
+    opacity: 1;
+}
+
+.thankyou-divider span {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(236, 229, 205, 0.4), transparent);
+}
+
+.thankyou-divider i {
+    font-size: 18px;
+    color: rgba(236, 229, 205, 0.45);
+}
+
+@media (max-width: 600px) {
+    .section-thankyou {
+        padding: 30px 24px;
+        height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .thankyou-text {
+        font-size: 21px;
+        line-height: 1.65;
+    }
+
+    .thankyou-icon-top {
+        font-size: 26px;
+        margin-bottom: 22px;
+    }
+
+    .thankyou-divider {
+        max-width: 220px;
+        margin-top: 24px;
+    }
 }
 
 /* ===== CEREMONY SECTIONS (Hằng Thuận & Đón Dâu) ===== */
@@ -2452,14 +2518,6 @@ body {
     }
 
     /* Section RSVP mobile adjustments */
-    .section-two {
-        padding: 25px 15px;
-    }
-
-    .section-two {
-        padding: 20px 14px;
-    }
-
     .bird-illustration {
         width: 60px;
         height: 48px;
@@ -2484,10 +2542,6 @@ body {
 
     .rsvp-bottom-line {
         margin: 5px 0 14px;
-    }
-
-    .rsvp-container {
-        gap: 12px;
     }
 
     .rsvp-form {

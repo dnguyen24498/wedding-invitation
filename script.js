@@ -37,21 +37,27 @@ const observer = new IntersectionObserver((entries) => {
                     item.classList.add('animate');
                 }, index * 200);
             });
+
+            // Animate thank-you section elements
+            const thankyouEls = entry.target.querySelectorAll('.thankyou-text, .thankyou-divider');
+            thankyouEls.forEach(el => {
+                el.classList.add('animate');
+            });
         }
     });
 }, observerOptions);
-
-// Observe section two (RSVP)
-const sectionTwo = document.querySelector('.section-two');
-if (sectionTwo) {
-    observer.observe(sectionTwo);
-}
 
 // Observe ceremony sections
 const ceremonySections = document.querySelectorAll('.section-ceremony');
 ceremonySections.forEach(section => {
     observer.observe(section);
 });
+
+// Observe thank-you section
+const sectionThankyou = document.querySelector('.section-thankyou');
+if (sectionThankyou) {
+    observer.observe(sectionThankyou);
+}
 
 // Smooth scroll for save the date button
 const saveTheDateBtn = document.querySelector('.save-date-btn');
@@ -63,14 +69,14 @@ if (saveTheDateBtn) {
     });
 }
 
-// RSVP shortcut button → jump to RSVP section
+// RSVP shortcut button → open RSVP modal
 var rsvpShortcut = document.getElementById('rsvpShortcut');
+var modalRsvp = document.getElementById('modalRsvp');
 if (rsvpShortcut) {
     rsvpShortcut.addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();
-        // RSVP is the last section (index 3)
-        goToSection(sections ? sections.length - 1 : 3);
+        openModal(modalRsvp);
     });
 }
 
@@ -83,6 +89,13 @@ function openModal(modal) {
     if (!modal) return;
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Trigger entrance animations for RSVP modal elements
+    if (modal === modalRsvp) {
+        modal.querySelectorAll('.bird-illustration, .rsvp-divider, .rsvp-title, .rsvp-date, .rsvp-bottom-line').forEach(function(el) {
+            el.classList.add('animate');
+        });
+    }
 }
 
 function closeModal(modal) {
@@ -125,7 +138,7 @@ document.querySelectorAll('.modal-close').forEach(closeBtn => {
 });
 
 // Close modal when clicking outside content
-[modalGroom, modalBride].forEach(modal => {
+[modalGroom, modalBride, modalRsvp].forEach(modal => {
     if (!modal) return;
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal(modal);
@@ -135,7 +148,7 @@ document.querySelectorAll('.modal-close').forEach(closeBtn => {
 // Close modal on Escape key
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-        [modalGroom, modalBride].forEach(modal => {
+        [modalGroom, modalBride, modalRsvp].forEach(modal => {
             if (modal && modal.classList.contains('active')) {
                 closeModal(modal);
             }
@@ -333,7 +346,7 @@ function syncCurrentSection() {
 
 function initScrollSnap() {
     // Collect main-flow sections
-    var els = document.querySelectorAll('.section-one, .section-ceremony, .section-two');
+    var els = document.querySelectorAll('.section-one, .section-ceremony, .section-thankyou');
     sections = [];
     for (var i = 0; i < els.length; i++) {
         sections.push(els[i]);
