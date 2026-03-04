@@ -294,9 +294,9 @@ var lastWheelTime = 0;
 var wheelAccumulator = 0;
 var wheelTimer = null;
 
-var ANIMATION_DURATION = 800; // ms
-var WHEEL_COOLDOWN = 900; // ms
-var TOUCH_THRESHOLD = 30; // px minimum swipe distance
+var ANIMATION_DURATION = 550; // ms (faster = snappier on mobile)
+var WHEEL_COOLDOWN = 700; // ms
+var TOUCH_THRESHOLD = 25; // px minimum swipe distance
 
 // Ease-in-out cubic for buttery smooth transitions
 function easeInOutCubic(t) {
@@ -394,8 +394,12 @@ function goToSection(index) {
     isAnimating = true;
     currentSection = index;
 
+    // Pause dove animations during scroll for better performance
+    document.body.classList.add('scrolling');
+
     smoothScrollTo(sections[index].offsetTop, ANIMATION_DURATION, function () {
         isAnimating = false;
+        document.body.classList.remove('scrolling');
     });
 }
 
