@@ -698,13 +698,13 @@ body {
 
 /* ===== SECTION 2: RSVP ===== */
 .section-two {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     background-color: #4d151b;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 20px;
+    padding: 40px 20px;
     overflow: hidden;
     position: relative;
     touch-action: none;
@@ -712,11 +712,10 @@ body {
 
 .rsvp-container {
     display: flex;
+    justify-content: center;
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    gap: 50px;
-    align-items: center;
     z-index: 1;
 }
 
@@ -780,21 +779,22 @@ body {
 
 /* Right side - RSVP */
 .rsvp-section {
-    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: #f8f5eb;
     text-align: center;
+    width: 100%;
+    max-width: 500px;
 }
 
 /* Bird illustration */
 .bird-illustration {
-    width: 120px;
-    height: 100px;
-    margin-top: -20px;
-    margin-bottom: 15px;
+    width: 100px;
+    height: 80px;
+    margin-top: -10px;
+    margin-bottom: 8px;
     opacity: 0;
     transform: translateY(-20px);
 }
@@ -854,12 +854,12 @@ body {
 
 .rsvp-date {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
+    font-size: 36px;
     font-weight: 300;
     letter-spacing: 3px;
     text-transform: uppercase;
     line-height: 1.2;
-    margin: 15px 0;
+    margin: 8px 0;
     opacity: 0;
 }
 
@@ -873,13 +873,257 @@ body {
     max-width: 500px;
     height: 1px;
     background-color: #f8f5eb;
-    margin: 30px 0;
+    margin: 15px 0;
     transform: scaleX(0);
 }
 
 .rsvp-bottom-line.animate {
     animation: expandLine 1s ease forwards;
     animation-delay: 0.9s;
+}
+
+/* ===== RSVP FORM ===== */
+.rsvp-form {
+    width: 100%;
+    max-width: 360px;
+    text-align: left;
+    background: rgba(248, 245, 235, 0.06);
+    border: 1px solid rgba(248, 245, 235, 0.1);
+    border-radius: 16px;
+    padding: 24px 22px 20px;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.rsvp-form-group {
+    margin-bottom: 20px;
+}
+
+.rsvp-form-group:last-of-type {
+    margin-bottom: 22px;
+}
+
+.rsvp-field-label {
+    font-family: 'Cormorant', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(248, 245, 235, 0.55);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+/* Input with icon */
+.rsvp-input-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.rsvp-input-icon {
+    position: absolute;
+    left: 0;
+    font-size: 13px;
+    color: rgba(248, 245, 235, 0.3);
+    -webkit-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+    pointer-events: none;
+}
+
+.rsvp-input-wrap:focus-within .rsvp-input-icon {
+    color: rgba(236, 229, 205, 0.7);
+}
+
+.rsvp-input {
+    width: 100%;
+    padding: 10px 0 10px 26px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(248, 245, 235, 0.15);
+    color: #f8f5eb;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    outline: none;
+    -webkit-transition: border-color 0.3s ease;
+    transition: border-color 0.3s ease;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+.rsvp-input:focus {
+    border-bottom-color: rgba(236, 229, 205, 0.6);
+}
+
+.rsvp-input::-webkit-input-placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
+.rsvp-input::-moz-placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
+.rsvp-input:-ms-input-placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
+.rsvp-input::placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
+
+/* Pill-style radio buttons */
+.rsvp-radio-group {
+    display: flex;
+    gap: 10px;
+}
+
+.rsvp-radio-pill {
+    flex: 1;
+    cursor: pointer;
+}
+
+.rsvp-radio-pill input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    pointer-events: none;
+}
+
+.rsvp-pill {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 14px;
+    border: 1px solid rgba(248, 245, 235, 0.18);
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(248, 245, 235, 0.5);
+    letter-spacing: 0.5px;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.rsvp-pill i {
+    font-size: 11px;
+    -webkit-transition: -webkit-transform 0.35s ease;
+    transition: transform 0.35s ease;
+}
+
+.rsvp-radio-pill:hover .rsvp-pill {
+    border-color: rgba(248, 245, 235, 0.35);
+    color: rgba(248, 245, 235, 0.75);
+}
+
+.rsvp-radio-pill input[type="radio"]:checked ~ .rsvp-pill {
+    background: rgba(236, 229, 205, 0.15);
+    border-color: rgba(236, 229, 205, 0.5);
+    color: #ece5cd;
+}
+
+.rsvp-radio-pill input[type="radio"]:checked ~ .rsvp-pill i {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+/* Dress code color palette */
+.dresscode-palette {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.dresscode-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.dresscode-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(248, 245, 235, 0.15);
+    -webkit-transition: -webkit-transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: default;
+    position: relative;
+}
+
+.dresscode-item:hover .dresscode-swatch {
+    -webkit-transform: scale(1.18);
+    transform: scale(1.18);
+    box-shadow: 0 0 16px rgba(248, 245, 235, 0.2);
+    border-color: rgba(248, 245, 235, 0.4);
+}
+
+.dresscode-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(248, 245, 235, 0.4);
+    letter-spacing: 0.5px;
+    text-align: center;
+    -webkit-transition: color 0.3s ease;
+    transition: color 0.3s ease;
+}
+
+.dresscode-item:hover .dresscode-name {
+    color: rgba(248, 245, 235, 0.7);
+}
+
+/* Submit button */
+.rsvp-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 13px 28px;
+    background: linear-gradient(135deg, rgba(236, 229, 205, 0.12), rgba(236, 229, 205, 0.05));
+    border: 1px solid rgba(236, 229, 205, 0.3);
+    color: #ece5cd;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-transition: all 0.35s ease;
+    transition: all 0.35s ease;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.rsvp-submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(236, 229, 205, 0.08), transparent);
+    -webkit-transition: left 0.6s ease;
+    transition: left 0.6s ease;
+}
+
+.rsvp-submit-btn:hover::before {
+    left: 100%;
+}
+
+.rsvp-submit-btn i {
+    font-size: 12px;
+    -webkit-transition: -webkit-transform 0.35s ease;
+    transition: transform 0.35s ease;
+}
+
+.rsvp-submit-btn:hover {
+    background: linear-gradient(135deg, rgba(236, 229, 205, 0.2), rgba(236, 229, 205, 0.1));
+    border-color: rgba(236, 229, 205, 0.5);
+    box-shadow: 0 4px 20px rgba(236, 229, 205, 0.1);
+}
+
+.rsvp-submit-btn:hover i {
+    -webkit-transform: translateX(3px) translateY(-2px);
+    transform: translateX(3px) translateY(-2px);
 }
 
 .rsvp-note {
@@ -1198,10 +1442,14 @@ body {
 @media (max-width: 600px) {
     /* Mobile: dùng --vh để chính xác trên iOS */
     .section-one,
-    .section-two,
     .section-wedding,
     .section-ceremony {
         height: calc(var(--vh, 1vh) * 100);
+    }
+
+    .section-two {
+        min-height: calc(var(--vh, 1vh) * 100);
+        height: auto;
     }
 
     .section-one {
@@ -1922,11 +2170,30 @@ body {
 
     /* Section RSVP mobile adjustments */
     .section-two {
-        padding: 10px 15px;
+        padding: 25px 15px;
     }
 
     .rsvp-container {
         gap: 20px;
+    }
+
+    .rsvp-form {
+        max-width: 100%;
+        padding: 20px 18px 18px;
+    }
+
+    .rsvp-radio-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .dresscode-swatch {
+        width: 30px;
+        height: 30px;
+    }
+
+    .dresscode-palette {
+        gap: 12px;
     }
 
     .contact-title {

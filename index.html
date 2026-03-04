@@ -228,19 +228,7 @@
         <div class="floral-decor floral-6"><img src="images/lilac.png" alt=""></div>
         
         <div class="rsvp-container">
-            <!-- Left: Contact Information -->
-            <div class="contact-section">
-                <div class="contact-group" data-delay="400">
-                    <p class="contact-label">Social</p>
-                    <div class="social-icons">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right: RSVP Section -->
+            <!-- RSVP Section -->
             <div class="rsvp-section">
                 <!-- Bird illustration -->
                 <div class="bird-illustration">
@@ -250,11 +238,66 @@
                 <div class="rsvp-divider"></div>
 
                 <p class="rsvp-title">Please RSVP by</p>
-                <h2 class="rsvp-date">JUNE 30, 2030</h2>
+                <h2 class="rsvp-date">Mar 15, 2026</h2>
 
                 <div class="rsvp-bottom-line"></div>
 
-                <p class="rsvp-note">Full Event Details to Follow!</p>
+                <!-- RSVP Form -->
+                <form class="rsvp-form" id="rsvpForm">
+                    <div class="rsvp-form-group">
+                        <div class="rsvp-input-wrap">
+                            <i class="fas fa-user rsvp-input-icon"></i>
+                            <input type="text" id="guestName" class="rsvp-input" placeholder="Họ và tên của bạn" required>
+                        </div>
+                    </div>
+
+                    <div class="rsvp-form-group">
+                        <p class="rsvp-field-label">Bạn sẽ tham dự chứ?</p>
+                        <div class="rsvp-radio-group">
+                            <label class="rsvp-radio-pill">
+                                <input type="radio" name="attendance" value="yes" required>
+                                <span class="rsvp-pill">
+                                    <i class="fas fa-heart"></i>
+                                    Sẽ tham dự
+                                </span>
+                            </label>
+                            <label class="rsvp-radio-pill">
+                                <input type="radio" name="attendance" value="no">
+                                <span class="rsvp-pill">
+                                    <i class="fas fa-times"></i>
+                                    Rất tiếc
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="rsvp-form-group">
+                        <p class="rsvp-field-label">Dress Code</p>
+                        <div class="dresscode-palette">
+                            <div class="dresscode-item">
+                                <div class="dresscode-swatch" style="background-color: #fffefd;"></div>
+                                <span class="dresscode-name">Trắng ngà</span>
+                            </div>
+                            <div class="dresscode-item">
+                                <div class="dresscode-swatch" style="background-color: #ece5cd;"></div>
+                                <span class="dresscode-name">Be vàng</span>
+                            </div>
+                            <div class="dresscode-item">
+                                <div class="dresscode-swatch" style="background-color: #624736;"></div>
+                                <span class="dresscode-name">Nâu đất</span>
+                            </div>
+                            <div class="dresscode-item">
+                                <div class="dresscode-swatch" style="background-color: #0a0a08;"></div>
+                                <span class="dresscode-name">Đen</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="rsvp-submit-btn">
+                        <span>Gửi xác nhận</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
             </div>
         </div>
 
