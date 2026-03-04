@@ -541,13 +541,64 @@ document.addEventListener('DOMContentLoaded', function () {
 
     for (var i = 0; i < items.length; i++) {
         items[i].addEventListener('click', function () {
-            // Remove active from all siblings
             var siblings = this.parentNode.querySelectorAll('.dresscode-item');
             for (var j = 0; j < siblings.length; j++) {
                 siblings[j].classList.remove('active');
             }
-            // Toggle: if clicking the same one, deselect; otherwise select
             this.classList.add('active');
         });
+    }
+})();
+
+// ========== Wishes Marquee from Firestore ==========
+(function () {
+    var marquee = document.getElementById('wishesMarquee');
+    if (!marquee || typeof db === 'undefined') return;
+
+    db.collection('rsvps')
+        .orderBy('submittedAt', 'desc')
+        .get()
+        .then(function (snapshot) {
+            var wishes = [];
+            snapshot.forEach(function (doc) {
+                var d = doc.data();
+                if (d.wish && d.wish.trim() && d.name) {
+                    wishes.push({ name: d.name, wish: d.wish.trim() });
+                }
+            });
+
+            if (wishes.length === 0) {
+                marquee.innerHTML = '<span class="wishes-empty">Hãy là người đầu tiên gửi lời chúc! 💐</span>';
+                marquee.style.animation = 'none';
+                marquee.style.justifyContent = 'center';
+                return;
+            }
+
+            // Build items HTML (duplicate for seamless loop)
+            var html = '';
+            for (var i = 0; i < wishes.length; i++) {
+                html += '<div class="wishes-marquee-item">' +
+                    '<span class="wish-author">' + escapeHtml(wishes[i].name) + ':</span>' +
+                    '<span class="wish-text">"' + escapeHtml(wishes[i].wish) + '"</span>' +
+                    '</div>';
+            }
+            // Duplicate for infinite scroll illusion
+            marquee.innerHTML = html + html;
+
+            // Adjust speed based on content length
+            var speed = Math.max(15, wishes.length * 6);
+            marquee.style.animationDuration = speed + 's';
+            marquee.style.webkitAnimationDuration = speed + 's';
+        })
+        .catch(function (err) {
+            console.error('Error loading wishes:', err);
+            marquee.innerHTML = '<span class="wishes-empty">💐</span>';
+            marquee.style.animation = 'none';
+        });
+
+    function escapeHtml(str) {
+        var div = document.createElement('div');
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
     }
 })();

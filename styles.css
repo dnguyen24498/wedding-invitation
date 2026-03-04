@@ -1544,7 +1544,7 @@ body {
     }
 
     .invitation-text {
-        font-size: 16px;
+        font-size: 32px;
         margin-bottom: 15px;
     }
 
@@ -2418,4 +2418,149 @@ body {
     opacity: 0.6;
     cursor: not-allowed;
     pointer-events: none;
+}
+
+/* ========== WISHES MARQUEE ========== */
+.wishes-marquee-section {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.wishes-marquee-title {
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    font-weight: 600;
+    font-style: italic;
+    color: rgba(107, 16, 16, 0.45);
+    text-align: center;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.wishes-marquee-title i {
+    font-size: 8px;
+    vertical-align: middle;
+    margin: 0 6px;
+    color: rgba(107, 16, 16, 0.3);
+}
+
+.wishes-marquee-track {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.wishes-marquee-content {
+    display: inline-flex;
+    gap: 0;
+    white-space: nowrap;
+    will-change: transform;
+    -webkit-animation: marqueeScroll 30s linear infinite;
+    animation: marqueeScroll 30s linear infinite;
+}
+
+.wishes-marquee-content:hover {
+    -webkit-animation-play-state: paused;
+    animation-play-state: paused;
+}
+
+.wishes-marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    flex-shrink: 0;
+}
+
+.wishes-marquee-item::after {
+    content: '\2727';
+    color: rgba(107, 16, 16, 0.2);
+    font-size: 10px;
+    margin-left: 16px;
+}
+
+.wish-author {
+    font-family: 'Cormorant', serif;
+    font-size: 13px;
+    font-weight: 700;
+    font-style: italic;
+    color: #6b1010;
+    flex-shrink: 0;
+}
+
+.wish-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 300;
+    color: rgba(77, 21, 27, 0.55);
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+.wishes-loading {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: rgba(77, 21, 27, 0.3);
+    font-style: italic;
+    padding: 8px 0;
+}
+
+.wishes-empty {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    color: rgba(77, 21, 27, 0.3);
+    font-style: italic;
+    padding: 8px 0;
+    text-align: center;
+    width: 100%;
+}
+
+@-webkit-keyframes marqueeScroll {
+    0% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    100% {
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Mobile wishes */
+@media (max-width: 600px) {
+    .wishes-marquee-section {
+        margin-top: 8px;
+        margin-bottom: 3px;
+    }
+
+    .wishes-marquee-title {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .wish-author {
+        font-size: 12px;
+    }
+
+    .wish-text {
+        font-size: 10px;
+    }
+
+    .wishes-marquee-item {
+        padding: 4px 12px;
+    }
 }
