@@ -299,6 +299,23 @@ function goToSection(index) {
     });
 }
 
+// Sync currentSection based on actual scroll position
+// Call this before processing user input to handle unexpected scroll jumps (e.g. iOS status bar tap)
+function syncCurrentSection() {
+    if (isAnimating) return;
+    var scrollY = getScrollTop();
+    var closest = 0;
+    var closestDist = Infinity;
+    for (var i = 0; i < sections.length; i++) {
+        var dist = Math.abs(sections[i].offsetTop - scrollY);
+        if (dist < closestDist) {
+            closestDist = dist;
+            closest = i;
+        }
+    }
+    currentSection = closest;
+}
+
 function initScrollSnap() {
     // Collect main-flow sections
     var els = document.querySelectorAll('.section-one, .section-ceremony, .section-two');
@@ -312,6 +329,7 @@ function initScrollSnap() {
     // --- Touch events (mobile) ---
     document.addEventListener('touchstart', function (e) {
         if (isInsideModal(e.target) || isModalOpen() || isFormField(e.target)) return;
+        syncCurrentSection();
         touchStartY = e.touches[0].clientY;
         touchStartX = e.touches[0].clientX;
         touchStartTime = Date.now();
@@ -423,32 +441,6 @@ function initScrollSnap() {
     window.addEventListener('orientationchange', function () {
         setTimeout(snapAfterResize, 300);
     });
-
-    // --- Sync currentSection when scroll position changes unexpectedly ---
-    // (e.g. iOS status bar tap scrolls to top)
-    var syncTimer;
-    window.addEventListener('scroll', function () {
-        if (isAnimating) return;
-        clearTimeout(syncTimer);
-        syncTimer = setTimeout(function () {
-            if (isAnimating) return;
-            var scrollY = getScrollTop();
-            var closest = 0;
-            var closestDist = Infinity;
-            for (var i = 0; i < sections.length; i++) {
-                var dist = Math.abs(sections[i].offsetTop - scrollY);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closest = i;
-                }
-            }
-            if (closest !== currentSection) {
-                // Scroll jumped unexpectedly — sync and snap
-                currentSection = closest;
-                goToSection(currentSection);
-            }
-        }, 150);
-    }, { passive: true });
 }
 
 window.addEventListener('load', function () {
