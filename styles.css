@@ -249,7 +249,7 @@ body {
     padding: 50px 60px;
     position: relative;
     margin: 10px;
-    z-index: 1;
+    z-index: 3;
 }
 
 /* Wavy vintage border using SVG */
@@ -1454,7 +1454,7 @@ body {
 
 /* Down arrow — bottom of section */
 .scroll-indicator.scroll-down {
-    bottom: 18px;
+    bottom: 8px;
 }
 
 /* Up arrow — top of section */
