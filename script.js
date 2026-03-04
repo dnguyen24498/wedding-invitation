@@ -272,6 +272,12 @@ window.addEventListener('beforeunload', function () {
 
 // Fix iOS viewport height (also handles address bar show/hide)
 function setVH() {
+    // Skip when keyboard is open (form field focused) to prevent iOS jank
+    var ae = document.activeElement;
+    if (ae) {
+        var tag = ae.tagName && ae.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+    }
     var vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty('--vh', vh + 'px');
 }
@@ -351,7 +357,8 @@ function isInsideModal(el) {
 function isModalOpen() {
     return !!(
         (modalGroom && modalGroom.classList.contains('active')) ||
-        (modalBride && modalBride.classList.contains('active'))
+        (modalBride && modalBride.classList.contains('active')) ||
+        (modalRsvp && modalRsvp.classList.contains('active'))
     );
 }
 
@@ -540,6 +547,9 @@ function initScrollSnap() {
     function snapAfterResize() {
         clearTimeout(resizeSnapTimer);
         resizeSnapTimer = setTimeout(function () {
+            // Don't snap when keyboard is open or modal is active
+            if (isFormField(document.activeElement)) return;
+            if (isModalOpen()) return;
             if (!isAnimating && sections[currentSection]) {
                 setScrollTop(sections[currentSection].offsetTop);
             }
