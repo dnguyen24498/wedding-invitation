@@ -962,7 +962,7 @@ body {
     border-bottom: 1px solid rgba(248, 245, 235, 0.15);
     color: #f8f5eb;
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 400;
     letter-spacing: 0.5px;
     outline: none;
@@ -2297,14 +2297,14 @@ body {
     }
 
     .rsvp-input {
-        font-size: 13px;
+        font-size: 16px;
         padding: 7px 0 7px 24px;
     }
 
     .rsvp-textarea {
         min-height: 40px;
         padding: 7px 10px;
-        font-size: 13px;
+        font-size: 16px;
     }
 
     .rsvp-textarea-icon {
