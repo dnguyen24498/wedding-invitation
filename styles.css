@@ -612,6 +612,23 @@ body {
     filter: brightness(0) invert(1);
 }
 
+/* Credit line */
+.rsvp-credit {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(248, 245, 235, 0.3);
+    text-align: center;
+    margin-top: 18px;
+    letter-spacing: 0.5px;
+}
+
+.rsvp-credit i {
+    color: rgba(236, 229, 205, 0.4);
+    margin-left: 2px;
+}
+
 /* Hidden section */
 .hidden-section {
     display: none !important;

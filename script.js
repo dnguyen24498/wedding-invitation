@@ -313,7 +313,11 @@ function syncCurrentSection() {
             closest = i;
         }
     }
-    currentSection = closest;
+    // If scroll position jumped far from where we think we are, snap immediately
+    if (closest !== currentSection) {
+        currentSection = closest;
+        setScrollTop(sections[closest].offsetTop);
+    }
 }
 
 function initScrollSnap() {
