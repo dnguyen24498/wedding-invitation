@@ -501,7 +501,7 @@ body {
 .invitation-text {
     text-align: center;
     font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
-    font-size: 26px;
+    font-size: 30px;
     color: #6b1010;
     line-height: 1.5;
     margin: 15px 0;
@@ -567,8 +567,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 8px;
-    padding: 12px 24px;
+    width: 130px;
+    padding: 12px 10px;
     background-color: transparent;
     border: 1.5px solid #6b1010;
     color: #6b1010;
@@ -1047,7 +1049,8 @@ body {
 .rsvp-inline-row .rsvp-field-label {
     margin-bottom: 0;
     white-space: nowrap;
-    min-width: 0;
+    min-width: 70px;
+    width: 70px;
     flex-shrink: 0;
 }
 
@@ -1681,7 +1684,7 @@ body {
     }
 
     .invitation-text {
-        font-size: 26px;
+        font-size: 30px;
         margin-bottom: 15px;
     }
 
@@ -2431,6 +2434,8 @@ body {
     .rsvp-field-label {
         font-size: 12px;
         margin-bottom: 6px;
+        min-width: 58px;
+        width: 58px;
     }
 
     .rsvp-input {
