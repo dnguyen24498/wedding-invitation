@@ -542,7 +542,7 @@ body {
 /* Choose side buttons */
 .choose-side {
     text-align: center;
-    margin-top: 15px;
+    margin-top: 10px;
     opacity: 0;
     animation: fadeInUp 1s ease forwards;
     animation-delay: 1.4s;
@@ -550,17 +550,17 @@ body {
 
 .choose-side-text {
     font-family: 'Cormorant', serif;
-    font-size: 16px;
+    font-size: 14px;
     font-style: italic;
     color: #6b1010;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     letter-spacing: 1px;
 }
 
 .choose-side-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 14px;
 }
 
 .side-btn {
@@ -568,16 +568,16 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    width: 130px;
-    padding: 12px 10px;
+    gap: 5px;
+    width: 100px;
+    padding: 8px 8px;
     background-color: transparent;
     border: 1.5px solid #6b1010;
     color: #6b1010;
     font-family: 'Montserrat', sans-serif;
-    font-size: 11px;
+    font-size: 9px;
     font-weight: 600;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -585,8 +585,8 @@ body {
 }
 
 .side-btn-icon {
-    width: 32px;
-    height: 32px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     opacity: 0.7;
     transition: opacity 0.3s ease;
