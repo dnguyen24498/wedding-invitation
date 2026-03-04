@@ -427,3 +427,110 @@ document.addEventListener('DOMContentLoaded', function () {
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
 });
+
+// ========== RSVP Form Submission ==========
+(function () {
+    var rsvpForm = document.getElementById('rsvpForm');
+    if (!rsvpForm) return;
+
+    var submitBtn = rsvpForm.querySelector('.rsvp-submit-btn');
+    var originalBtnHTML = submitBtn ? submitBtn.innerHTML : '';
+
+    rsvpForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Collect form data
+        var guestName = (rsvpForm.querySelector('#guestName').value || '').trim();
+        var sideRadio = rsvpForm.querySelector('input[name="side"]:checked');
+        var attendRadio = rsvpForm.querySelector('input[name="attendance"]:checked');
+        var guestWish = (rsvpForm.querySelector('#guestWish').value || '').trim();
+
+        // Validate
+        if (!guestName) {
+            showFormMessage('Vui lòng nhập tên của bạn 💐', 'error');
+            return;
+        }
+        if (!sideRadio) {
+            showFormMessage('Vui lòng chọn bạn là khách của ai 💐', 'error');
+            return;
+        }
+        if (!attendRadio) {
+            showFormMessage('Vui lòng xác nhận tham dự 💐', 'error');
+            return;
+        }
+
+        // Disable button & show loading
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang gửi...';
+
+        var data = {
+            name: guestName,
+            client: sideRadio.value,
+            'will-attend': attendRadio.value,
+            wish: guestWish,
+            submittedAt: new Date().toISOString()
+        };
+
+        // Send to Firestore
+        if (typeof db !== 'undefined') {
+            db.collection('rsvps').add(data)
+                .then(function () {
+                    showFormMessage('Cảm ơn bạn đã xác nhận! 🎉', 'success');
+                    rsvpForm.reset();
+                })
+                .catch(function (err) {
+                    console.error('Firestore error:', err);
+                    showFormMessage('Có lỗi xảy ra, vui lòng thử lại 😢', 'error');
+                })
+                .finally(function () {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHTML;
+                });
+        } else {
+            console.warn('Firebase chưa được cấu hình.');
+            showFormMessage('Hệ thống chưa sẵn sàng, vui lòng thử lại sau 😢', 'error');
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHTML;
+        }
+    });
+
+    function showFormMessage(msg, type) {
+        // Remove existing message
+        var existing = rsvpForm.querySelector('.rsvp-form-message');
+        if (existing) existing.remove();
+
+        var msgEl = document.createElement('div');
+        msgEl.className = 'rsvp-form-message ' + (type || '');
+        msgEl.textContent = msg;
+        rsvpForm.appendChild(msgEl);
+
+        // Auto-remove after 4s
+        setTimeout(function () {
+            if (msgEl.parentNode) {
+                msgEl.style.opacity = '0';
+                msgEl.style.transform = 'translateY(-8px)';
+                setTimeout(function () {
+                    if (msgEl.parentNode) msgEl.remove();
+                }, 400);
+            }
+        }, 4000);
+    }
+})();
+
+// ========== Dresscode Swatch Selection ==========
+(function () {
+    var items = document.querySelectorAll('.dresscode-item');
+    if (!items.length) return;
+
+    for (var i = 0; i < items.length; i++) {
+        items[i].addEventListener('click', function () {
+            // Remove active from all siblings
+            var siblings = this.parentNode.querySelectorAll('.dresscode-item');
+            for (var j = 0; j < siblings.length; j++) {
+                siblings[j].classList.remove('active');
+            }
+            // Toggle: if clicking the same one, deselect; otherwise select
+            this.classList.add('active');
+        });
+    }
+})();

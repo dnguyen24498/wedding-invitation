@@ -251,11 +251,11 @@
                         </div>
                     </div>
 
-                    <div class="rsvp-form-group">
-                        <p class="rsvp-field-label">Bạn là khách của</p>
+                    <div class="rsvp-form-group rsvp-inline-row">
+                        <p class="rsvp-field-label">Khách của</p>
                         <div class="rsvp-radio-group">
                             <label class="rsvp-radio-pill">
-                                <input type="radio" name="side" value="groom" required>
+                                <input type="radio" name="side" value="groom" required checked>
                                 <span class="rsvp-pill">
                                     <img src="images/groom.png" alt="" class="rsvp-pill-icon">
                                     Nhà Trai
@@ -271,14 +271,14 @@
                         </div>
                     </div>
 
-                    <div class="rsvp-form-group">
-                        <p class="rsvp-field-label">Bạn sẽ tham dự chứ?</p>
+                    <div class="rsvp-form-group rsvp-inline-row">
+                        <p class="rsvp-field-label">Tham dự</p>
                         <div class="rsvp-radio-group">
                             <label class="rsvp-radio-pill">
-                                <input type="radio" name="attendance" value="yes" required>
+                                <input type="radio" name="attendance" value="yes" required checked>
                                 <span class="rsvp-pill">
                                     <i class="fas fa-heart"></i>
-                                    Sẽ tham dự
+                                    Sẽ đến
                                 </span>
                             </label>
                             <label class="rsvp-radio-pill">
@@ -292,6 +292,12 @@
                     </div>
 
                     <div class="rsvp-form-group">
+                        <div class="rsvp-textarea-wrap">
+                            <textarea id="guestWish" class="rsvp-input rsvp-textarea" placeholder="Lời chúc đến cô dâu & chú rể..." rows="2"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="rsvp-form-group rsvp-inline-row rsvp-dresscode-row">
                         <p class="rsvp-field-label">Dress Code</p>
                         <div class="dresscode-palette">
                             <div class="dresscode-item">
@@ -300,7 +306,7 @@
                             </div>
                             <div class="dresscode-item">
                                 <div class="dresscode-swatch" style="background-color: #ece5cd;"></div>
-                                <span class="dresscode-name">Be vàng</span>
+                                <span class="dresscode-name">Be vàng</span> 
                             </div>
                             <div class="dresscode-item">
                                 <div class="dresscode-swatch" style="background-color: #624736;"></div>
@@ -314,7 +320,7 @@
                     </div>
 
                     <button type="submit" class="rsvp-submit-btn">
-                        <span>Gửi xác nhận</span>
+                        <span>Xác nhận</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
@@ -402,6 +408,23 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script>
+        // TODO: Replace with your Firebase project config
+        // Go to https://console.firebase.google.com → Create project → Web app → Copy config
+        var firebaseConfig = {
+            apiKey: "AIzaSyBs1wAhKcU8rgQzw963Zx3fHqBxjvGf-0A",
+            authDomain: "nguynx-wedding.firebaseapp.com",
+            projectId: "nguynx-wedding",
+            storageBucket: "nguynx-wedding.firebasestorage.app",
+            messagingSenderId: "1084131345422",
+            appId: "1:1084131345422:web:7203664b0206f39bef685f"
+        };
+        firebase.initializeApp(firebaseConfig);
+        var db = firebase.firestore();
+    </script>
     <script src="script.js"></script>
 </body>
 </html>

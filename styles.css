@@ -705,7 +705,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+    padding: 30px 20px;
     position: relative;
     touch-action: none;
 }
@@ -791,10 +791,10 @@ body {
 
 /* Bird illustration */
 .bird-illustration {
-    width: 100px;
-    height: 80px;
-    margin-top: -10px;
-    margin-bottom: 8px;
+    width: 80px;
+    height: 64px;
+    margin-top: -5px;
+    margin-bottom: 4px;
     opacity: 0;
     transform: translateY(-20px);
 }
@@ -815,7 +815,7 @@ body {
     align-items: center;
     width: 100%;
     max-width: 500px;
-    margin: 15px 0;
+    margin: 8px 0;
 }
 
 .rsvp-divider::before,
@@ -839,11 +839,11 @@ body {
 
 .rsvp-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 400;
-    letter-spacing: 5px;
+    letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     opacity: 0;
 }
 
@@ -854,12 +854,12 @@ body {
 
 .rsvp-date {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
+    font-size: 28px;
     font-weight: 300;
     letter-spacing: 3px;
     text-transform: uppercase;
     line-height: 1.2;
-    margin: 8px 0;
+    margin: 4px 0;
     opacity: 0;
 }
 
@@ -873,7 +873,7 @@ body {
     max-width: 500px;
     height: 1px;
     background-color: #f8f5eb;
-    margin: 15px 0;
+    margin: 8px 0 18px;
     transform: scaleX(0);
 }
 
@@ -890,26 +890,46 @@ body {
     background: rgba(248, 245, 235, 0.06);
     border: 1px solid rgba(248, 245, 235, 0.1);
     border-radius: 16px;
-    padding: 24px 22px 20px;
+    padding: 20px 22px 18px;
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
 .rsvp-form-group {
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .rsvp-form-group:last-of-type {
-    margin-bottom: 22px;
+    margin-bottom: 18px;
+}
+
+/* Inline row: label on left, controls on right */
+.rsvp-inline-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.rsvp-inline-row .rsvp-field-label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    min-width: 0;
+    flex-shrink: 0;
+}
+
+.rsvp-inline-row .rsvp-radio-group,
+.rsvp-inline-row .dresscode-palette {
+    flex: 1;
+    min-width: 0;
 }
 
 .rsvp-field-label {
     font-family: 'Cormorant', serif;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
-    color: rgba(248, 245, 235, 0.55);
+    color: rgba(248, 245, 235, 0.5);
     letter-spacing: 0.5px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-style: italic;
 }
 
@@ -936,7 +956,7 @@ body {
 
 .rsvp-input {
     width: 100%;
-    padding: 10px 0 10px 26px;
+    padding: 8px 0 8px 26px;
     background: transparent;
     border: none;
     border-bottom: 1px solid rgba(248, 245, 235, 0.15);
@@ -961,10 +981,36 @@ body {
 .rsvp-input:-ms-input-placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
 .rsvp-input::placeholder { color: rgba(248, 245, 235, 0.25); font-style: italic; }
 
+/* Textarea wish */
+.rsvp-textarea-wrap {
+    display: flex;
+}
+
+.rsvp-textarea {
+    resize: none;
+    min-height: 56px;
+    line-height: 1.4;
+    border: 1px solid rgba(236, 229, 205, 0.15);
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: rgba(248, 245, 235, 0.04);
+    -webkit-transition: border-color 0.3s ease, background 0.3s ease;
+    transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.rsvp-textarea:focus {
+    border-color: rgba(236, 229, 205, 0.45);
+    background: rgba(248, 245, 235, 0.07);
+}
+
+.rsvp-textarea-icon {
+    margin-top: 10px;
+}
+
 /* Pill-style radio buttons */
 .rsvp-radio-group {
     display: flex;
-    gap: 10px;
+    gap: 8px;
 }
 
 .rsvp-radio-pill {
@@ -985,7 +1031,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    padding: 9px 12px;
+    padding: 8px 12px;
     border: 1px solid rgba(248, 245, 235, 0.18);
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
@@ -1044,34 +1090,42 @@ body {
 /* Dress code color palette */
 .dresscode-palette {
     display: flex;
-    gap: 16px;
+    gap: 14px;
     align-items: flex-start;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 .dresscode-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 }
 
 .dresscode-swatch {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     border: 2px solid rgba(248, 245, 235, 0.15);
     -webkit-transition: -webkit-transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    cursor: default;
+    cursor: pointer;
     position: relative;
 }
 
 .dresscode-item:hover .dresscode-swatch {
-    -webkit-transform: scale(1.18);
-    transform: scale(1.18);
-    box-shadow: 0 0 16px rgba(248, 245, 235, 0.2);
-    border-color: rgba(248, 245, 235, 0.4);
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
+    box-shadow: 0 0 12px rgba(248, 245, 235, 0.15);
+    border-color: rgba(248, 245, 235, 0.35);
+}
+
+/* Selected dresscode swatch */
+.dresscode-item.active .dresscode-swatch {
+    -webkit-transform: scale(1.35);
+    transform: scale(1.35);
+    border-color: rgba(236, 229, 205, 0.7);
+    box-shadow: 0 0 18px rgba(236, 229, 205, 0.3);
 }
 
 .dresscode-name {
@@ -1081,12 +1135,17 @@ body {
     color: rgba(248, 245, 235, 0.4);
     letter-spacing: 0.5px;
     text-align: center;
-    -webkit-transition: color 0.3s ease;
-    transition: color 0.3s ease;
+    -webkit-transition: color 0.3s ease, font-weight 0.3s ease;
+    transition: color 0.3s ease, font-weight 0.3s ease;
 }
 
 .dresscode-item:hover .dresscode-name {
     color: rgba(248, 245, 235, 0.7);
+}
+
+.dresscode-item.active .dresscode-name {
+    color: #ece5cd;
+    font-weight: 600;
 }
 
 /* Submit button */
@@ -1096,7 +1155,7 @@ body {
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 13px 28px;
+    padding: 11px 24px;
     background: linear-gradient(135deg, rgba(236, 229, 205, 0.12), rgba(236, 229, 205, 0.05));
     border: 1px solid rgba(236, 229, 205, 0.3);
     color: #ece5cd;
@@ -1438,11 +1497,11 @@ body {
     }
 
     .section-two {
-        padding: 40px 20px;
+        padding: 30px 20px;
     }
 
     .rsvp-date {
-        font-size: 40px;
+        font-size: 30px;
     }
 }
 
@@ -2180,42 +2239,120 @@ body {
         padding: 25px 15px;
     }
 
+    .section-two {
+        padding: 20px 14px;
+    }
+
+    .bird-illustration {
+        width: 60px;
+        height: 48px;
+        margin-top: 0;
+        margin-bottom: 2px;
+    }
+
+    .rsvp-divider {
+        margin: 5px 0;
+    }
+
+    .rsvp-title {
+        font-size: 11px;
+        letter-spacing: 3px;
+        margin-bottom: 2px;
+    }
+
+    .rsvp-date {
+        font-size: 22px;
+        margin: 2px 0;
+    }
+
+    .rsvp-bottom-line {
+        margin: 5px 0 14px;
+    }
+
     .rsvp-container {
-        gap: 20px;
+        gap: 12px;
     }
 
     .rsvp-form {
         max-width: 100%;
-        padding: 20px 18px 18px;
+        padding: 16px 14px 14px;
+        border-radius: 12px;
+    }
+
+    .rsvp-form-group {
+        margin-bottom: 12px;
+    }
+
+    .rsvp-form-group:last-of-type {
+        margin-bottom: 14px;
+    }
+
+    .rsvp-inline-row {
+        gap: 8px;
+    }
+
+    .rsvp-field-label {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .rsvp-input {
+        font-size: 13px;
+        padding: 7px 0 7px 24px;
+    }
+
+    .rsvp-textarea {
+        min-height: 40px;
+        padding: 7px 10px;
+        font-size: 13px;
+    }
+
+    .rsvp-textarea-icon {
+        margin-top: 8px;
     }
 
     .rsvp-radio-group {
-        gap: 6px;
+        gap: 5px;
     }
 
     .rsvp-pill {
-        padding: 8px 10px;
-        font-size: 11px;
-        gap: 5px;
+        padding: 6px 8px;
+        font-size: 10px;
+        gap: 4px;
         letter-spacing: 0;
     }
 
     .rsvp-pill i {
-        font-size: 10px;
+        font-size: 9px;
     }
 
     .rsvp-pill-icon {
-        width: 14px;
-        height: 14px;
+        width: 13px;
+        height: 13px;
     }
 
     .dresscode-swatch {
-        width: 30px;
-        height: 30px;
+        width: 22px;
+        height: 22px;
+    }
+
+    .dresscode-item.active .dresscode-swatch {
+        -webkit-transform: scale(1.4);
+        transform: scale(1.4);
     }
 
     .dresscode-palette {
-        gap: 12px;
+        gap: 10px;
+    }
+
+    .dresscode-name {
+        font-size: 7px;
+    }
+
+    .rsvp-submit-btn {
+        padding: 9px 20px;
+        font-size: 10px;
+        letter-spacing: 2px;
     }
 
     .contact-title {
@@ -2225,4 +2362,60 @@ body {
     .bank-info h4 {
         font-size: 13px;
     }
+}
+
+/* ========== RSVP Form Message ========== */
+.rsvp-form-message {
+    margin-top: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    text-align: center;
+    animation: formMsgIn 0.4s ease;
+    -webkit-transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.rsvp-form-message.success {
+    background: rgba(72, 140, 72, 0.18);
+    color: #b8e6b8;
+    border: 1px solid rgba(72, 140, 72, 0.3);
+}
+
+.rsvp-form-message.error {
+    background: rgba(180, 60, 60, 0.18);
+    color: #f0b0b0;
+    border: 1px solid rgba(180, 60, 60, 0.3);
+}
+
+@-webkit-keyframes formMsgIn {
+    from {
+        opacity: 0;
+        -webkit-transform: translateY(8px);
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
+@keyframes formMsgIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading state for submit button */
+.rsvp-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
 }
