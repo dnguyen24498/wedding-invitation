@@ -71,8 +71,8 @@ if (calendarBell) {
             'METHOD:PUBLISH',
             // Event 1: Lễ Hằng Thuận
             'BEGIN:VEVENT',
-            'DTSTART:20260314T070000',
-            'DTEND:20260314T110000',
+            'DTSTART:20260314T180000',
+            'DTEND:20260314T210000',
             'SUMMARY:Lễ Hằng Thuận - Hoàng Anh & Dương Nguyên',
             'DESCRIPTION:Lễ Hằng Thuận tại chùa\\nThời gian: 07:00 - 11:00',
             'BEGIN:VALARM',
@@ -96,8 +96,8 @@ if (calendarBell) {
             'END:VEVENT',
             // Event 3: Lễ Thành Hôn (Nhà Trai)
             'BEGIN:VEVENT',
-            'DTSTART:20260322T100000',
-            'DTEND:20260322T140000',
+            'DTSTART:20260322T103000',
+            'DTEND:20260322T120000',
             'SUMMARY:Lễ Thành Hôn (Nhà Trai) - Hoàng Anh & Dương Nguyên',
             'DESCRIPTION:Tiệc cưới Nhà Trai tại Cảnh Hưng Palace',
             'LOCATION:Cảnh Hưng Palace\\, Hải Phòng',
@@ -109,8 +109,8 @@ if (calendarBell) {
             'END:VEVENT',
             // Event 4: Lễ Vu Quy (Nhà Gái)
             'BEGIN:VEVENT',
-            'DTSTART:20260328T100000',
-            'DTEND:20260328T140000',
+            'DTSTART:20260328T110000',
+            'DTEND:20260328T123000',
             'SUMMARY:Lễ Vu Quy (Nhà Gái) - Hoàng Anh & Dương Nguyên',
             'DESCRIPTION:Tiệc cưới Nhà Gái tại Hải Đăng Plaza',
             'LOCATION:Hải Đăng Plaza\\, Hải Phòng',
