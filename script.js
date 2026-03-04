@@ -59,6 +59,82 @@ if (sectionThankyou) {
     observer.observe(sectionThankyou);
 }
 
+// Calendar bell — generate .ics file for "Add to Calendar"
+var calendarBell = document.getElementById('calendarBell');
+if (calendarBell) {
+    calendarBell.addEventListener('click', function () {
+        var icsContent = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Wedding//EN',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            // Event 1: Lễ Hằng Thuận
+            'BEGIN:VEVENT',
+            'DTSTART:20260314T070000',
+            'DTEND:20260314T110000',
+            'SUMMARY:Lễ Hằng Thuận - Hoàng Anh & Dương Nguyên',
+            'DESCRIPTION:Lễ Hằng Thuận tại chùa\\nThời gian: 07:00 - 11:00',
+            'BEGIN:VALARM',
+            'TRIGGER:-P1D',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Nhắc nhở: Lễ Hằng Thuận ngày mai',
+            'END:VALARM',
+            'END:VEVENT',
+            // Event 2: Lễ Đón Dâu
+            'BEGIN:VEVENT',
+            'DTSTART:20260320T071500',
+            'DTEND:20260320T120000',
+            'SUMMARY:Lễ Đón Dâu - Hoàng Anh & Dương Nguyên',
+            'DESCRIPTION:Lễ Đón Dâu\\nNhà Trai xuất phát: 07:15\\nĐến Nhà Gái: 07:30\\nLễ Xin Dâu: 08:30\\nRước Dâu: 10:00',
+            'LOCATION:Số 32\\, Do Nha 4\\, P. Hồng An\\, Hải Phòng',
+            'BEGIN:VALARM',
+            'TRIGGER:-P1D',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Nhắc nhở: Lễ Đón Dâu ngày mai',
+            'END:VALARM',
+            'END:VEVENT',
+            // Event 3: Lễ Thành Hôn (Nhà Trai)
+            'BEGIN:VEVENT',
+            'DTSTART:20260322T100000',
+            'DTEND:20260322T140000',
+            'SUMMARY:Lễ Thành Hôn (Nhà Trai) - Hoàng Anh & Dương Nguyên',
+            'DESCRIPTION:Tiệc cưới Nhà Trai tại Cảnh Hưng Palace',
+            'LOCATION:Cảnh Hưng Palace\\, Hải Phòng',
+            'BEGIN:VALARM',
+            'TRIGGER:-P1D',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Nhắc nhở: Tiệc cưới Nhà Trai ngày mai',
+            'END:VALARM',
+            'END:VEVENT',
+            // Event 4: Lễ Vu Quy (Nhà Gái)
+            'BEGIN:VEVENT',
+            'DTSTART:20260328T100000',
+            'DTEND:20260328T140000',
+            'SUMMARY:Lễ Vu Quy (Nhà Gái) - Hoàng Anh & Dương Nguyên',
+            'DESCRIPTION:Tiệc cưới Nhà Gái tại Hải Đăng Plaza',
+            'LOCATION:Hải Đăng Plaza\\, Hải Phòng',
+            'BEGIN:VALARM',
+            'TRIGGER:-P1D',
+            'ACTION:DISPLAY',
+            'DESCRIPTION:Nhắc nhở: Tiệc cưới Nhà Gái ngày mai',
+            'END:VALARM',
+            'END:VEVENT',
+            'END:VCALENDAR'
+        ].join('\r\n');
+
+        var blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'wedding-hoang-anh-duong-nguyen.ics';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+}
+
 // Smooth scroll for save the date button
 const saveTheDateBtn = document.querySelector('.save-date-btn');
 if (saveTheDateBtn) {
