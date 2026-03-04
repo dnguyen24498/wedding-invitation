@@ -63,6 +63,17 @@ if (saveTheDateBtn) {
     });
 }
 
+// RSVP shortcut button → jump to RSVP section
+var rsvpShortcut = document.getElementById('rsvpShortcut');
+if (rsvpShortcut) {
+    rsvpShortcut.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        // RSVP is the last section (index 3)
+        goToSection(sections ? sections.length - 1 : 3);
+    });
+}
+
 // Choose side (Nhà Trai / Nhà Gái) buttons → open modals
 const sideBtns = document.querySelectorAll('.side-btn');
 const modalGroom = document.getElementById('modalGroom');
