@@ -216,11 +216,18 @@ function setScrollTop(y) {
 }
 
 // Check if the active element is a form input/textarea
+// Safari iOS: e.target on keydown may not be the focused element, so always check both
 function isFormField(el) {
-    if (!el) el = document.activeElement;
-    if (!el) return false;
-    var tag = el.tagName && el.tagName.toLowerCase();
-    return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+    var elements = [el, document.activeElement];
+    for (var i = 0; i < elements.length; i++) {
+        var node = elements[i];
+        if (!node) continue;
+        var tag = node.tagName && node.tagName.toLowerCase();
+        if (tag === 'input' || tag === 'textarea' || tag === 'select' || node.isContentEditable) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // Check if an element is inside a modal
