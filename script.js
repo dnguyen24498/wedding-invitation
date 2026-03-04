@@ -215,6 +215,14 @@ function setScrollTop(y) {
     window.scrollTo(0, y);
 }
 
+// Check if the active element is a form input/textarea
+function isFormField(el) {
+    if (!el) el = document.activeElement;
+    if (!el) return false;
+    var tag = el.tagName && el.tagName.toLowerCase();
+    return tag === 'input' || tag === 'textarea' || tag === 'select' || el.isContentEditable;
+}
+
 // Check if an element is inside a modal
 function isInsideModal(el) {
     if (!el || !el.closest) return false;
@@ -296,14 +304,14 @@ function initScrollSnap() {
 
     // --- Touch events (mobile) ---
     document.addEventListener('touchstart', function (e) {
-        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isInsideModal(e.target) || isModalOpen() || isFormField(e.target)) return;
         touchStartY = e.touches[0].clientY;
         touchStartX = e.touches[0].clientX;
         touchStartTime = Date.now();
     }, { passive: true });
 
     document.addEventListener('touchmove', function (e) {
-        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isInsideModal(e.target) || isModalOpen() || isFormField(e.target)) return;
 
         // Calculate direction — only prevent vertical scroll, allow horizontal (for links etc.)
         if (e.touches && e.touches.length > 0) {
@@ -317,7 +325,7 @@ function initScrollSnap() {
     }, { passive: false });
 
     document.addEventListener('touchend', function (e) {
-        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isInsideModal(e.target) || isModalOpen() || isFormField(e.target)) return;
         if (isAnimating) return;
 
         var touchEndY = e.changedTouches[0].clientY;
@@ -382,7 +390,7 @@ function initScrollSnap() {
 
     // --- Keyboard navigation ---
     document.addEventListener('keydown', function (e) {
-        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isInsideModal(e.target) || isModalOpen() || isFormField(e.target)) return;
         if (isAnimating) return;
 
         if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
