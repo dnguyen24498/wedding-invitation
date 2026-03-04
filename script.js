@@ -715,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
 
-            // Build items HTML (duplicate for seamless loop)
+            // Build single set of items
             var html = '';
             for (var i = 0; i < wishes.length; i++) {
                 html += '<div class="wishes-marquee-item">' +
@@ -723,13 +723,30 @@ document.addEventListener('DOMContentLoaded', function () {
                     '<span class="wish-text">"' + escapeHtml(wishes[i].wish) + '"</span>' +
                     '</div>';
             }
-            // Duplicate for infinite scroll illusion
-            marquee.innerHTML = html + html;
 
-            // Adjust speed based on content length
-            var speed = Math.max(15, wishes.length * 6);
-            marquee.style.animationDuration = speed + 's';
-            marquee.style.webkitAnimationDuration = speed + 's';
+            // Insert once to measure, then duplicate enough times to fill screen + extra
+            marquee.innerHTML = html;
+            var trackWidth = marquee.parentElement ? marquee.parentElement.offsetWidth : window.innerWidth;
+            var contentWidth = marquee.scrollWidth;
+            var copies = Math.max(2, Math.ceil((trackWidth * 2) / contentWidth) + 1);
+            var fullHtml = '';
+            for (var c = 0; c < copies; c++) {
+                fullHtml += html;
+            }
+            marquee.innerHTML = fullHtml;
+
+            // Animation scrolls by (1/copies) so first set loops seamlessly
+            var pct = (100 / copies).toFixed(4);
+            marquee.style.animation = 'none'; // reset
+            marquee.offsetHeight; // force reflow
+            // Create dynamic keyframes for exact percentage
+            var styleEl = document.createElement('style');
+            styleEl.textContent = '@keyframes marqueeScrollDyn{0%{transform:translateX(0)}100%{transform:translateX(-' + pct + '%)}}';
+            document.head.appendChild(styleEl);
+
+            var speed = Math.max(12, wishes.length * 5);
+            marquee.style.animation = 'marqueeScrollDyn ' + speed + 's linear infinite';
+            marquee.style.webkitAnimation = 'marqueeScrollDyn ' + speed + 's linear infinite';
         })
         .catch(function (err) {
             console.error('Error loading wishes:', err);

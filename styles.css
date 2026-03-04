@@ -2772,12 +2772,21 @@ body {
     letter-spacing: 0.3px;
 }
 
+.wishes-marquee-content:has(.wishes-loading),
+.wishes-marquee-content:has(.wishes-empty) {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    animation: none;
+}
+
 .wishes-loading {
     font-family: 'Montserrat', sans-serif;
     font-size: 11px;
     color: rgba(77, 21, 27, 0.3);
     font-style: italic;
     padding: 8px 0;
+    text-align: center;
 }
 
 .wishes-empty {
