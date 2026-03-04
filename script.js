@@ -444,6 +444,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var sideRadio = rsvpForm.querySelector('input[name="side"]:checked');
         var attendRadio = rsvpForm.querySelector('input[name="attendance"]:checked');
         var guestWish = (rsvpForm.querySelector('#guestWish').value || '').trim();
+        var activeSwatch = document.querySelector('.dresscode-item.active .dresscode-name');
+        var dressCode = activeSwatch ? activeSwatch.textContent.trim() : '';
 
         // Validate
         if (!guestName) {
@@ -467,6 +469,7 @@ document.addEventListener('DOMContentLoaded', function () {
             name: guestName,
             client: sideRadio.value,
             'will-attend': attendRadio.value,
+            'dress-code': dressCode,
             wish: guestWish,
             submittedAt: new Date().toISOString()
         };
@@ -485,8 +488,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(data)
-                        }).catch(function () { /* silent fail */ });
-                    } catch (e) { /* silent fail */ }
+                        }).then(function (res) {
+                            console.log('Webhook status:', res.status);
+                        }).catch(function (err) {
+                            console.error('Webhook failed:', err);
+                        });
+                    } catch (e) { console.error('Webhook error:', e); }
                 })
                 .catch(function (err) {
                     console.error('Firestore error:', err);
