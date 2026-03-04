@@ -5,16 +5,27 @@
 }
 
 html {
-    /* Tắt CSS scroll-snap, dùng JS thay thế */
-    scroll-behavior: smooth;
+    /* Prevent pull-to-refresh and overscroll on mobile browsers */
+    overscroll-behavior: none;
+    -ms-overflow-style: none;
+    /* Hide scrollbar across all browsers */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+}
+
+html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 body {
     font-family: 'Cormorant', 'Playfair Display', serif;
-    background-color: #6b1010;
+    background-color: #4d151b;
     min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
     overflow-x: hidden;
+    overscroll-behavior: none;
+    /* Prevent pull-to-refresh gesture on Chrome Android */
+    overscroll-behavior-y: none;
 }
 
 /* Custom scrollbar for timeline containers */
@@ -44,14 +55,15 @@ body {
 .section-one {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background-color: #6b1010;
+    background-color: #4d151b;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 15px;
-    scroll-snap-align: start;
-    overflow: clip;
+    overflow: hidden;
     position: relative;
+    /* Prevent native touch scroll on this section — JS handles it */
+    touch-action: none;
 }
 
 /* Side floral decorations */
@@ -324,9 +336,9 @@ body {
 
 /* Name icons (groom & bride) */
 .name-icon {
-    width: 26px;
-    height: 26px;
-    min-width: 26px;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
     object-fit: contain;
     filter: sepia(100%) saturate(300%) hue-rotate(-10deg) brightness(0.5);
     opacity: 0.85;
@@ -344,7 +356,7 @@ body {
 /* Horizontal lines */
 .divider-line {
     height: 1px;
-    background-color: #6b1010;
+    background-color: #4d151b;
     margin: 15px 0;
     transform: scaleX(0);
     animation: expandLine 1s ease forwards;
@@ -355,7 +367,7 @@ body {
 .invitation-text {
     text-align: center;
     font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
-    font-size: 26px;
+    font-size: 32px;
     color: #6b1010;
     line-height: 1.5;
     margin: 15px 0;
@@ -367,10 +379,11 @@ body {
 /* Save the date button */
 .save-date-btn {
     display: block;
+    width: -moz-fit-content;
     width: fit-content;
     margin: 20px auto 0;
     padding: 12px 30px;
-    background-color: #6b1010;
+    background-color: #4d151b;
     color: #f8f5eb;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
@@ -392,18 +405,307 @@ body {
     box-shadow: 0 5px 20px rgba(107, 16, 16, 0.3);
 }
 
+/* Choose side buttons */
+.choose-side {
+    text-align: center;
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 1.4s;
+}
+
+.choose-side-text {
+    font-family: 'Cormorant', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: #6b1010;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+
+.choose-side-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.side-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: transparent;
+    border: 1.5px solid #6b1010;
+    color: #6b1010;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.side-btn-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.side-btn:hover {
+    background-color: #6b1010;
+    color: #f8f5eb;
+}
+
+.side-btn:hover .side-btn-icon {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+}
+
+.side-btn.active {
+    background-color: #6b1010;
+    color: #f8f5eb;
+}
+
+.side-btn.active .side-btn-icon {
+    opacity: 1;
+    filter: brightness(0) invert(1);
+}
+
+/* Hidden section */
+.hidden-section {
+    display: none !important;
+}
+
+.hidden-section.visible {
+    display: flex !important;
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+    -moz-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    /* Allow normal touch inside modals */
+    touch-action: auto;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-content {
+    background-color: #f8f5eb;
+    border-radius: 12px;
+    max-width: 450px;
+    width: 100%;
+    max-height: 85vh;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    -webkit-transform: scale(0.9) translateY(20px);
+    -moz-transform: scale(0.9) translateY(20px);
+    transform: scale(0.9) translateY(20px);
+    -webkit-transition: -webkit-transform 0.3s ease;
+    -moz-transition: -moz-transform 0.3s ease;
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    -webkit-transform: scale(1) translateY(0);
+    -moz-transform: scale(1) translateY(0);
+    transform: scale(1) translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #6b1010;
+    cursor: pointer;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+}
+
+.modal-close:hover {
+    opacity: 1;
+    background-color: rgba(107, 16, 16, 0.1);
+}
+
+.modal-body {
+    padding: 30px 25px;
+    overflow-y: auto;
+    max-height: 85vh;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+    /* Allow scrolling inside modal on touch devices */
+    touch-action: pan-y;
+}
+
+.modal-body .wedding-header {
+    margin-bottom: 8px;
+}
+
+.modal-body .wedding-title {
+    font-family: 'Dancing Script', 'Tangerine', cursive;
+    font-size: 36px;
+    font-weight: 700;
+}
+
+.modal-body .wedding-subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #6b1010;
+    margin-bottom: 6px;
+}
+
+.modal-body .wedding-date {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #6b1010;
+    margin-bottom: 10px;
+}
+
+.modal-body .wedding-location {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #6b1010;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    padding: 8px 14px;
+    background-color: rgba(107, 16, 16, 0.08);
+    border-radius: 6px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-body .wedding-location:hover {
+    background-color: rgba(107, 16, 16, 0.15);
+}
+
+.modal-body .wedding-location i {
+    font-size: 14px;
+    color: #6b1010;
+}
+
+.modal-body .wedding-location p {
+    margin: 0;
+    font-size: 12px;
+}
+
+.modal-body .wedding-timeline {
+    text-align: left;
+    margin-top: 10px;
+    padding-left: 15px;
+    border-left: 2px solid rgba(107, 16, 16, 0.2);
+}
+
+.modal-body .wedding-item {
+    position: relative;
+    padding: 8px 0 8px 18px;
+    opacity: 1;
+    transform: none;
+}
+
+.modal-body .wedding-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #6b1010;
+    border-radius: 50%;
+    position: absolute;
+    left: -21px;
+    top: 14px;
+}
+
+.modal-body .wedding-title-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 18px;
+    font-weight: 600;
+    color: #6b1010;
+}
+
+.modal-body .wedding-desc {
+    font-family: 'Cormorant', serif;
+    font-size: 14px;
+    color: #8b5a5a;
+    margin-top: 2px;
+}
+
+.modal-body .wedding-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    .modal-content {
+        max-width: 95%;
+        max-height: 80vh;
+        border-radius: 10px;
+    }
+
+    .modal-body {
+        padding: 25px 18px;
+        max-height: 80vh;
+    }
+
+    .modal-body .wedding-title {
+        font-size: 30px;
+    }
+}
+
 /* ===== SECTION 2: RSVP ===== */
 .section-two {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background-color: #6b1010;
+    background-color: #4d151b;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px 20px;
-    scroll-snap-align: start;
     overflow: hidden;
     position: relative;
+    touch-action: none;
 }
 
 .rsvp-container {
@@ -873,19 +1175,18 @@ body {
     justify-content: center;
     align-items: center;
     padding: 20px 15px;
-    scroll-snap-align: start;
     overflow: hidden;
     position: relative;
 }
 
 /* Bride section - nền burgundy */
 .section-bride {
-    background-color: #6b1010;
+    background-color: #4d151b;
 }
 
 /* Groom section - nền burgundy */
 .section-groom {
-    background-color: #6b1010;
+    background-color: #4d151b;
 }
 
 .wedding-container {
@@ -1116,19 +1417,19 @@ body {
 .section-ceremony {
     height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
-    background-color: #6b1010;
+    background-color: #4d151b;
     padding: 20px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    scroll-snap-align: start;
     overflow: hidden;
     position: relative;
+    touch-action: none;
 }
 
 /* Lễ Đón Dâu - nền burgundy */
 .section-dondau {
-    background-color: #6b1010;
+    background-color: #4d151b;
 }
 
 .section-dondau .ceremony-title,
@@ -1145,6 +1446,14 @@ body {
 
 .section-dondau .ceremony-location {
     background-color: #f8f5eb;
+    /* Make both address boxes equal width */
+    display: flex;
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
 }
 
 .section-dondau .ceremony-location i,
@@ -1311,7 +1620,7 @@ body {
     top: 0;
     bottom: 0;
     width: 2px;
-    background-color: #6b1010;
+    background-color: #4d151b;
 }
 
 .timeline-item {
@@ -1339,7 +1648,7 @@ body {
 .timeline-dot {
     width: 12px;
     height: 12px;
-    background-color: #6b1010;
+    background-color: #4d151b;
     border: 2px solid #f8f5eb;
     border-radius: 50%;
     position: absolute;

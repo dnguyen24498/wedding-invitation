@@ -47,12 +47,6 @@ if (sectionTwo) {
     observer.observe(sectionTwo);
 }
 
-// Observe wedding sections (Bride & Groom)
-const weddingSections = document.querySelectorAll('.section-wedding');
-weddingSections.forEach(section => {
-    observer.observe(section);
-});
-
 // Observe ceremony sections
 const ceremonySections = document.querySelectorAll('.section-ceremony');
 ceremonySections.forEach(section => {
@@ -64,19 +58,85 @@ const saveTheDateBtn = document.querySelector('.save-date-btn');
 if (saveTheDateBtn) {
     saveTheDateBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        document.querySelector('#section2').scrollIntoView({
-            behavior: 'smooth'
-        });
+        // Section2 = index 1 in the sections array
+        goToSection(1);
     });
 }
+
+// Choose side (Nhà Trai / Nhà Gái) buttons → open modals
+const sideBtns = document.querySelectorAll('.side-btn');
+const modalGroom = document.getElementById('modalGroom');
+const modalBride = document.getElementById('modalBride');
+
+function openModal(modal) {
+    if (!modal) return;
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal(modal) {
+    if (!modal) return;
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+sideBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const side = btn.dataset.side;
+
+        // Toggle active state on buttons
+        sideBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Open corresponding modal
+        if (side === 'groom') {
+            openModal(modalGroom);
+        } else {
+            openModal(modalBride);
+        }
+    });
+});
+
+// Close modal on ✕ button
+document.querySelectorAll('.modal-close').forEach(closeBtn => {
+    closeBtn.addEventListener('click', () => {
+        // Walk up to find the modal overlay (compatible with all browsers)
+        var overlay = closeBtn.closest ? closeBtn.closest('.modal-overlay') : null;
+        if (!overlay) {
+            var node = closeBtn.parentElement;
+            while (node) {
+                if (node.classList && node.classList.contains('modal-overlay')) { overlay = node; break; }
+                node = node.parentElement;
+            }
+        }
+        if (overlay) closeModal(overlay);
+    });
+});
+
+// Close modal when clicking outside content
+[modalGroom, modalBride].forEach(modal => {
+    if (!modal) return;
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal(modal);
+    });
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        [modalGroom, modalBride].forEach(modal => {
+            if (modal && modal.classList.contains('active')) {
+                closeModal(modal);
+            }
+        });
+    }
+});
 
 // Scroll indicator click
 const scrollIndicator = document.querySelector('.scroll-indicator');
 if (scrollIndicator) {
     scrollIndicator.addEventListener('click', () => {
-        document.querySelector('#section2').scrollIntoView({
-            behavior: 'smooth'
-        });
+        goToSection(1);
     });
 }
 
@@ -86,137 +146,268 @@ if ('scrollRestoration' in history) {
     history.scrollRestoration = 'manual';
 }
 
-// Multiple methods to ensure scroll to top on all devices
+// Multiple methods to ensure scroll to top on all devices/browsers
 window.scrollTo(0, 0);
 document.documentElement.scrollTop = 0;
-document.body.scrollTop = 0;
+if (document.body) document.body.scrollTop = 0;
 
-window.addEventListener('beforeunload', () => {
+window.addEventListener('beforeunload', function () {
     window.scrollTo(0, 0);
 });
 
-// Fix iOS viewport height
+// Fix iOS viewport height (also handles address bar show/hide)
 function setVH() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    var vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', vh + 'px');
 }
 setVH();
 window.addEventListener('resize', setVH);
+// iOS-specific: orientationchange fires more reliably than resize on some devices
+window.addEventListener('orientationchange', function () {
+    setTimeout(setVH, 100);
+    setTimeout(setVH, 300); // double-tap for iOS address bar settle
+});
 
-// ===== CUSTOM SCROLL SNAP (JS-based for better mobile support) =====
-const sections = [];
-let isScrolling = false;
-let touchStartY = 0;
-let touchEndY = 0;
-let currentSection = 0;
+// ===== FULLPAGE SCROLL SNAP (RAF-based, cross-browser) =====
+var sections = [];
+var currentSection = 0;
+var isAnimating = false;
+var touchStartY = 0;
+var touchStartX = 0;
+var touchStartTime = 0;
+var lastWheelTime = 0;
+var wheelAccumulator = 0;
+var wheelTimer = null;
+
+var ANIMATION_DURATION = 800; // ms
+var WHEEL_COOLDOWN = 900; // ms
+var TOUCH_THRESHOLD = 30; // px minimum swipe distance
+
+// Ease-in-out cubic for buttery smooth transitions
+function easeInOutCubic(t) {
+    return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Cross-browser scroll position getter
+function getScrollTop() {
+    return window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+}
+
+// Cross-browser scroll-to
+function setScrollTop(y) {
+    window.scrollTo(0, y);
+}
+
+// Check if an element is inside a modal
+function isInsideModal(el) {
+    if (!el || !el.closest) return false;
+    // el.closest may not exist on very old browsers — fallback
+    try {
+        return !!el.closest('.modal-overlay');
+    } catch (e) {
+        // Manual parent walk for browsers without .closest()
+        var node = el;
+        while (node && node !== document) {
+            if (node.classList && node.classList.contains('modal-overlay')) return true;
+            node = node.parentElement || node.parentNode;
+        }
+        return false;
+    }
+}
+
+// Check if a modal is currently open
+function isModalOpen() {
+    return !!(
+        (modalGroom && modalGroom.classList.contains('active')) ||
+        (modalBride && modalBride.classList.contains('active'))
+    );
+}
+
+// Animate scroll from current position to target using RAF
+function smoothScrollTo(targetY, duration, callback) {
+    var startY = getScrollTop();
+    var diff = targetY - startY;
+
+    if (Math.abs(diff) < 2) {
+        setScrollTop(targetY);
+        if (callback) callback();
+        return;
+    }
+
+    var startTime = null;
+
+    function step(currentTime) {
+        if (!startTime) startTime = currentTime;
+        var elapsed = currentTime - startTime;
+        var progress = Math.min(elapsed / duration, 1);
+        var easedProgress = easeInOutCubic(progress);
+
+        setScrollTop(startY + diff * easedProgress);
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            setScrollTop(targetY); // ensure exact landing
+            if (callback) callback();
+        }
+    }
+
+    requestAnimationFrame(step);
+}
+
+function goToSection(index) {
+    if (index < 0 || index >= sections.length || isAnimating) return;
+    if (index === currentSection && Math.abs(getScrollTop() - sections[index].offsetTop) < 2) return;
+
+    isAnimating = true;
+    currentSection = index;
+
+    smoothScrollTo(sections[index].offsetTop, ANIMATION_DURATION, function () {
+        isAnimating = false;
+    });
+}
 
 function initScrollSnap() {
-    // Get all sections
-    const sectionElements = document.querySelectorAll('.section-one, .section-ceremony, .section-wedding, .section-two');
-    sectionElements.forEach((section, index) => {
-        sections.push(section);
-    });
-    
+    // Collect main-flow sections
+    var els = document.querySelectorAll('.section-one, .section-ceremony, .section-two');
+    sections = [];
+    for (var i = 0; i < els.length; i++) {
+        sections.push(els[i]);
+    }
+
     if (sections.length === 0) return;
-    
-    // Touch events for mobile
-    document.addEventListener('touchstart', (e) => {
+
+    // --- Touch events (mobile) ---
+    document.addEventListener('touchstart', function (e) {
+        if (isInsideModal(e.target) || isModalOpen()) return;
         touchStartY = e.touches[0].clientY;
+        touchStartX = e.touches[0].clientX;
+        touchStartTime = Date.now();
     }, { passive: true });
-    
-    document.addEventListener('touchend', (e) => {
-        if (isScrolling) return;
-        
-        touchEndY = e.changedTouches[0].clientY;
-        const diff = touchStartY - touchEndY;
-        const threshold = 50; // Minimum swipe distance
-        
-        if (Math.abs(diff) > threshold) {
-            if (diff > 0 && currentSection < sections.length - 1) {
-                // Swipe up - go to next section
-                currentSection++;
-                scrollToSection(currentSection);
-            } else if (diff < 0 && currentSection > 0) {
-                // Swipe down - go to previous section
-                currentSection--;
-                scrollToSection(currentSection);
+
+    document.addEventListener('touchmove', function (e) {
+        if (isInsideModal(e.target) || isModalOpen()) return;
+
+        // Calculate direction — only prevent vertical scroll, allow horizontal (for links etc.)
+        if (e.touches && e.touches.length > 0) {
+            var diffY = Math.abs(e.touches[0].clientY - touchStartY);
+            var diffX = Math.abs(e.touches[0].clientX - touchStartX);
+            // Only block if predominantly vertical scroll
+            if (diffY > diffX) {
+                if (e.cancelable) e.preventDefault();
             }
         }
-    }, { passive: true });
-    
-    // Mouse wheel for desktop
-    document.addEventListener('wheel', (e) => {
-        if (isScrolling) return;
-        
-        if (e.deltaY > 30 && currentSection < sections.length - 1) {
-            // Scroll down
-            currentSection++;
-            scrollToSection(currentSection);
-        } else if (e.deltaY < -30 && currentSection > 0) {
-            // Scroll up
-            currentSection--;
-            scrollToSection(currentSection);
+    }, { passive: false });
+
+    document.addEventListener('touchend', function (e) {
+        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isAnimating) return;
+
+        var touchEndY = e.changedTouches[0].clientY;
+        var touchEndX = e.changedTouches[0].clientX;
+        var diffY = touchStartY - touchEndY;
+        var diffX = Math.abs(touchStartX - touchEndX);
+        var elapsed = Date.now() - touchStartTime;
+
+        // Ignore horizontal swipes (e.g. carousel or accidental)
+        if (diffX > Math.abs(diffY) * 1.2) return;
+
+        // Detect quick flick (velocity-based) or long swipe (distance-based)
+        var velocity = Math.abs(diffY) / Math.max(elapsed, 1); // px/ms, avoid /0
+        var isFlick = velocity > 0.25 && Math.abs(diffY) > 15;
+        var isSwipe = Math.abs(diffY) > TOUCH_THRESHOLD;
+
+        if (isFlick || isSwipe) {
+            if (diffY > 0 && currentSection < sections.length - 1) {
+                goToSection(currentSection + 1);
+            } else if (diffY < 0 && currentSection > 0) {
+                goToSection(currentSection - 1);
+            } else {
+                goToSection(currentSection);
+            }
+        } else {
+            // Tiny movement — snap back
+            goToSection(currentSection);
         }
     }, { passive: true });
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (isScrolling) return;
-        
-        if ((e.key === 'ArrowDown' || e.key === 'PageDown') && currentSection < sections.length - 1) {
-            currentSection++;
-            scrollToSection(currentSection);
-        } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && currentSection > 0) {
-            currentSection--;
-            scrollToSection(currentSection);
+
+    // --- Wheel events (desktop) ---
+    // Use accumulated delta to handle trackpad (many small deltas) vs mouse (single large delta)
+    document.addEventListener('wheel', function (e) {
+        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (e.cancelable) e.preventDefault();
+
+        if (isAnimating) return;
+
+        var now = Date.now();
+        if (now - lastWheelTime < WHEEL_COOLDOWN) return;
+
+        // Accumulate wheel delta for trackpad support
+        wheelAccumulator += e.deltaY;
+        clearTimeout(wheelTimer);
+
+        wheelTimer = setTimeout(function () {
+            if (isAnimating) {
+                wheelAccumulator = 0;
+                return;
+            }
+
+            if (wheelAccumulator > 30 && currentSection < sections.length - 1) {
+                lastWheelTime = Date.now();
+                goToSection(currentSection + 1);
+            } else if (wheelAccumulator < -30 && currentSection > 0) {
+                lastWheelTime = Date.now();
+                goToSection(currentSection - 1);
+            }
+            wheelAccumulator = 0;
+        }, 50);
+    }, { passive: false });
+
+    // --- Keyboard navigation ---
+    document.addEventListener('keydown', function (e) {
+        if (isInsideModal(e.target) || isModalOpen()) return;
+        if (isAnimating) return;
+
+        if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+            e.preventDefault();
+            if (currentSection < sections.length - 1) goToSection(currentSection + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            if (currentSection > 0) goToSection(currentSection - 1);
         }
+    });
+
+    // --- Snap on resize (orientation change, address bar show/hide) ---
+    var resizeSnapTimer;
+    function snapAfterResize() {
+        clearTimeout(resizeSnapTimer);
+        resizeSnapTimer = setTimeout(function () {
+            if (!isAnimating && sections[currentSection]) {
+                setScrollTop(sections[currentSection].offsetTop);
+            }
+        }, 200);
+    }
+    window.addEventListener('resize', snapAfterResize);
+    window.addEventListener('orientationchange', function () {
+        setTimeout(snapAfterResize, 300);
     });
 }
 
-function scrollToSection(index) {
-    if (index < 0 || index >= sections.length) return;
-    
-    isScrolling = true;
-    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
-    
-    // Reset scrolling flag after animation
-    setTimeout(() => {
-        isScrolling = false;
-    }, 800);
-}
-
-// Update current section based on scroll position
-function updateCurrentSection() {
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    const windowHeight = window.innerHeight;
-    
-    sections.forEach((section, index) => {
-        const sectionTop = section.offsetTop;
-        if (scrollTop >= sectionTop - windowHeight / 2) {
-            currentSection = index;
-        }
-    });
-}
-
-window.addEventListener('load', () => {
+window.addEventListener('load', function () {
     setVH();
     initScrollSnap();
-    
-    // Force scroll to top
-    setTimeout(() => {
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        document.body.scrollTop = 0;
-        currentSection = 0;
-        const section1 = document.querySelector('#section1');
-        if (section1) {
-            section1.scrollIntoView({ behavior: 'instant', block: 'start' });
-        }
-    }, 0);
+
+    // Force scroll to section 0 on load
+    currentSection = 0;
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
 });
 
 // Also handle DOMContentLoaded for faster response
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
     setVH();
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
