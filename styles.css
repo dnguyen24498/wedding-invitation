@@ -501,7 +501,7 @@ body {
 .invitation-text {
     text-align: center;
     font-family: 'Mrs Saint Delafield', 'Tangerine', cursive;
-    font-size: 32px;
+    font-size: 26px;
     color: #6b1010;
     line-height: 1.5;
     margin: 15px 0;
@@ -1678,7 +1678,7 @@ body {
     }
 
     .invitation-text {
-        font-size: 32px;
+        font-size: 26px;
         margin-bottom: 15px;
     }
 
