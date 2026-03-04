@@ -132,13 +132,28 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Scroll indicator click
-const scrollIndicator = document.querySelector('.scroll-indicator');
-if (scrollIndicator) {
-    scrollIndicator.addEventListener('click', () => {
-        goToSection(1);
+// Scroll indicator clicks (up/down arrows on all sections)
+document.querySelectorAll('.scroll-indicator').forEach(function (indicator) {
+    indicator.addEventListener('click', function () {
+        var direction = indicator.getAttribute('data-direction');
+        // Find which section this indicator belongs to
+        var parentSection = indicator.parentElement;
+        var sectionIndex = -1;
+        for (var i = 0; i < sections.length; i++) {
+            if (sections[i] === parentSection) {
+                sectionIndex = i;
+                break;
+            }
+        }
+        if (sectionIndex === -1) return;
+
+        if (direction === 'down' && sectionIndex < sections.length - 1) {
+            goToSection(sectionIndex + 1);
+        } else if (direction === 'up' && sectionIndex > 0) {
+            goToSection(sectionIndex - 1);
+        }
     });
-}
+});
 
 // Always scroll to section 1 on page load/refresh
 // Disable browser scroll restoration
