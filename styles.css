@@ -700,12 +700,12 @@ body {
 .section-two {
     min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
+    height: auto;
     background-color: #4d151b;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px 20px;
-    overflow: hidden;
     position: relative;
     touch-action: none;
 }
@@ -786,7 +786,7 @@ body {
     color: #f8f5eb;
     text-align: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
 }
 
 /* Bird illustration */
@@ -885,7 +885,7 @@ body {
 /* ===== RSVP FORM ===== */
 .rsvp-form {
     width: 100%;
-    max-width: 360px;
+    max-width: 420px;
     text-align: left;
     background: rgba(248, 245, 235, 0.06);
     border: 1px solid rgba(248, 245, 235, 0.1);
@@ -1003,6 +1003,26 @@ body {
     font-size: 11px;
     -webkit-transition: -webkit-transform 0.35s ease;
     transition: transform 0.35s ease;
+}
+
+.rsvp-pill-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.45;
+    -webkit-transition: opacity 0.35s ease, -webkit-transform 0.35s ease;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.rsvp-radio-pill:hover .rsvp-pill-icon {
+    opacity: 0.7;
+}
+
+.rsvp-radio-pill input[type="radio"]:checked ~ .rsvp-pill .rsvp-pill-icon {
+    opacity: 0.9;
+    -webkit-transform: scale(1.15);
+    transform: scale(1.15);
 }
 
 .rsvp-radio-pill:hover .rsvp-pill {
@@ -1419,19 +1439,6 @@ body {
 
     .section-two {
         padding: 40px 20px;
-    }
-
-    .rsvp-container {
-        flex-direction: column;
-        gap: 40px;
-    }
-
-    .contact-section {
-        text-align: center;
-    }
-
-    .social-icons {
-        justify-content: center;
     }
 
     .rsvp-date {
