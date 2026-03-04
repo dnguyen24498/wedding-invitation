@@ -984,15 +984,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    padding: 10px 14px;
+    gap: 6px;
+    padding: 9px 12px;
     border: 1px solid rgba(248, 245, 235, 0.18);
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
     font-size: 12px;
     font-weight: 500;
     color: rgba(248, 245, 235, 0.5);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     -webkit-transition: all 0.35s ease;
     transition: all 0.35s ease;
     text-align: center;
@@ -2190,8 +2190,23 @@ body {
     }
 
     .rsvp-radio-group {
-        flex-direction: column;
-        gap: 8px;
+        gap: 6px;
+    }
+
+    .rsvp-pill {
+        padding: 8px 10px;
+        font-size: 11px;
+        gap: 5px;
+        letter-spacing: 0;
+    }
+
+    .rsvp-pill i {
+        font-size: 10px;
+    }
+
+    .rsvp-pill-icon {
+        width: 14px;
+        height: 14px;
     }
 
     .dresscode-swatch {
