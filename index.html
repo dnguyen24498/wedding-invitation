@@ -4,333 +4,415 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Hoàng Anh & Dương Nguyên</title>
-    <!-- Signature-style & Vietnamese-friendly fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Tangerine:wght@400;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20260304">
+    <link rel="stylesheet" href="styles.css?v=20260312">
 </head>
 <body>
-    <!-- Flying doves animation -->
-    <div class="flying-dove dove-1"><img src="images/peace-dove.gif" alt=""></div>
-    <div class="flying-dove dove-2"><img src="images/peace-dove.gif" alt=""></div>
-    <div class="flying-dove dove-3"><img src="images/peace-dove.gif" alt=""></div>
-
-    <!-- Section 1: Save The Date -->
-    <section class="section-one" id="section1">
-        <!-- Side floral decorations -->
-        <div class="side-floral side-floral-left">
-            <img src="images/lilac.png" alt="Floral decoration left">
-        </div>
-        <div class="side-floral side-floral-right">
-            <img src="images/lilac.png" alt="Floral decoration right">
-        </div>
-        <!-- Additional floral decorations -->
-        <div class="floral-decor floral-3"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-4"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-7"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-8"><img src="images/lilac.png" alt=""></div>
-        
-        <div class="invitation-card">
-            <!-- Vintage border decoration -->
-            <div class="vintage-border">
-                <div class="corner corner-tl"><img src="images/leaf.png" alt=""></div>
-                <div class="corner corner-tr"><img src="images/leaf.png" alt=""></div>
-                <div class="corner corner-bl"><img src="images/leaf.png" alt=""></div>
-                <div class="corner corner-br"><img src="images/leaf.png" alt=""></div>
-                <div class="border-line border-top"></div>
-                <div class="border-line border-right"></div>
-                <div class="border-line border-bottom"></div>
-                <div class="border-line border-left"></div>
-            </div>
-
-            <!-- Date header with calendar bell -->
-            <div class="date-header">
-                <span class="date-text">Mar</span>
-                <button class="calendar-bell" id="calendarBell" title="Lưu lịch vào điện thoại">
-                    <i class="fas fa-calendar-check"></i>
-                </button>
-                <span class="date-text">2026</span>
-            </div>
-
-            <!-- Names -->
-            <div class="names-section">
-                <div class="couple-names">
-                    <div class="name-row bride-row">
-                        <img src="images/groom.png" alt="Groom icon" class="name-icon groom-icon">
-                        <span class="groom-name">Duong Nguyen</span>
-                    </div>
-                    <span class="and-text">and</span>
-                    <div class="name-row groom-row">
-                        <span class="bride-name">Hoang Anh</span>
-                        <img src="images/bride.png" alt="Bride icon" class="name-icon bride-icon">
-                    </div>
+    <!-- ===== SECTION 1: COVER PAGE ===== -->
+    <section class="section-cover" id="section1">
+        <div class="cover-content">
+            <p class="cover-presenting">P R E S E N T I N G</p>
+            <h1 class="cover-title">Our Wedding</h1>
+            
+            <div class="cover-envelope-wrapper">
+                <!-- Groom character -->
+                <div class="cover-character cover-groom">
+                    <img src="images/new/groom.png" alt="Chú rể" class="character-main">
                 </div>
+                
+                <!-- Letter/Envelope -->
+                <div class="cover-letter">
+                    <img src="images/new/letter.png" alt="Letter" class="letter-img">
+                    <button class="cover-open-btn" id="openBtn">
+                        <span>CLICK TO OPEN</span>
+                    </button>
+                </div>
+                
+                <!-- Bride character -->
+                <div class="cover-character cover-bride">
+                    <img src="images/new/bride.png" alt="Cô dâu" class="character-main">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 2: CHOOSE SIDE ===== -->
+    <section class="section-choose" id="section2">
+        <div class="choose-header">
+            <h2 class="choose-title">Save The Date</h2>
+            <p class="choose-date">March 2026</p>
+        </div>
+
+        <div class="choose-characters">
+            <!-- Groom side -->
+            <div class="character-card">
+                <div class="speech-bubble bubble-groom">
+                    <p>Bạn là khách mời<br>của chú rể?</p>
+                </div>
+                <div class="character-img">
+                    <img src="images/new/groom.png" alt="Chú rể">
+                </div>
+                <button class="choose-btn" data-side="groom">
+                    <i class="fas fa-heart"></i>
+                    <span>Nhà Trai</span>
+                </button>
+            </div>
+
+            <!-- Bride side -->
+            <div class="character-card">
+                <div class="speech-bubble bubble-bride">
+                    <p>Bạn là khách mời<br>của cô dâu?</p>
+                </div>
+                <div class="character-img">
+                    <img src="images/new/bride.png" alt="Cô dâu">
+                </div>
+                <button class="choose-btn" data-side="bride">
+                    <i class="fas fa-heart"></i>
+                    <span>Nhà Gái</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="choose-names">
+            <span class="groom-name-text">Dương Nguyên</span>
+            <span class="and-symbol">&</span>
+            <span class="bride-name-text">Hoàng Anh</span>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator" data-direction="down">
+            <span>Kéo xuống</span>
+            <div class="scroll-arrows">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 3: ABOUT US ===== -->
+    <section class="section-about" id="section3">
+        <h2 class="section-title">
+            <img src="images/new/flower_red.png" alt="" class="title-icon">
+            <span>Về Chúng Tôi</span>
+            <img src="images/new/flower_red.png" alt="" class="title-icon flip">
+        </h2>
+
+        <div class="about-couple">
+            <!-- Groom -->
+            <div class="about-person">
+                <div class="person-frame">
+                    <img src="images/new/groom.png" alt="Chú rể">
+                </div>
+                <h3 class="person-name">Dương Nguyên</h3>
+                <p class="person-role">Chú Rể</p>
+                <p class="person-desc">
+                    Sinh năm 1998<br>
+                    Yêu thích công nghệ & du lịch<br>
+                    Luôn mỉm cười và lạc quan
+                </p>
             </div>
 
             <!-- Divider -->
-            <div class="divider-line"></div>
+            <div class="about-heart">
+                <i class="fas fa-heart"></i>
+            </div>
 
-            <!-- Invitation text -->
-            <p class="invitation-text">
-                Invite you to share in the joy of their marriage
+            <!-- Bride -->
+            <div class="about-person">
+                <div class="person-frame">
+                    <img src="images/new/bride.png" alt="Cô dâu">
+                </div>
+                <h3 class="person-name">Hoàng Anh</h3>
+                <p class="person-role">Cô Dâu</p>
+                <p class="person-desc">
+                    Sinh năm 1999<br>
+                    Yêu thích nấu ăn & đọc sách<br>
+                    Dịu dàng và chu đáo
+                </p>
+            </div>
+        </div>
+
+        <!-- Our Story -->
+        <div class="our-story">
+            <h3 class="story-title">
+                <img src="images/new/fish_red.png" alt="" class="story-icon">
+                Our Story
+                <img src="images/new/fish_red.png" alt="" class="story-icon flip">
+            </h3>
+            <p class="story-text">
+                Chúng tôi gặp nhau vào một ngày thu đẹp trời năm 2020. 
+                Từ những cuộc trò chuyện nhỏ, tình yêu đã nảy nở và lớn dần theo thời gian. 
+                Sau 6 năm bên nhau, chúng tôi quyết định về chung một nhà để viết tiếp câu chuyện tình yêu của mình.
+            </p>
+        </div>
+
+        <!-- Scroll indicators -->
+        <div class="scroll-indicator scroll-up" data-direction="up">
+            <div class="scroll-arrows">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </div>
+        </div>
+        <div class="scroll-indicator scroll-down" data-direction="down">
+            <div class="scroll-arrows">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 4: DRESS CODE ===== -->
+    <section class="section-dresscode" id="section4">
+        <h2 class="section-title">
+            <i class="fas fa-tshirt title-fa-icon"></i>
+            <span>Dress Code</span>
+            <i class="fas fa-tshirt title-fa-icon"></i>
+        </h2>
+
+        <p class="dresscode-intro">
+            Để buổi tiệc thêm phần lung linh, chúng tôi mong quý khách tham dự với trang phục theo bảng màu sau:
+        </p>
+
+        <div class="color-palette">
+            <div class="color-item">
+                <div class="color-swatch" style="background: #fffefd; border: 1px solid #ddd;"></div>
+                <span class="color-name">Trắng Ngà</span>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #ece5cd;"></div>
+                <span class="color-name">Be Vàng</span>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #624736;"></div>
+                <span class="color-name">Nâu Đất</span>
+            </div>
+            <div class="color-item">
+                <div class="color-swatch" style="background: #0a0a08;"></div>
+                <span class="color-name">Đen</span>
+            </div>
+        </div>
+
+        <div class="dresscode-note">
+            <img src="images/new/bow_red.png" alt="" class="note-icon">
+            <p>Vui lòng tránh mặc đồ trắng tinh hoặc đỏ<br>để không trùng với cô dâu chú rể nhé!</p>
+        </div>
+
+        <!-- Scroll indicators -->
+        <div class="scroll-indicator scroll-up" data-direction="up">
+            <div class="scroll-arrows">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </div>
+        </div>
+        <div class="scroll-indicator scroll-down" data-direction="down">
+            <div class="scroll-arrows">
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+                <span class="chevron"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION 5: THANK YOU ===== -->
+    <section class="section-thankyou" id="section5">
+        <div class="thankyou-content">
+            <div class="thankyou-icon">
+                <img src="images/new/flower_red.png" alt="">
+            </div>
+
+            <h2 class="thankyou-title">Lời Cảm Ơn</h2>
+
+            <p class="thankyou-text">
+                Sự hiện diện của quý vị là niềm vinh hạnh lớn lao đối với gia đình chúng tôi. 
+                Chúng tôi xin chân thành cảm ơn những lời chúc phúc tốt đẹp mà quý vị dành cho đôi uyên ương trong ngày trọng đại này!
             </p>
 
-            <!-- Divider -->
-            <div class="divider-line"></div>
-
-            <!-- Wishes Marquee -->
-            <div class="wishes-marquee-section">
-                <p class="wishes-marquee-title">
-                    <i class="fas fa-heart"></i>
-                    Lời chúc từ quan khách
-                    <i class="fas fa-heart"></i>
-                </p>
-                <div class="wishes-marquee-track">
-                    <div class="wishes-marquee-content" id="wishesMarquee">
-                        <span class="wishes-loading">Đang tải lời chúc...</span>
-                    </div>
-                </div>
+            <div class="thankyou-divider">
+                <span></span>
+                <i class="fas fa-heart"></i>
+                <span></span>
             </div>
 
-            <!-- RSVP shortcut button -->
-            <button class="rsvp-shortcut" id="rsvpShortcut">
+            <button class="rsvp-btn" id="rsvpBtn">
                 <i class="fas fa-envelope-open-text"></i>
                 <span>Xác nhận tham dự</span>
             </button>
 
-            <!-- Choose side buttons -->
-            <div class="choose-side">
-                <p class="choose-side-text">Bạn là khách của</p>
-                <div class="choose-side-buttons">
-                    <button class="side-btn side-btn-groom" data-side="groom">
-                        <img src="images/groom.png" alt="Groom" class="side-btn-icon">
-                        <span>Nhà Trai</span>
-                    </button>
-                    <button class="side-btn side-btn-bride" data-side="bride">
-                        <img src="images/bride.png" alt="Bride" class="side-btn-icon">
-                        <span>Nhà Gái</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll down indicator -->
-        <div class="scroll-indicator scroll-down scroll-initial" data-direction="down">
-            <span class="scroll-indicator-text">Kéo xuống</span>
-            <div class="scroll-indicator-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 2: Lễ Hằng Thuận -->
-    <section class="section-ceremony" id="section2">
-        <!-- Floral decorations -->
-        <div class="floral-decor floral-1"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-2"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-3"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-4"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-5"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-6"><img src="images/lilac.png" alt=""></div>
-        
-        <div class="ceremony-container">
-            <div class="ceremony-header">
-                <i class="fas fa-spa ceremony-icon"></i>
-                <h2 class="ceremony-title">Lễ Hằng Thuận</h2>
-            </div>
-            <p class="ceremony-date">Thứ Bảy, 14.03.2026</p>
-            <a href="https://www.google.com/maps/place/Ch%C3%B9a+H%E1%BB%93ng+Ph%C3%BAc/@20.819936,106.632473,17z/data=!3m1!4b1!4m6!3m5!1s0x314a70b41fda9509:0xb3ef5c92395dd78e!8m2!3d20.819931!4d106.6350479!16s%2Fg%2F1th0vvjz?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="ceremony-location">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Chùa Hồng Phúc, Bắc Sơn, Kiến An, Hải Phòng</p>
-            </a>
-            
-            <div class="ceremony-timeline">
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">18:30 - Đón Khách</div>
-                    <div class="ceremony-desc">Chào đón quan khách tại chùa</div>
-                </div>
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">19:00 - Lễ Hằng Thuận</div>
-                    <div class="ceremony-desc">Nghi thức lễ hằng thuận tại chánh điện</div>
-                </div>
-            </div>
+            <p class="thankyou-credit">Made with <i class="fas fa-heart"></i> by Cô dâu & Chú rể</p>
         </div>
 
         <!-- Scroll up -->
         <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-indicator-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-        <!-- Scroll down -->
-        <div class="scroll-indicator scroll-down" data-direction="down">
-            <div class="scroll-indicator-arrows">
+            <div class="scroll-arrows">
                 <span class="chevron"></span>
                 <span class="chevron"></span>
             </div>
         </div>
     </section>
 
-    <!-- Section 3: Lễ Đón Dâu -->
-    <section class="section-ceremony section-dondau" id="section3">
-        <!-- Floral decorations -->
-        <div class="floral-decor floral-1"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-2"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-3"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-4"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-7"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-8"><img src="images/lilac.png" alt=""></div>
-        
-        <div class="ceremony-container">
-            <div class="ceremony-header">
-                <i class="fas fa-ring ceremony-icon"></i>
-                <h2 class="ceremony-title">Lễ Đón Dâu</h2>
-            </div>
-            <p class="ceremony-date">Thứ Sáu, 20.03.2026</p>
-            <a href="https://www.google.com/maps/place/32+%C4%91%C6%B0%E1%BB%9Dng+Do+Nha+4,+Qu%C3%A1n+Toan,+H%E1%BA%A3i+Ph%C3%B2ng,+Vi%E1%BB%87t+Nam/@20.8942424,106.5998966,17z/data=!3m1!4b1!4m6!3m5!1s0x314a79011adcf7f9:0xe1cc09fa121be4d1!8m2!3d20.8942374!4d106.6024715!16s%2Fg%2F11s5h8xysb?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="ceremony-location">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Nhà Trai: Số 32, Do Nha 4, P. Hồng An, Hải Phòng</p>
-            </a>
-            <a href="https://www.google.com/maps/place/89+P.+L%C3%AA+L%E1%BB%A3i,+M%C3%A1y+T%C6%A1,+Ng%C3%B4+Quy%E1%BB%81n,+H%E1%BA%A3i+Ph%C3%B2ng,+Vi%E1%BB%87t+Nam/@20.8580317,106.689813,17z/data=!3m1!4b1!4m6!3m5!1s0x314a7bb8f1ea3903:0xa75d77892f144a62!8m2!3d20.8580267!4d106.6923879!16s%2Fg%2F11l5p2tx9z?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="ceremony-location">
-                <i class="fas fa-map-marker-alt"></i>
-                <p>Nhà Gái: Số 89, Lê Lợi, P. Gia Viên, Hải Phòng</p>
-            </a>
-            
-            <div class="ceremony-timeline">
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">07:15 - Nhà Trai Xuất Phát</div>
-                    <div class="ceremony-desc">Đoàn nhà trai xuất phát đến nhà gái</div>
-                </div>
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">07:30 - Đến Nhà Gái</div>
-                    <div class="ceremony-desc">Đoàn nhà trai đến nhà gái</div>
-                </div>
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">08:30 - Lễ Xin Dâu</div>
-                    <div class="ceremony-desc">Nghi thức lễ xin dâu</div>
-                </div>
-                <div class="ceremony-item">
-                    <div class="ceremony-dot"></div>
-                    <div class="ceremony-title-line">10:00 - Rước Dâu</div>
-                    <div class="ceremony-desc">Đưa cô dâu về nhà trai</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll up -->
-        <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-indicator-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-        <!-- Scroll down -->
-        <div class="scroll-indicator scroll-down" data-direction="down">
-            <div class="scroll-indicator-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 4: Lời Cảm Ơn -->
-    <section class="section-thankyou" id="section4">
-        <!-- Floral decorations -->
-        <div class="floral-decor floral-3"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-4"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-7"><img src="images/lilac.png" alt=""></div>
-        <div class="floral-decor floral-8"><img src="images/lilac.png" alt=""></div>
-
-        <div class="thankyou-container">
-            <div class="thankyou-icon-top">
-                <i class="fas fa-heart"></i>
-            </div>
-            <p class="thankyou-text">
-                Những lời chúc phúc tốt đẹp của Quý vị sẽ là món quà vô cùng quý giá và ý nghĩa đối với Gia đình chúng tôi trong ngày trọng đại này!
-            </p>
-            <div class="thankyou-divider">
-                <span></span>
-                <i class="fas fa-envelope-open-text"></i>
-                <span></span>
-            </div>
-        </div>
-
-        <!-- Scroll up -->
-        <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-indicator-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modal: RSVP -->
-    <div class="modal-overlay modal-rsvp-overlay" id="modalRsvp">
-        <div class="modal-content modal-rsvp-content">
+    <!-- ===== MODAL: NHÀ TRAI ===== -->
+    <div class="modal-overlay" id="modalGroom">
+        <div class="modal-content">
             <button class="modal-close">&times;</button>
-            <div class="modal-body rsvp-section">
-                <!-- Bird illustration -->
-                <div class="bird-illustration">
-                    <img src="images/love-birds.png" alt="Love birds decoration">
+            <div class="modal-body">
+                <div class="modal-header">
+                    <img src="images/new/groom.png" alt="Groom" class="modal-icon">
+                    <h2 class="modal-title">Lễ Thành Hôn</h2>
+                    <p class="modal-subtitle">Nhà Trai</p>
                 </div>
 
-                <div class="rsvp-divider"></div>
+                <div class="modal-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Chủ Nhật, 22.03.2026</span>
+                    </div>
+                    <a href="https://www.google.com/maps/place/Canhhung+palace/@20.8934131,106.6047293,17z" target="_blank" class="info-item info-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Trung tâm tiệc cưới Cảnh Hưng<br>Số 32 KĐT Long Sơn, Quán Toan, Hải Phòng</span>
+                    </a>
+                </div>
 
-                <p class="rsvp-title">Please RSVP by</p>
-                <h2 class="rsvp-date">Mar 15, 2026</h2>
+                <div class="modal-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">10:30</span>
+                            <span class="timeline-event">Đón Khách</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">10:45</span>
+                            <span class="timeline-event">Lễ Thành Hôn</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">11:00</span>
+                            <span class="timeline-event">Tiệc Cưới</span>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="rsvp-bottom-line"></div>
+                <button class="modal-calendar-btn" data-event="groom">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Lưu vào lịch</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
-                <!-- RSVP Form -->
+    <!-- ===== MODAL: NHÀ GÁI ===== -->
+    <div class="modal-overlay" id="modalBride">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <div class="modal-header">
+                    <img src="images/new/bride.png" alt="Bride" class="modal-icon">
+                    <h2 class="modal-title">Lễ Vu Quy</h2>
+                    <p class="modal-subtitle">Nhà Gái</p>
+                </div>
+
+                <div class="modal-info">
+                    <div class="info-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Thứ Bảy, 28.03.2026</span>
+                    </div>
+                    <a href="https://www.google.com/maps/place/Trung+t%C3%A2m+ti%E1%BB%87c+c%C6%B0%E1%BB%9Bi+H%E1%BA%A3i+%C4%90%C4%83ng+Plaza" target="_blank" class="info-item info-link">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Trung tâm tiệc cưới Hải Đăng Plaza<br>Số 19 Trần Khánh Dư, Ngô Quyền, Hải Phòng</span>
+                    </a>
+                </div>
+
+                <div class="modal-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">11:00</span>
+                            <span class="timeline-event">Đón Khách</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">11:30</span>
+                            <span class="timeline-event">Lễ Vu Quy</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-time">11:45</span>
+                            <span class="timeline-event">Khai Tiệc</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="modal-calendar-btn" data-event="bride">
+                    <i class="fas fa-calendar-plus"></i>
+                    <span>Lưu vào lịch</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL: RSVP ===== -->
+    <div class="modal-overlay" id="modalRsvp">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <div class="modal-header">
+                    <img src="images/love-birds.png" alt="Love birds" class="modal-icon modal-icon-lg">
+                    <h2 class="modal-title">Xác Nhận Tham Dự</h2>
+                    <p class="modal-subtitle">Please RSVP by Mar 15, 2026</p>
+                </div>
+
                 <form class="rsvp-form" id="rsvpForm">
-                    <div class="rsvp-form-group">
-                        <div class="rsvp-input-wrap">
-                            <i class="fas fa-user rsvp-input-icon"></i>
-                            <input type="text" id="guestName" class="rsvp-input" placeholder="Họ và tên của bạn" required>
+                    <div class="form-group">
+                        <div class="input-wrap">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="guestName" placeholder="Họ và tên của bạn" required>
                         </div>
                     </div>
 
-                    <div class="rsvp-form-group rsvp-inline-row">
-                        <p class="rsvp-field-label">Khách của</p>
-                        <div class="rsvp-radio-group">
-                            <label class="rsvp-radio-pill">
-                                <input type="radio" name="side" value="groom" required checked>
-                                <span class="rsvp-pill">
-                                    <img src="images/groom.png" alt="" class="rsvp-pill-icon">
+                    <div class="form-group form-row">
+                        <label class="form-label">Khách của</label>
+                        <div class="radio-group">
+                            <label class="radio-pill">
+                                <input type="radio" name="side" value="groom" required>
+                                <span class="pill">
+                                    <img src="images/new/groom.png" alt="">
                                     Nhà Trai
                                 </span>
                             </label>
-                            <label class="rsvp-radio-pill">
+                            <label class="radio-pill">
                                 <input type="radio" name="side" value="bride">
-                                <span class="rsvp-pill">
-                                    <img src="images/bride.png" alt="" class="rsvp-pill-icon">
+                                <span class="pill">
+                                    <img src="images/new/bride.png" alt="">
                                     Nhà Gái
                                 </span>
                             </label>
                         </div>
                     </div>
 
-                    <div class="rsvp-form-group rsvp-inline-row">
-                        <p class="rsvp-field-label">Tham dự</p>
-                        <div class="rsvp-radio-group">
-                            <label class="rsvp-radio-pill">
-                                <input type="radio" name="attendance" value="yes" required checked>
-                                <span class="rsvp-pill">
+                    <div class="form-group form-row">
+                        <label class="form-label">Tham dự</label>
+                        <div class="radio-group">
+                            <label class="radio-pill">
+                                <input type="radio" name="attendance" value="yes" required>
+                                <span class="pill">
                                     <i class="fas fa-heart"></i>
                                     Sẽ đến
                                 </span>
                             </label>
-                            <label class="rsvp-radio-pill">
+                            <label class="radio-pill">
                                 <input type="radio" name="attendance" value="no">
-                                <span class="rsvp-pill">
+                                <span class="pill">
                                     <i class="fas fa-times"></i>
                                     Rất tiếc
                                 </span>
@@ -338,113 +420,15 @@
                         </div>
                     </div>
 
-                    <div class="rsvp-form-group">
-                        <div class="rsvp-textarea-wrap">
-                            <textarea id="guestWish" class="rsvp-input rsvp-textarea" placeholder="Lời chúc đến cô dâu & chú rể..." rows="2"></textarea>
-                        </div>
+                    <div class="form-group">
+                        <textarea id="guestWish" placeholder="Lời chúc đến cô dâu & chú rể..." rows="2"></textarea>
                     </div>
 
-                    <div class="rsvp-form-group rsvp-inline-row rsvp-dresscode-row">
-                        <p class="rsvp-field-label">Dress Code</p>
-                        <div class="dresscode-palette">
-                            <div class="dresscode-item">
-                                <div class="dresscode-swatch" style="background-color: #fffefd;"></div>
-                                <span class="dresscode-name">Trắng ngà</span>
-                            </div>
-                            <div class="dresscode-item">
-                                <div class="dresscode-swatch" style="background-color: #ece5cd;"></div>
-                                <span class="dresscode-name">Be vàng</span> 
-                            </div>
-                            <div class="dresscode-item">
-                                <div class="dresscode-swatch" style="background-color: #624736;"></div>
-                                <span class="dresscode-name">Nâu đất</span>
-                            </div>
-                            <div class="dresscode-item">
-                                <div class="dresscode-swatch" style="background-color: #0a0a08;"></div>
-                                <span class="dresscode-name">Đen</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="rsvp-submit-btn">
-                        <span>Xác nhận</span>
+                    <button type="submit" class="submit-btn">
+                        <span>Gửi xác nhận</span>
                         <i class="fas fa-paper-plane"></i>
                     </button>
                 </form>
-
-                <p class="rsvp-credit">Trang này được tạo bởi Chú rể & Cô dâu ^^!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Lễ Thành Hôn (Nhà Trai) -->
-    <div class="modal-overlay" id="modalGroom">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <div class="modal-body">
-                <div class="wedding-header">
-                    <img src="images/groom.png" alt="Groom icon" class="wedding-icon">
-                    <h2 class="wedding-title" style="color: #6b1010;">Lễ Thành Hôn</h2>
-                </div>
-                <p class="wedding-subtitle" style="color: #6b1010;">Nhà Trai</p>
-                <p class="wedding-date" style="color: #6b1010;">Chủ Nhật, 22.03.2026</p>
-                <a href="https://www.google.com/maps/place/Canhhung+palace/@20.8934131,106.6047293,17z/data=!4m9!3m8!1s0x314a79517f48d819:0xa0165e3dca9a94a3!5m2!4m1!1i2!8m2!3d20.8934089!4d106.6068945!16s%2Fg%2F11g0w44dy8?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="wedding-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Trung tâm tiệc cưới Cảnh Hưng, Số 32 KĐT Long Sơn, Quán Toan, Hồng An, Hải Phòng</p>
-                </a>
-                <div class="wedding-timeline">
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">10:30 - Đón Khách</div>
-                        <div class="wedding-desc">Chào đón quan khách tại sảnh tiệc tại Tầng 1</div>
-                    </div>
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">10:45 - Lễ Thành Hôn</div>
-                        <div class="wedding-desc">Nghi thức lễ thành hôn</div>
-                    </div>
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">11:00 - Tiệc Cưới</div>
-                        <div class="wedding-desc">Khai tiệc và chương trình văn nghệ</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal: Lễ Vu Quy (Nhà Gái) -->
-    <div class="modal-overlay" id="modalBride">
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <div class="modal-body">
-                <div class="wedding-header">
-                    <img src="images/bride.png" alt="Bride icon" class="wedding-icon">
-                    <h2 class="wedding-title" style="color: #6b1010;">Lễ Vu Quy</h2>
-                </div>
-                <p class="wedding-subtitle" style="color: #6b1010;">Nhà Gái</p>
-                <p class="wedding-date" style="color: #6b1010;">Thứ Bảy, 28.03.2026</p>
-                <a href="https://www.google.com/maps/place/Trung+t%C3%A2m+ti%E1%BB%87c+c%C6%B0%E1%BB%9Bi+H%E1%BA%A3i+%C4%90%C4%83ng+Plaza+H%E1%BA%A3i+Ph%C3%B2ng/@20.8627529,106.6896983,17z/data=!4m6!3m5!1s0x314a7be3b26b7f15:0xfb767616d10e5e50!8m2!3d20.8627479!4d106.6922732!16s%2Fg%2F11j13k1chg?entry=ttu&g_ep=EgoyMDI2MDMwMS4xIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" class="wedding-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <p>Trung tâm tiệc cưới Hải Đăng Plaza, Số 19 Trần Khánh Dư, Ngô Quyền, Hải Phòng</p>
-                </a>
-                <div class="wedding-timeline">
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">11:00 - Đón Khách</div>
-                        <div class="wedding-desc">Chào đón quan khách tại Tầng 1 Sảnh Happy Palace</div>
-                    </div>
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">11:30 - Lễ Vu Quy</div>
-                        <div class="wedding-desc">Nghi thức lễ vu quy</div>
-                    </div>
-                    <div class="wedding-item animate">
-                        <div class="wedding-dot"></div>
-                        <div class="wedding-title-line">11:45 - Khai tiệc</div>
-                        <div class="wedding-desc">Khai tiệc và chương trình văn nghệ</div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -453,8 +437,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
     <script>
-        // TODO: Replace with your Firebase project config
-        // Go to https://console.firebase.google.com → Create project → Web app → Copy config
         var firebaseConfig = {
             apiKey: "AIzaSyBs1wAhKcU8rgQzw963Zx3fHqBxjvGf-0A",
             authDomain: "nguynx-wedding.firebaseapp.com",
@@ -466,6 +448,6 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
     </script>
-    <script src="script.js?v=20260304"></script>
+    <script src="script.js?v=20260312"></script>
 </body>
 </html>
