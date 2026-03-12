@@ -21,6 +21,13 @@ body {
     min-height: calc(var(--vh, 1vh) * 100);
     overflow-x: hidden;
     overscroll-behavior: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img {
+    max-width: 100%;
+    display: block;
 }
 
 /* ========== SECTION 1: COVER PAGE ========== */
@@ -38,7 +45,7 @@ body {
 .cover-content {
     text-align: center;
     padding: 20px;
-    padding-top: 60px;
+    padding-top: 36px;
     z-index: 2;
 }
 
@@ -53,20 +60,20 @@ body {
 
 .cover-title {
     font-family: 'Mrs Saint Delafield', cursive;
-    font-size: 72px;
+    font-size: clamp(54px, 10vw, 72px);
     font-weight: 400;
     color: #fff;
     line-height: 1;
-    margin-bottom: 40px;
+    margin-bottom: 22px;
     text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 .cover-envelope-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     gap: 0;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
     position: relative;
 }
 
@@ -79,20 +86,20 @@ body {
 }
 
 .character-main {
-    width: clamp(90px, 20vw, 150px);
+    width: clamp(84px, 18vw, 120px);
     height: auto;
     filter: drop-shadow(2px 4px 8px rgba(0,0,0,0.5));
 }
 
 .cover-groom {
-    transform: translate(20px, 20px);
+    transform: translate(22px, 8px);
 }
 
 .cover-bride {
-    transform: translate(-20px, 20px);
+    transform: translate(-22px, 8px);
 }
 
-/* Letter styles */
+/* Letter / Card styles */
 .cover-letter {
     position: relative;
     z-index: 1;
@@ -102,40 +109,208 @@ body {
     justify-content: center;
 }
 
-.letter-img {
-    width: clamp(220px, 50vw, 320px);
+.letter-sheet {
+    position: relative;
+    width: clamp(250px, 56vw, 370px);
+    aspect-ratio: 5 / 3.25;
+    background: linear-gradient(175deg, #f8efe2 0%, #efe5d4 50%, #f3ead9 100%);
+    border-radius: 8px;
+    border: 1px solid rgba(190, 172, 141, 0.5);
+    transform: rotate(-2.2deg);
+    filter: drop-shadow(0 14px 30px rgba(0,0,0,0.34));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    padding-top: clamp(18px, 4.2vw, 28px);
+}
+
+/* Subtle paper texture lines */
+.letter-sheet::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0)),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            rgba(168, 149, 117, 0.08) 20px,
+            rgba(168, 149, 117, 0.08) 21px
+        );
+    pointer-events: none;
+}
+
+.env-icon {
+    position: absolute;
+    width: clamp(24px, 6vw, 34px);
     height: auto;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
-    transform: rotate(-3deg);
+    opacity: 0.9;
+    z-index: 2;
+}
+
+.env-bow {
+    top: clamp(10px, 2.8vw, 16px);
+    left: clamp(10px, 2.8vw, 16px);
+}
+
+.env-cheer {
+    top: clamp(10px, 2.8vw, 16px);
+    right: clamp(10px, 2.8vw, 16px);
+}
+
+.env-text {
+    text-align: center;
+    padding: 8px 24px 0;
+    z-index: 2;
+    margin-top: clamp(18px, 3.8vw, 26px);
+    margin-bottom: clamp(44px, 7vw, 56px);
+}
+
+.env-script {
+    font-family: 'Mrs Saint Delafield', cursive;
+    font-size: clamp(24px, 4.8vw, 34px);
+    color: #4a3f35;
+    line-height: 1.08;
+    margin-bottom: 8px;
+}
+
+.env-heart {
+    display: inline-block;
+    color: #c0392b;
+    font-size: clamp(12px, 3vw, 18px);
+    animation: heartbeat 1.5s ease-in-out infinite;
 }
 
 .cover-open-btn {
+    margin-top: 0;
     position: absolute;
-    bottom: 12%;
     left: 50%;
-    transform: translateX(-50%) rotate(-3deg);
+    bottom: clamp(10px, 2.3vw, 14px);
+    transform: translateX(-50%);
     background: linear-gradient(135deg, #8b0000 0%, #6b0000 100%);
     color: #fff;
     border: none;
-    padding: clamp(6px, 1.5vw, 10px) clamp(14px, 3.5vw, 24px);
+    padding: clamp(8px, 1.6vw, 10px) clamp(18px, 5vw, 36px);
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(7px, 1.5vw, 10px);
-    font-weight: 600;
-    letter-spacing: 1.5px;
+    font-size: clamp(9px, 1.75vw, 11px);
+    font-weight: 700;
+    letter-spacing: 3px;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 3px;
     transition: all 0.3s ease;
-    box-shadow: 0 3px 12px rgba(139, 0, 0, 0.4);
+    box-shadow: 0 6px 16px rgba(120, 10, 10, 0.3);
     z-index: 5;
+    width: 78%;
+}
+
+.cover-open-btn::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    top: -6px;
+    height: 6px;
+    background: radial-gradient(circle at 5px 0, transparent 5px, #8b0000 5px);
+    background-size: 10px 6px;
+    background-repeat: repeat-x;
+    z-index: -1;
+}
+
+.cover-open-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 5px 100%, transparent 5px, #8b0000 5px) bottom left / 10px 6px repeat-x,
+        radial-gradient(circle at 100% 5px, transparent 5px, #8b0000 5px) top right / 6px 10px repeat-y,
+        radial-gradient(circle at 0 5px, transparent 5px, #8b0000 5px) top left / 6px 10px repeat-y;
+    background-repeat: repeat-x, repeat-y, repeat-y;
+    z-index: -1;
 }
 
 .cover-open-btn:hover {
-    transform: translateX(-50%) rotate(-3deg) scale(1.05);
-    box-shadow: 0 5px 18px rgba(139, 0, 0, 0.5);
+    background: linear-gradient(135deg, #a00000 0%, #7b0000 100%);
+    box-shadow: 0 8px 20px rgba(120, 10, 10, 0.36);
 }
 
 .cover-open-btn:active {
-    transform: scale(0.98);
+    transform: translateX(-50%) translateY(1px);
+}
+
+/* ========== SPARKLE STARS ========== */
+.sparkles {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    animation: sparkleAnim 2.7s ease-in-out infinite;
+}
+
+.sparkle::before,
+.sparkle::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.sparkle::before {
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    border-radius: 1px;
+}
+
+.sparkle::after {
+    width: 2px;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    border-radius: 1px;
+}
+
+.sparkle.sm {
+    width: 3px;
+    height: 3px;
+}
+
+.sparkle.sm::before {
+    height: 1.5px;
+}
+
+.sparkle.sm::after {
+    width: 1.5px;
+}
+
+.sparkle.xs {
+    width: 2px;
+    height: 2px;
+}
+
+.sparkle.xs::before {
+    height: 1px;
+}
+
+.sparkle.xs::after {
+    width: 1px;
+}
+
+@keyframes sparkleAnim {
+    0%, 100% { opacity: 0.12; transform: scale(0.65) rotate(0deg); }
+    50% { opacity: 0.95; transform: scale(1.1) rotate(45deg); }
 }
 
 /* Button styles moved inside envelope */
@@ -176,14 +351,22 @@ body {
 .choose-characters {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 6px;
 }
 
 .character-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.choose-center {
+    width: 54px;
+    display: flex;
+    justify-content: center;
+    padding-top: 140px;
 }
 
 .speech-bubble {
@@ -229,66 +412,82 @@ body {
 
 .character-img {
     margin-bottom: 15px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
 }
 
-.character-img img {
-    width: 120px;
-    height: auto;
+.choose-trigger {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.choose-trigger:focus-visible {
+    outline: 2px solid #8b0000;
+    outline-offset: 6px;
+    border-radius: 10px;
+}
+
+.character-img .choose-character-img {
+    --tilt: 0deg;
+    --offset-x: 0px;
+    width: 126px;
+    height: 126px;
+    object-fit: contain;
+    object-position: center bottom;
+    transform-origin: center bottom;
+    transform: rotate(var(--tilt)) translateX(var(--offset-x));
+    transition: transform 0.25s ease, filter 0.25s ease;
     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
 }
 
-.choose-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #8b0000;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+.choose-groom-img {
+    --tilt: -5deg;
+    --offset-x: 2px;
 }
 
-.choose-btn:hover {
-    background: #6b0000;
-    transform: translateY(-2px);
+.choose-bride-img {
+    --tilt: 5deg;
+    --offset-x: -2px;
 }
 
-.choose-btn i {
-    font-size: 10px;
-}
-
-.choose-names {
-    text-align: center;
-    margin-top: 20px;
+.choose-trigger:hover .choose-character-img,
+.choose-trigger:focus-visible .choose-character-img {
+    transform: rotate(var(--tilt)) translateX(var(--offset-x)) translateY(-3px) scale(1.03);
 }
 
 .groom-name-text,
 .bride-name-text {
-    font-family: 'Mrs Saint Delafield', cursive;
-    font-size: 36px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 46px;
+    font-weight: 600;
     color: #8b0000;
 }
 
+.choose-person-name {
+    display: block;
+    margin-top: 2px;
+    line-height: 1;
+}
+
 .and-symbol {
-    font-family: 'Mrs Saint Delafield', cursive;
-    font-size: 28px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 36px;
+    font-weight: 600;
     color: #8b0000;
-    margin: 0 15px;
+    margin: 0;
+    line-height: 1;
 }
 
 /* ========== SECTION 3: ABOUT US ========== */
 .section-about {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
     background: linear-gradient(180deg, #f0ebe0 0%, #f8f5eb 100%);
-    padding: 50px 20px;
+    padding: 50px 20px 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -397,7 +596,7 @@ body {
     background: #fff;
     padding: 25px 30px;
     border-radius: 15px;
-    max-width: 500px;
+    width: min(100%, 500px);
     text-align: center;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
 }
@@ -429,16 +628,70 @@ body {
     line-height: 1.8;
 }
 
+.story-gallery {
+    margin-top: 18px;
+    width: min(100%, 500px);
+    padding: 6px 0;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.photo-stack {
+    position: relative;
+    height: 230px;
+    width: min(100%, 390px);
+}
+
+.photo-card {
+    position: absolute;
+    width: clamp(145px, 35vw, 185px);
+    background: #fff;
+    border-radius: 3px;
+    padding: 8px 8px 14px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+.photo-left {
+    left: 10px;
+    top: 6px;
+    transform: rotate(-6deg);
+    z-index: 1;
+}
+
+.photo-right {
+    right: 10px;
+    top: 13px;
+    transform: rotate(6deg);
+    z-index: 2;
+}
+
+.photo-placeholder {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 2px;
+    background:
+        linear-gradient(135deg, rgba(180, 180, 180, 0.25), rgba(130, 130, 130, 0.2)),
+        repeating-linear-gradient(45deg, #ececec, #ececec 12px, #e3e3e3 12px, #e3e3e3 24px);
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
 /* ========== SECTION 4: DRESS CODE ========== */
 .section-dresscode {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
+    min-height: auto;
     background: linear-gradient(180deg, #f8f5eb 0%, #f0ebe0 100%);
-    padding: 50px 20px;
+    padding: 22px 20px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     position: relative;
 }
 
@@ -713,10 +966,9 @@ body {
 .modal-content {
     background: #f8f5eb;
     border-radius: 20px;
-    max-width: 400px;
-    width: 100%;
-    max-height: 85vh;
-    overflow: hidden;
+    width: min(94vw, 520px);
+    max-height: calc(100vh - 24px);
+    overflow: auto;
     transform: scale(0.9) translateY(20px);
     transition: transform 0.3s ease;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -728,11 +980,11 @@ body {
 
 .modal-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 12px;
+    right: 12px;
     background: none;
     border: none;
-    font-size: 28px;
+    font-size: clamp(24px, 4.5vw, 30px);
     color: #8b0000;
     cursor: pointer;
     opacity: 0.6;
@@ -745,9 +997,7 @@ body {
 }
 
 .modal-body {
-    padding: 30px 25px;
-    overflow-y: auto;
-    max-height: 85vh;
+    padding: clamp(24px, 4.5vw, 34px) clamp(18px, 4vw, 30px) clamp(22px, 4vw, 30px);
     position: relative;
 }
 
@@ -757,66 +1007,86 @@ body {
 }
 
 .modal-icon {
-    width: 80px;
+    width: clamp(72px, 14vw, 90px);
     height: auto;
-    margin-bottom: 15px;
+    margin: 0 auto 14px;
 }
 
 .modal-icon-lg {
-    width: 100px;
+    width: clamp(88px, 18vw, 110px);
 }
 
 .modal-title {
-    font-family: 'Dancing Script', cursive;
-    font-size: 32px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(31px, 6vw, 38px);
+    font-weight: 600;
     color: #8b0000;
-    margin-bottom: 5px;
+    line-height: 1.1;
+    margin-bottom: 6px;
 }
 
 .modal-subtitle {
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    font-size: clamp(12px, 2.2vw, 14px);
     font-weight: 500;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     color: #666;
 }
 
 .modal-info {
-    margin-bottom: 25px;
+    margin: 0 auto 22px;
+    max-width: 390px;
+    display: grid;
+    gap: 10px;
 }
 
 .info-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    justify-content: flex-start;
     gap: 12px;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(139, 0, 0, 0.1);
+    padding: 12px 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(139, 0, 0, 0.14);
+    background: linear-gradient(180deg, rgba(255, 252, 245, 0.95) 0%, rgba(249, 241, 225, 0.9) 100%);
+    text-align: left;
 }
 
 .info-item i {
-    color: #8b0000;
-    font-size: 16px;
-    margin-top: 3px;
+    color: #fff;
+    background: #8b0000;
+    font-size: 12px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .info-item span {
-    font-family: 'Cormorant', serif;
-    font-size: 15px;
-    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(15px, 2.9vw, 18px);
+    font-weight: 500;
+    color: #4b4b4b;
     line-height: 1.5;
 }
 
 .info-link {
     text-decoration: none;
-    transition: opacity 0.3s;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .info-link:hover {
-    opacity: 0.8;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(139, 0, 0, 0.12);
 }
 
 .modal-timeline {
-    margin-bottom: 25px;
+    margin: 0 auto 25px;
+    width: min(100%, 320px);
+    text-align: left;
 }
 
 .timeline-item {
@@ -852,14 +1122,15 @@ body {
 
 .timeline-time {
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: clamp(15px, 2.8vw, 17px);
+    font-weight: 700;
     color: #8b0000;
 }
 
 .timeline-event {
-    font-family: 'Cormorant', serif;
-    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(14px, 2.6vw, 16px);
+    font-weight: 400;
     color: #555;
 }
 
@@ -872,18 +1143,123 @@ body {
     background: #8b0000;
     color: #fff;
     border: none;
-    padding: 14px;
+    padding: 13px;
     border-radius: 30px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 12px;
+    font-size: clamp(12px, 2.8vw, 14px);
     font-weight: 600;
     letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(139, 0, 0, 0.24);
 }
 
 .modal-calendar-btn:hover {
     background: #6b0000;
+}
+
+#modalGroom .modal-content,
+#modalBride .modal-content {
+    width: min(92vw, 480px);
+    background: linear-gradient(180deg, #faf7ee 0%, #f4efe3 100%);
+    border: 1px solid rgba(139, 0, 0, 0.18);
+    border-radius: 22px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+#modalGroom .modal-body,
+#modalBride .modal-body {
+    text-align: left;
+    padding: clamp(22px, 4.2vw, 32px) clamp(18px, 4.2vw, 30px) clamp(20px, 4vw, 30px);
+}
+
+#modalGroom .modal-header,
+#modalBride .modal-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+#modalGroom .modal-icon,
+#modalBride .modal-icon {
+    width: clamp(84px, 15vw, 106px);
+    margin: 0 auto 10px;
+}
+
+#modalGroom .modal-title,
+#modalBride .modal-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(44px, 7.2vw, 56px);
+    line-height: 0.95;
+    letter-spacing: 0.2px;
+    margin-bottom: 8px;
+}
+
+#modalGroom .modal-subtitle,
+#modalBride .modal-subtitle {
+    font-size: clamp(12px, 2.4vw, 14px);
+    font-weight: 600;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+    color: #6f6f6f;
+}
+
+#modalGroom .modal-info,
+#modalBride .modal-info {
+    max-width: 100%;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+#modalGroom .info-item,
+#modalBride .info-item {
+    border-radius: 15px;
+    border-color: rgba(139, 0, 0, 0.2);
+    background: rgba(255, 251, 242, 0.95);
+    padding: 12px 14px;
+}
+
+#modalGroom .info-item span,
+#modalBride .info-item span {
+    font-size: clamp(14px, 2.9vw, 16px);
+    line-height: 1.45;
+    font-weight: 500;
+}
+
+#modalGroom .modal-timeline,
+#modalBride .modal-timeline {
+    width: 100%;
+    background: rgba(255, 251, 242, 0.9);
+    border: 1px solid rgba(139, 0, 0, 0.16);
+    border-radius: 16px;
+    padding: 10px 14px 4px;
+    margin-bottom: 16px;
+}
+
+#modalGroom .timeline-item,
+#modalBride .timeline-item {
+    gap: 12px;
+    padding: 10px 0;
+}
+
+#modalGroom .timeline-item:not(:last-child)::after,
+#modalBride .timeline-item:not(:last-child)::after {
+    left: 5px;
+    top: 31px;
+    height: calc(100% - 6px);
+}
+
+#modalGroom .timeline-dot,
+#modalBride .timeline-dot {
+    width: 12px;
+    height: 12px;
+}
+
+#modalGroom .modal-calendar-btn,
+#modalBride .modal-calendar-btn {
+    border-radius: 18px;
+    padding: 12px;
+    letter-spacing: 0.6px;
+    font-weight: 700;
 }
 
 /* ========== RSVP FORM ========== */
@@ -1065,28 +1441,58 @@ textarea::placeholder {
 /* ========== RESPONSIVE ========== */
 @media (max-width: 600px) {
     .cover-title {
-        font-size: 52px;
+        font-size: 50px;
     }
     
-    .cover-character img:last-child {
-        width: 70px;
+    .character-main {
+        width: clamp(68px, 18vw, 96px);
     }
     
-    .cover-envelope {
-        width: 180px;
-        padding: 25px 15px 20px;
+    .cover-groom {
+        transform: translate(16px, 6px);
     }
     
-    .envelope-text {
-        font-size: 16px;
+    .cover-bride {
+        transform: translate(-16px, 6px);
+    }
+
+    .letter-sheet {
+        width: clamp(230px, 64vw, 300px);
+    }
+
+    .env-script {
+        font-size: clamp(21px, 6.2vw, 28px);
+    }
+
+    .cover-open-btn {
+        letter-spacing: 2.4px;
     }
     
     .choose-characters {
         gap: 15px;
+        align-items: flex-start;
+    }
+
+    .choose-center {
+        width: 36px;
+        padding-top: 114px;
     }
     
-    .character-img img {
-        width: 90px;
+    .character-img {
+        height: 122px;
+    }
+
+    .character-img .choose-character-img {
+        width: 98px;
+        height: 98px;
+    }
+
+    .choose-groom-img {
+        transform: rotate(-4deg) translateX(1px);
+    }
+
+    .choose-bride-img {
+        transform: rotate(4deg) translateX(-1px);
     }
     
     .speech-bubble {
@@ -1097,14 +1503,39 @@ textarea::placeholder {
         font-size: 12px;
     }
     
-    .choose-btn {
-        padding: 8px 16px;
-        font-size: 10px;
-    }
-    
     .groom-name-text,
     .bride-name-text {
+        font-size: 34px;
+    }
+
+    .and-symbol {
         font-size: 28px;
+    }
+
+    .story-gallery {
+        margin-top: 28px;
+        width: min(100%, 500px);
+        padding: 2px 0;
+    }
+
+    .photo-stack {
+        height: 190px;
+        width: min(100%, 330px);
+    }
+
+    .photo-card {
+        width: clamp(118px, 37vw, 146px);
+        padding: 7px 7px 10px;
+    }
+
+    .photo-left {
+        left: 6px;
+        transform: rotate(-7deg);
+    }
+
+    .photo-right {
+        right: 6px;
+        transform: rotate(7deg);
     }
     
     .about-couple {
@@ -1119,5 +1550,181 @@ textarea::placeholder {
     .color-swatch {
         width: 55px;
         height: 55px;
+    }
+
+    .modal-overlay {
+        padding: 10px;
+    }
+
+    .modal-content {
+        width: min(96vw, 420px);
+        border-radius: 16px;
+    }
+
+    .modal-timeline {
+        width: min(100%, 290px);
+    }
+
+    .timeline-item {
+        padding: 10px 0;
+        gap: 12px;
+    }
+
+    .timeline-item:not(:last-child)::after {
+        top: 30px;
+        height: calc(100% - 6px);
+    }
+
+    .modal-calendar-btn {
+        border-radius: 22px;
+    }
+
+    #modalGroom .modal-content,
+    #modalBride .modal-content {
+        width: min(96vw, 430px);
+        border-radius: 18px;
+    }
+
+    #modalGroom .modal-title,
+    #modalBride .modal-title {
+        font-size: clamp(36px, 11vw, 46px);
+    }
+
+    #modalGroom .modal-subtitle,
+    #modalBride .modal-subtitle {
+        letter-spacing: 2px;
+    }
+
+    #modalGroom .modal-timeline,
+    #modalBride .modal-timeline {
+        width: 100%;
+        padding: 8px 12px 2px;
+    }
+
+    #modalGroom .info-item,
+    #modalBride .info-item {
+        padding: 11px 12px;
+    }
+
+    #modalGroom .info-item span,
+    #modalBride .info-item span {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 960px) {
+    .section-about,
+    .section-dresscode,
+    .section-thankyou {
+        padding: 42px 16px;
+    }
+
+    .section-about {
+        padding-bottom: 16px;
+    }
+
+    .section-dresscode {
+        padding-top: 18px;
+    }
+
+    .cover-title {
+        font-size: clamp(46px, 11vw, 64px);
+    }
+
+    .choose-characters {
+        gap: 20px;
+        flex-wrap: nowrap;
+    }
+
+    .our-story,
+    .story-gallery,
+    .dresscode-intro,
+    .dresscode-note,
+    .thankyou-content {
+        width: min(100%, 500px);
+    }
+}
+
+@media (max-width: 420px) {
+    .choose-title,
+    .thankyou-title {
+        font-size: 34px;
+    }
+
+    .section-title span {
+        font-size: 31px;
+    }
+
+    .our-story {
+        padding: 20px 16px;
+    }
+
+    .story-text,
+    .dresscode-intro,
+    .thankyou-text {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    .color-palette {
+        gap: 14px;
+    }
+
+    .rsvp-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-height: 760px) {
+    .modal-overlay {
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .modal-content {
+        max-height: calc(100vh - 20px);
+    }
+
+    .modal-header {
+        margin-bottom: 16px;
+    }
+
+    .modal-info {
+        margin-bottom: 14px;
+        gap: 8px;
+    }
+
+    .modal-timeline {
+        margin-bottom: 14px;
+    }
+
+    #modalGroom .modal-content,
+    #modalBride .modal-content {
+        max-height: calc(100vh - 12px);
+    }
+
+    #modalGroom .modal-body,
+    #modalBride .modal-body {
+        padding-top: 16px;
+        padding-bottom: 14px;
+    }
+
+    #modalGroom .modal-icon,
+    #modalBride .modal-icon {
+        width: clamp(70px, 14vw, 90px);
+        margin-bottom: 6px;
+    }
+
+    #modalGroom .modal-title,
+    #modalBride .modal-title {
+        margin-bottom: 2px;
+    }
+
+    #modalGroom .modal-info,
+    #modalBride .modal-info,
+    #modalGroom .modal-timeline,
+    #modalBride .modal-timeline {
+        margin-bottom: 10px;
     }
 }

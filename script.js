@@ -9,80 +9,14 @@ window.addEventListener('orientationchange', function() {
     setTimeout(setVH, 100);
 });
 
-// ========== SCROLL SNAP SYSTEM ==========
-var sections = [];
-var currentSection = 0;
-var isAnimating = false;
-var touchStartY = 0;
-var ANIMATION_DURATION = 500;
-
-function initSections() {
-    sections = document.querySelectorAll('section');
-}
-
-function goToSection(index) {
-    if (index < 0 || index >= sections.length || isAnimating) return;
-    isAnimating = true;
-    currentSection = index;
-    
-    sections[index].scrollIntoView({ behavior: 'smooth' });
-    
-    setTimeout(function() {
-        isAnimating = false;
-    }, ANIMATION_DURATION);
-}
-
-// Touch events
-document.addEventListener('touchstart', function(e) {
-    if (isModalOpen()) return;
-    touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-document.addEventListener('touchend', function(e) {
-    if (isModalOpen() || isAnimating) return;
-    
-    var touchEndY = e.changedTouches[0].clientY;
-    var diff = touchStartY - touchEndY;
-    
-    if (Math.abs(diff) > 50) {
-        if (diff > 0 && currentSection < sections.length - 1) {
-            goToSection(currentSection + 1);
-        } else if (diff < 0 && currentSection > 0) {
-            goToSection(currentSection - 1);
-        }
-    }
-}, { passive: true });
-
-// Wheel events
-document.addEventListener('wheel', function(e) {
-    if (isModalOpen() || isAnimating) return;
-    e.preventDefault();
-    
-    if (e.deltaY > 30 && currentSection < sections.length - 1) {
-        goToSection(currentSection + 1);
-    } else if (e.deltaY < -30 && currentSection > 0) {
-        goToSection(currentSection - 1);
-    }
-}, { passive: false });
-
-// Scroll indicator clicks
-document.addEventListener('click', function(e) {
-    var indicator = e.target.closest('.scroll-indicator');
-    if (!indicator) return;
-    
-    var direction = indicator.getAttribute('data-direction');
-    if (direction === 'down' && currentSection < sections.length - 1) {
-        goToSection(currentSection + 1);
-    } else if (direction === 'up' && currentSection > 0) {
-        goToSection(currentSection - 1);
-    }
-});
-
 // ========== COVER OPEN BUTTON ==========
 var openBtn = document.getElementById('openBtn');
 if (openBtn) {
     openBtn.addEventListener('click', function() {
-        goToSection(1);
+        var section2 = document.getElementById('section2');
+        if (section2) {
+            section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
     });
 }
 
@@ -109,8 +43,8 @@ function closeModal(modal) {
     document.body.style.overflow = '';
 }
 
-// Choose side buttons
-document.querySelectorAll('.choose-btn').forEach(function(btn) {
+// Choose side image triggers
+document.querySelectorAll('.choose-trigger').forEach(function(btn) {
     btn.addEventListener('click', function() {
         var side = this.getAttribute('data-side');
         if (side === 'groom') {
@@ -289,13 +223,10 @@ if (rsvpForm) {
 
 // ========== INIT ==========
 document.addEventListener('DOMContentLoaded', function() {
-    initSections();
     setVH();
     window.scrollTo(0, 0);
 });
 
 window.addEventListener('load', function() {
-    initSections();
-    currentSection = 0;
     window.scrollTo(0, 0);
 });

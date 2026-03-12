@@ -11,6 +11,22 @@
 <body>
     <!-- ===== SECTION 1: COVER PAGE ===== -->
     <section class="section-cover" id="section1">
+        <!-- Sparkle stars background -->
+        <div class="sparkles">
+            <span class="sparkle" style="top:8%;left:5%;animation-delay:0s;"></span>
+            <span class="sparkle" style="top:15%;left:88%;animation-delay:0.5s;"></span>
+            <span class="sparkle" style="top:56%;left:6%;animation-delay:1.2s;"></span>
+            <span class="sparkle" style="top:64%;left:93%;animation-delay:0.3s;"></span>
+            <span class="sparkle sm" style="top:22%;left:14%;animation-delay:1.8s;"></span>
+            <span class="sparkle sm" style="top:33%;left:83%;animation-delay:0.7s;"></span>
+            <span class="sparkle sm" style="top:78%;left:12%;animation-delay:1.5s;"></span>
+            <span class="sparkle sm" style="top:86%;left:90%;animation-delay:0.2s;"></span>
+            <span class="sparkle xs" style="top:10%;left:45%;animation-delay:0.8s;"></span>
+            <span class="sparkle xs" style="top:48%;left:30%;animation-delay:1.4s;"></span>
+            <span class="sparkle xs" style="top:72%;left:68%;animation-delay:1.1s;"></span>
+            <span class="sparkle xs" style="top:90%;left:58%;animation-delay:0.9s;"></span>
+        </div>
+
         <div class="cover-content">
             <p class="cover-presenting">P R E S E N T I N G</p>
             <h1 class="cover-title">Our Wedding</h1>
@@ -21,12 +37,19 @@
                     <img src="images/new/groom.png" alt="Chú rể" class="character-main">
                 </div>
                 
-                <!-- Letter/Envelope -->
+                <!-- Custom Envelope Design -->
                 <div class="cover-letter">
-                    <img src="images/new/letter.png" alt="Letter" class="letter-img">
-                    <button class="cover-open-btn" id="openBtn">
-                        <span>CLICK TO OPEN</span>
-                    </button>
+                    <div class="letter-sheet">
+                        <img src="images/new/bow_red.png" alt="" class="env-icon env-bow">
+                        <img src="images/new/cheer_red.png" alt="" class="env-icon env-cheer">
+                        <div class="env-text">
+                            <p class="env-script">Our journey to forever<br>begins Today</p>
+                            <span class="env-heart"><i class="fas fa-heart"></i></span>
+                        </div>
+                        <button class="cover-open-btn" id="openBtn">
+                            <span>CLICK TO OPEN</span>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Bride character -->
@@ -50,13 +73,16 @@
                 <div class="speech-bubble bubble-groom">
                     <p>Bạn là khách mời<br>của chú rể?</p>
                 </div>
-                <div class="character-img">
-                    <img src="images/new/groom.png" alt="Chú rể">
-                </div>
-                <button class="choose-btn" data-side="groom">
-                    <i class="fas fa-heart"></i>
-                    <span>Nhà Trai</span>
+                <button class="choose-trigger" data-side="groom" aria-label="Mở thông tin Nhà Trai">
+                    <div class="character-img">
+                        <img src="images/new/groom_funny.png" alt="Chú rể" class="choose-character-img choose-groom-img">
+                    </div>
                 </button>
+                <span class="groom-name-text choose-person-name">Dương Nguyên</span>
+            </div>
+
+            <div class="choose-center">
+                <span class="and-symbol">&</span>
             </div>
 
             <!-- Bride side -->
@@ -64,29 +90,12 @@
                 <div class="speech-bubble bubble-bride">
                     <p>Bạn là khách mời<br>của cô dâu?</p>
                 </div>
-                <div class="character-img">
-                    <img src="images/new/bride.png" alt="Cô dâu">
-                </div>
-                <button class="choose-btn" data-side="bride">
-                    <i class="fas fa-heart"></i>
-                    <span>Nhà Gái</span>
+                <button class="choose-trigger" data-side="bride" aria-label="Mở thông tin Nhà Gái">
+                    <div class="character-img">
+                        <img src="images/new/bride_funny.png" alt="Cô dâu" class="choose-character-img choose-bride-img">
+                    </div>
                 </button>
-            </div>
-        </div>
-
-        <div class="choose-names">
-            <span class="groom-name-text">Dương Nguyên</span>
-            <span class="and-symbol">&</span>
-            <span class="bride-name-text">Hoàng Anh</span>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator" data-direction="down">
-            <span>Kéo xuống</span>
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-                <span class="chevron"></span>
+                <span class="bride-name-text choose-person-name">Hoàng Anh</span>
             </div>
         </div>
     </section>
@@ -148,20 +157,17 @@
             </p>
         </div>
 
-        <!-- Scroll indicators -->
-        <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
+        <div class="story-gallery">
+            <div class="photo-stack">
+                <div class="photo-card photo-left">
+                    <div class="photo-placeholder">Ảnh cưới 1</div>
+                </div>
+                <div class="photo-card photo-right">
+                    <div class="photo-placeholder">Ảnh cưới 2</div>
+                </div>
             </div>
         </div>
-        <div class="scroll-indicator scroll-down" data-direction="down">
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
+
     </section>
 
     <!-- ===== SECTION 4: DRESS CODE ===== -->
@@ -200,20 +206,6 @@
             <p>Vui lòng tránh mặc đồ trắng tinh hoặc đỏ<br>để không trùng với cô dâu chú rể nhé!</p>
         </div>
 
-        <!-- Scroll indicators -->
-        <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
-        <div class="scroll-indicator scroll-down" data-direction="down">
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
     </section>
 
     <!-- ===== SECTION 5: THANK YOU ===== -->
@@ -244,13 +236,6 @@
             <p class="thankyou-credit">Made with <i class="fas fa-heart"></i> by Cô dâu & Chú rể</p>
         </div>
 
-        <!-- Scroll up -->
-        <div class="scroll-indicator scroll-up" data-direction="up">
-            <div class="scroll-arrows">
-                <span class="chevron"></span>
-                <span class="chevron"></span>
-            </div>
-        </div>
     </section>
 
     <!-- ===== MODAL: NHÀ TRAI ===== -->
