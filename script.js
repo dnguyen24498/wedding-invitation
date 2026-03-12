@@ -24,6 +24,12 @@ if (openBtn) {
 var modalGroom = document.getElementById('modalGroom');
 var modalBride = document.getElementById('modalBride');
 var modalRsvp = document.getElementById('modalRsvp');
+var wishTickerItems = [];
+var wishTickerDefaults = [
+    { name: 'Gia đình', wish: 'Chúc hai bạn trăm năm hạnh phúc và luôn nắm tay nhau đi hết cuộc đời.' },
+    { name: 'Bạn thân', wish: 'Mãi yêu thương, đồng hành và cùng nhau vun đắp một mái ấm thật bình yên.' },
+    { name: 'Đồng nghiệp', wish: 'Chúc cô dâu chú rể luôn ngập tràn tiếng cười, may mắn và thành công.' }
+];
 
 function isModalOpen() {
     return (modalGroom && modalGroom.classList.contains('active')) ||
@@ -145,6 +151,146 @@ document.querySelectorAll('.modal-calendar-btn').forEach(function(btn) {
     });
 });
 
+// ========== WISH MARQUEE ==========
+function normalizeWishEntry(entry) {
+    if (!entry) return null;
+
+    var wishText = (entry.wish || '').toString().trim();
+    if (!wishText) return null;
+
+    var author = (entry.name || 'Khách mời').toString().trim();
+    if (!author) author = 'Khách mời';
+
+    if (wishText.length > 130) {
+        wishText = wishText.slice(0, 129) + '…';
+    }
+
+    if (author.length > 22) {
+        author = author.slice(0, 21) + '…';
+    }
+
+    return {
+        name: author,
+        wish: wishText
+    };
+}
+
+function createWishPill(entry) {
+    var normalized = normalizeWishEntry(entry);
+    if (!normalized) return null;
+
+    var pill = document.createElement('div');
+    pill.className = 'wish-pill';
+
+    var text = document.createElement('span');
+    text.className = 'wish-pill-text';
+    text.textContent = '“' + normalized.wish + '”';
+
+    var heart = document.createElement('span');
+    heart.className = 'wish-pill-heart';
+    heart.innerHTML = '<i class="fas fa-heart"></i>';
+
+    var name = document.createElement('span');
+    name.className = 'wish-pill-name';
+    name.textContent = '— ' + normalized.name;
+
+    pill.appendChild(text);
+    pill.appendChild(heart);
+    pill.appendChild(name);
+
+    return pill;
+}
+
+function renderWishTicker(entries) {
+    var wishTrack = document.getElementById('wishTrack');
+    if (!wishTrack) return;
+
+    var source = Array.isArray(entries) && entries.length ? entries : wishTickerDefaults;
+    var normalized = source
+        .map(normalizeWishEntry)
+        .filter(function(item) { return !!item; })
+        .slice(0, 12);
+
+    if (!normalized.length) {
+        normalized = wishTickerDefaults.slice();
+    }
+
+    wishTickerItems = normalized.slice();
+    wishTrack.innerHTML = '';
+
+    var loopItems = normalized.concat(normalized);
+    loopItems.forEach(function(item) {
+        var node = createWishPill(item);
+        if (node) wishTrack.appendChild(node);
+    });
+
+    var duration = Math.max(30, Math.min(70, normalized.length * 4.8));
+    wishTrack.style.setProperty('--wish-duration', duration + 's');
+}
+
+function extractWishesFromSnapshot(snapshot) {
+    var wishes = [];
+    if (!snapshot || typeof snapshot.forEach !== 'function') return wishes;
+
+    snapshot.forEach(function(doc) {
+        var data = doc && typeof doc.data === 'function' ? doc.data() : null;
+        var normalized = normalizeWishEntry(data);
+        if (normalized) wishes.push(normalized);
+    });
+
+    return wishes;
+}
+
+function getWishesFromFirebase() {
+    if (typeof db === 'undefined') {
+        return Promise.resolve([]);
+    }
+
+    return db.collection('rsvps').orderBy('submittedAt', 'desc').limit(40).get()
+        .then(function(snapshot) {
+            return extractWishesFromSnapshot(snapshot);
+        })
+        .catch(function() {
+            return db.collection('rsvps').limit(40).get()
+                .then(function(snapshot) {
+                    return extractWishesFromSnapshot(snapshot);
+                })
+                .catch(function() {
+                    return [];
+                });
+        });
+}
+
+function prependWishToTicker(entry) {
+    var normalized = normalizeWishEntry(entry);
+    if (!normalized) return;
+
+    var nextItems = [normalized];
+    wishTickerItems.forEach(function(item) {
+        if (nextItems.length >= 12) return;
+
+        var isDuplicate = item.name === normalized.name && item.wish === normalized.wish;
+        if (!isDuplicate) {
+            nextItems.push(item);
+        }
+    });
+
+    renderWishTicker(nextItems);
+}
+
+function initWishTicker() {
+    var wishTrack = document.getElementById('wishTrack');
+    if (!wishTrack) return;
+
+    renderWishTicker(wishTickerDefaults);
+
+    getWishesFromFirebase().then(function(wishes) {
+        if (wishes && wishes.length) {
+            renderWishTicker(wishes);
+        }
+    }).catch(function() {});
+}
+
 // ========== RSVP FORM ==========
 var rsvpForm = document.getElementById('rsvpForm');
 if (rsvpForm) {
@@ -182,6 +328,7 @@ if (rsvpForm) {
             db.collection('rsvps').add(data)
                 .then(function() {
                     showMessage('Cảm ơn bạn đã xác nhận! 🎉', 'success');
+                    prependWishToTicker(data);
                     rsvpForm.reset();
                     
                     // Webhook notification
@@ -225,6 +372,7 @@ if (rsvpForm) {
 document.addEventListener('DOMContentLoaded', function() {
     setVH();
     window.scrollTo(0, 0);
+    initWishTicker();
 });
 
 window.addEventListener('load', function() {

@@ -6,7 +6,7 @@
     <title>Hoàng Anh & Dương Nguyên</title>
     <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Tangerine:wght@400;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20260312">
+    <link rel="stylesheet" href="styles.css?v=20260313-15">
 </head>
 <body>
     <!-- ===== SECTION 1: COVER PAGE ===== -->
@@ -47,7 +47,7 @@
                             <span class="env-heart"><i class="fas fa-heart"></i></span>
                         </div>
                         <button class="cover-open-btn" id="openBtn">
-                            <span>CLICK TO OPEN</span>
+                            <span>MORE</span>
                         </button>
                     </div>
                 </div>
@@ -100,11 +100,25 @@
         </div>
     </section>
 
+    <!-- ===== SECTION 2.5: WISH STREAM ===== -->
+    <section class="section-wishes" id="sectionWish">
+        <div class="wish-stream" id="wishStream">
+            <h3 class="wish-stream-title">
+                <img src="images/new/flower_red.png" alt="" aria-hidden="true">
+                Lời chúc yêu thương
+                <img src="images/new/flower_red.png" alt="" class="flip" aria-hidden="true">
+            </h3>
+            <div class="wish-marquee" id="wishMarquee" aria-live="polite">
+                <div class="wish-marquee-track" id="wishTrack"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- ===== SECTION 3: ABOUT US ===== -->
     <section class="section-about" id="section3">
         <h2 class="section-title">
             <img src="images/new/flower_red.png" alt="" class="title-icon">
-            <span>Về Chúng Tôi</span>
+            <span>About Us</span>
             <img src="images/new/flower_red.png" alt="" class="title-icon flip">
         </h2>
 
@@ -112,7 +126,7 @@
             <!-- Groom -->
             <div class="about-person">
                 <div class="person-frame">
-                    <img src="images/new/groom.png" alt="Chú rể">
+                    <img src="images/new/groom_nguyen.JPG" alt="Chú rể" class="about-groom-avatar">
                 </div>
                 <h3 class="person-name">Dương Nguyên</h3>
                 <p class="person-role">Chú Rể</p>
@@ -131,7 +145,7 @@
             <!-- Bride -->
             <div class="about-person">
                 <div class="person-frame">
-                    <img src="images/new/bride.png" alt="Cô dâu">
+                    <img src="images/new/bride_jinnie.JPG" alt="Cô dâu" class="about-bride-avatar">
                 </div>
                 <h3 class="person-name">Hoàng Anh</h3>
                 <p class="person-role">Cô Dâu</p>
@@ -158,12 +172,19 @@
         </div>
 
         <div class="story-gallery">
+            <img src="images/new/flower_red.png" alt="" class="gallery-decor decor-flower-left" aria-hidden="true">
+            <img src="images/new/flower_red.png" alt="" class="gallery-decor decor-flower-right" aria-hidden="true">
+            <img src="images/new/bow_red.png" alt="" class="gallery-decor decor-bow-top" aria-hidden="true">
+            <img src="images/new/cheer_red.png" alt="" class="gallery-decor decor-cheer-bottom" aria-hidden="true">
             <div class="photo-stack">
                 <div class="photo-card photo-left">
-                    <div class="photo-placeholder">Ảnh cưới 1</div>
+                    <img src="images/new/bokeh_3.JPG" alt="Ảnh cưới 1" class="photo-image" loading="lazy">
                 </div>
                 <div class="photo-card photo-right">
-                    <div class="photo-placeholder">Ảnh cưới 2</div>
+                    <img src="images/new/bokeh_2.JPG" alt="Ảnh cưới 2" class="photo-image" loading="lazy">
+                </div>
+                <div class="photo-card photo-center">
+                    <img src="images/new/bokeh_4.JPG" alt="Ảnh cưới 3" class="photo-image" loading="lazy">
                 </div>
             </div>
         </div>
@@ -199,11 +220,6 @@
                 <div class="color-swatch" style="background: #0a0a08;"></div>
                 <span class="color-name">Đen</span>
             </div>
-        </div>
-
-        <div class="dresscode-note">
-            <img src="images/new/bow_red.png" alt="" class="note-icon">
-            <p>Vui lòng tránh mặc đồ trắng tinh hoặc đỏ<br>để không trùng với cô dâu chú rể nhé!</p>
         </div>
 
     </section>
@@ -244,9 +260,7 @@
             <button class="modal-close">&times;</button>
             <div class="modal-body">
                 <div class="modal-header">
-                    <img src="images/new/groom.png" alt="Groom" class="modal-icon">
-                    <h2 class="modal-title">Lễ Thành Hôn</h2>
-                    <p class="modal-subtitle">Nhà Trai</p>
+                    <img src="images/new/groom_bridge.png" alt="Cô dâu chú rể" class="modal-icon">
                 </div>
 
                 <div class="modal-info">
@@ -298,9 +312,7 @@
             <button class="modal-close">&times;</button>
             <div class="modal-body">
                 <div class="modal-header">
-                    <img src="images/new/bride.png" alt="Bride" class="modal-icon">
-                    <h2 class="modal-title">Lễ Vu Quy</h2>
-                    <p class="modal-subtitle">Nhà Gái</p>
+                    <img src="images/new/groom_bridge.png" alt="Cô dâu chú rể" class="modal-icon">
                 </div>
 
                 <div class="modal-info">
@@ -352,9 +364,12 @@
             <button class="modal-close">&times;</button>
             <div class="modal-body">
                 <div class="modal-header">
+                    <img src="images/new/flower_red.png" alt="" class="rsvp-header-flower rsvp-header-flower-left" aria-hidden="true">
+                    <img src="images/new/flower_red.png" alt="" class="rsvp-header-flower rsvp-header-flower-right" aria-hidden="true">
                     <img src="images/love-birds.png" alt="Love birds" class="modal-icon modal-icon-lg">
                     <h2 class="modal-title">Xác Nhận Tham Dự</h2>
                     <p class="modal-subtitle">Please RSVP by Mar 15, 2026</p>
+                    <p class="rsvp-header-note">Chúng mình rất mong được đón tiếp bạn trong ngày vui này</p>
                 </div>
 
                 <form class="rsvp-form" id="rsvpForm">
@@ -433,6 +448,6 @@
         firebase.initializeApp(firebaseConfig);
         var db = firebase.firestore();
     </script>
-    <script src="script.js?v=20260312"></script>
+    <script src="script.js?v=20260313-1"></script>
 </body>
 </html>
