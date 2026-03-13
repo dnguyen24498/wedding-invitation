@@ -17,8 +17,9 @@ html::-webkit-scrollbar {
 body {
     font-family: 'Be Vietnam Pro', 'Montserrat', sans-serif;
     background-color: #2d3436;
-    min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
+    min-height: 100svh;
     overflow-x: hidden;
     overscroll-behavior: none;
     -webkit-font-smoothing: antialiased;
@@ -32,14 +33,15 @@ img {
 
 /* ========== SECTION 1: COVER PAGE ========== */
 .section-cover {
-    min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
+    min-height: 100dvh;
+    min-height: 100svh;
     background-image:
         linear-gradient(180deg, rgba(14, 18, 25, 0.58) 0%, rgba(14, 18, 25, 0.42) 40%, rgba(14, 18, 25, 0.5) 100%),
         url('images/new/bokeh_1.JPG');
     background-repeat: no-repeat, no-repeat;
     background-size: cover, cover;
-    background-position: center, center 55%;
+    background-position: center, center 50%;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -48,26 +50,43 @@ img {
     padding-top: clamp(18px, 4.8vh, 68px);
 }
 
+.section-cover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(92px, 18vh, 186px);
+    background: linear-gradient(180deg, rgba(14, 18, 25, 0) 0%, rgba(14, 18, 25, 0.4) 48%, rgba(14, 18, 25, 0.76) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
 .cover-content {
     text-align: center;
     padding: 0 20px 20px;
     width: 100%;
     max-width: 1000px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     z-index: 2;
 }
 
 .cover-presenting {
-    font-family: 'Dancing Script', cursive;
-    font-size: clamp(34px, 5.1vw, 48px);
-    font-weight: 600;
-    letter-spacing: 0;
-    color: rgba(255, 255, 255, 0.92);
-    margin: 0 auto clamp(10px, 1.1vw, 14px);
-    text-transform: none;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2.15vw, 22px);
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    color: #f2efe8;
+    margin: 0 auto clamp(4px, 0.9vw, 10px);
+    text-transform: uppercase;
+    text-align: center;
     white-space: nowrap;
     display: block;
-    line-height: 1.02;
-    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.32), 0 2px 4px rgba(0, 0, 0, 0.24);
+    line-height: 1.12;
+    text-shadow: 0 5px 14px rgba(0, 0, 0, 0.34), 0 2px 4px rgba(0, 0, 0, 0.24);
 }
 
 .cover-presenting::before,
@@ -76,14 +95,29 @@ img {
 }
 
 .cover-title {
-    font-family: 'Mrs Saint Delafield', cursive;
-    font-size: clamp(58px, 9.4vw, 90px);
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(52px, 8.4vw, 76px);
     font-weight: 400;
-    color: #fff;
-    line-height: 0.94;
-    letter-spacing: 0.4px;
-    margin-bottom: clamp(20px, 2.7vw, 30px);
-    text-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.3);
+    color: #f7f1e6;
+    line-height: 0.98;
+    letter-spacing: 0.5px;
+    margin-bottom: clamp(16px, 2.2vw, 24px);
+    text-shadow: 0 10px 24px rgba(0, 0, 0, 0.42), 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.cover-signature {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(12px, 4.2vh, 36px);
+    transform: translateX(-50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(30px, 5.1vw, 46px);
+    color: #f3eee3;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    text-shadow: 0 5px 16px rgba(0, 0, 0, 0.36);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .cover-envelope-wrapper {
@@ -91,7 +125,8 @@ img {
     justify-content: center;
     align-items: flex-end;
     gap: 0;
-    margin-bottom: 8px;
+    margin-top: clamp(14px, 4.2vh, 44px);
+    margin-bottom: 6px;
     position: relative;
 }
 
@@ -125,6 +160,7 @@ img {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    transform: translateY(clamp(8px, 2.2vh, 20px));
 }
 
 .letter-sheet {
@@ -190,26 +226,40 @@ img {
     flex-direction: column;
     align-items: center;
     gap: clamp(3px, 0.9vw, 7px);
-    transform: translateY(-16px);
+    transform: translateY(-4px);
 }
 
 .env-script {
     font-family: 'Mrs Saint Delafield', cursive;
     font-size: clamp(24px, 5vw, 36px);
-    color: #4a3f35;
+    color: #8b0000;
     line-height: 1.08;
     margin-bottom: 0;
     order: 2;
 }
 
 .env-car-icon {
-    width: clamp(82px, 16vw, 118px);
+    --car-offset-y: 4px;
+    --car-sway-left: -1.7deg;
+    --car-sway-right: 1.7deg;
+    width: clamp(102px, 20vw, 146px);
     height: auto;
     margin-top: 0;
     opacity: 1;
     order: 1;
-    transform: translateY(-9px);
+    transform: translateY(var(--car-offset-y)) rotate(var(--car-sway-left));
+    transform-origin: center 72%;
     filter: drop-shadow(0 2px 7px rgba(96, 42, 28, 0.24));
+    animation: carSwayDrive 2.8s ease-in-out infinite;
+}
+
+@keyframes carSwayDrive {
+    0%, 100% {
+        transform: translateY(var(--car-offset-y)) rotate(var(--car-sway-left));
+    }
+    50% {
+        transform: translateY(calc(var(--car-offset-y) - 2px)) rotate(var(--car-sway-right));
+    }
 }
 
 /* ========== SPARKLE STARS ========== */
@@ -455,7 +505,7 @@ img {
 
 /* ========== SECTION 3: ABOUT US ========== */
 .section-about {
-    background: linear-gradient(180deg, #f0ebe0 0%, #f8f5eb 100%);
+    background: linear-gradient(180deg, #f3eee2 0%, #f8f5eb 100%);
     padding: clamp(40px, 5.6vw, 56px) clamp(16px, 4vw, 24px);
     display: flex;
     flex-direction: column;
@@ -558,6 +608,9 @@ img {
     font-size: 14px;
     color: #555;
     line-height: 1.6;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: center;
     max-width: 220px;
     margin: 0 auto;
 }
@@ -613,6 +666,9 @@ img {
     font-size: clamp(15px, 2.05vw, 17px);
     color: #555;
     line-height: 1.8;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: center;
 }
 
 .story-gallery {
@@ -741,7 +797,9 @@ img {
     font-family: 'Be Vietnam Pro', 'Montserrat', sans-serif;
     font-size: 16px;
     color: #555;
-    text-align: center;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: center;
     max-width: 400px;
     margin-bottom: 40px;
     line-height: 1.7;
@@ -842,6 +900,9 @@ img {
     font-size: 16px;
     color: #555;
     line-height: 1.8;
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: center;
     margin-bottom: 25px;
 }
 
@@ -873,11 +934,10 @@ img {
 .wish-marquee {
     position: relative;
     overflow: hidden;
-    border-radius: 999px;
-    border: 1px solid rgba(139, 0, 0, 0.22);
-    background:
-        linear-gradient(180deg, rgba(255, 253, 248, 0.94) 0%, rgba(249, 241, 227, 0.92) 100%);
-    box-shadow: 0 8px 22px rgba(78, 37, 19, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    border-radius: 0;
+    border: none;
+    background: transparent;
+    box-shadow: none;
     min-height: 58px;
 }
 
@@ -1981,7 +2041,7 @@ textarea::placeholder {
 @media (max-width: 600px) {
     .section-cover {
         background-size: cover, cover;
-        background-position: center, center 44%;
+        background-position: center, center 40%;
         padding-top: clamp(18px, 4.5vh, 42px);
     }
 
@@ -1990,13 +2050,28 @@ textarea::placeholder {
     }
 
     .cover-title {
-        font-size: clamp(48px, 13vw, 62px);
-        margin-bottom: 16px;
+        font-size: clamp(42px, 11.8vw, 54px);
+        margin-bottom: 14px;
     }
 
     .cover-presenting {
-        font-size: clamp(30px, 9.8vw, 40px);
-        margin-bottom: 8px;
+        font-size: clamp(12px, 3.6vw, 15px);
+        letter-spacing: 0.21em;
+        margin-bottom: 6px;
+    }
+
+    .cover-signature {
+        font-size: clamp(24px, 8vw, 34px);
+        bottom: clamp(10px, 3.8vh, 24px);
+        letter-spacing: 0.02em;
+    }
+
+    .cover-envelope-wrapper {
+        margin-top: clamp(10px, 3.4vh, 20px);
+    }
+
+    .cover-letter {
+        transform: translateY(clamp(6px, 1.8vh, 14px));
     }
 
     .wish-stream {
@@ -2014,7 +2089,7 @@ textarea::placeholder {
     }
 
     .wish-marquee {
-        border-radius: 15px;
+        border-radius: 0;
         min-height: 52px;
     }
 
@@ -2056,7 +2131,7 @@ textarea::placeholder {
     }
 
     .env-text {
-        transform: translateY(-12px);
+        transform: translateY(-2px);
     }
 
     .env-script {
@@ -2064,8 +2139,11 @@ textarea::placeholder {
     }
 
     .env-car-icon {
-        width: clamp(66px, 16.5vw, 94px);
-        transform: translateY(-7px);
+        --car-offset-y: 7px;
+        --car-sway-left: -1.35deg;
+        --car-sway-right: 1.35deg;
+        width: clamp(84px, 22vw, 122px);
+        transform: translateY(var(--car-offset-y)) rotate(var(--car-sway-left));
     }
     
     .choose-characters {
@@ -2387,13 +2465,21 @@ textarea::placeholder {
     }
 
     #modalRsvp .radio-group {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: nowrap;
         gap: 6px;
+    }
+
+    #modalRsvp .radio-pill {
+        flex: 1 1 0;
+        min-width: 0;
     }
 
     #modalRsvp .pill {
         width: 100%;
         justify-content: center;
+        font-size: 10px;
+        padding: 9px 6px;
     }
 }
 
@@ -2410,7 +2496,7 @@ textarea::placeholder {
     }
 
     .cover-title {
-        font-size: clamp(46px, 11vw, 64px);
+        font-size: clamp(42px, 10vw, 62px);
     }
 
     .choose-characters {

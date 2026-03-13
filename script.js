@@ -4,9 +4,33 @@ function setVH() {
     document.documentElement.style.setProperty('--vh', vh + 'px');
 }
 setVH();
-window.addEventListener('resize', setVH);
+
+var lastViewportWidth = window.innerWidth;
+var viewportResizeTimer = null;
+
+function handleViewportResize() {
+    if (viewportResizeTimer) {
+        clearTimeout(viewportResizeTimer);
+    }
+
+    viewportResizeTimer = setTimeout(function() {
+        var currentWidth = window.innerWidth;
+        var isDesktopPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        var widthChanged = Math.abs(currentWidth - lastViewportWidth) > 1;
+
+        if (isDesktopPointer || widthChanged) {
+            lastViewportWidth = currentWidth;
+            setVH();
+        }
+    }, 80);
+}
+
+window.addEventListener('resize', handleViewportResize);
 window.addEventListener('orientationchange', function() {
-    setTimeout(setVH, 100);
+    setTimeout(function() {
+        lastViewportWidth = window.innerWidth;
+        setVH();
+    }, 120);
 });
 
 // ========== MODAL SYSTEM ==========
