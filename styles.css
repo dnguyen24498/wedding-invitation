@@ -206,61 +206,41 @@ img {
     animation: heartbeat 1.5s ease-in-out infinite;
 }
 
-.cover-open-btn {
-    margin-top: 0;
-    position: absolute;
-    left: 50%;
-    bottom: clamp(10px, 2.3vw, 14px);
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #9c0000 0%, #7a0000 55%, #8f0000 100%);
-    color: #fffaf4;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: clamp(10px, 2vw, 12px) clamp(18px, 5vw, 36px);
+.cover-scroll-hint {
+    margin: 16px auto 0;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255, 255, 255, 0.88);
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    user-select: none;
+}
+
+.cover-scroll-hint span {
     font-family: 'Montserrat', sans-serif;
-    font-size: clamp(10px, 1.9vw, 12px);
-    font-weight: 700;
-    letter-spacing: clamp(2.5px, 0.5vw, 4px);
-    cursor: pointer;
-    border-radius: 999px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-    box-shadow: 0 10px 24px rgba(76, 0, 0, 0.44), inset 0 1px 0 rgba(255, 255, 255, 0.24);
-    z-index: 5;
-    width: min(82%, 300px);
-    overflow: hidden;
+    font-size: clamp(11px, 2.4vw, 13px);
+    font-weight: 600;
+    letter-spacing: 2px;
     text-transform: uppercase;
 }
 
-.cover-open-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(115deg, transparent 25%, rgba(255, 255, 255, 0.22) 50%, transparent 75%);
-    transform: translateX(-130%);
-    transition: transform 0.6s ease;
-    pointer-events: none;
+.cover-scroll-hint i {
+    font-size: 15px;
+    opacity: 0.95;
+    animation: coverScrollHint 1.5s ease-in-out infinite;
 }
 
-.cover-open-btn::after {
-    content: '';
-    position: absolute;
-    inset: 1px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 999px;
-    pointer-events: none;
-}
-
-.cover-open-btn:hover {
-    transform: translateX(-50%) translateY(-1px);
-    box-shadow: 0 12px 26px rgba(76, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.24);
-    filter: brightness(1.04);
-}
-
-.cover-open-btn:hover::before {
-    transform: translateX(130%);
-}
-
-.cover-open-btn:active {
-    transform: translateX(-50%) translateY(1px) scale(0.995);
+@keyframes coverScrollHint {
+    0%, 100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+    50% {
+        transform: translateY(5px);
+        opacity: 1;
+    }
 }
 
 /* ========== SPARKLE STARS ========== */
@@ -1208,7 +1188,10 @@ img {
     border-radius: 20px;
     width: min(94vw, 520px);
     max-height: calc(100vh - 24px);
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     transform: scale(0.9) translateY(20px);
     transition: transform 0.3s ease;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -1229,7 +1212,7 @@ img {
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.3s;
-    z-index: 10;
+    z-index: 30;
 }
 
 .modal-close:hover {
@@ -1407,9 +1390,9 @@ img {
         radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 38%),
         radial-gradient(circle at 88% 92%, rgba(139, 0, 0, 0.08) 0%, rgba(139, 0, 0, 0) 42%),
         linear-gradient(180deg, #fbf8f0 0%, #f4ede0 100%);
-    border: 1px solid rgba(139, 0, 0, 0.24);
+    border: 1px solid rgba(139, 0, 0, 0.2);
     border-radius: 22px;
-    box-shadow: 0 24px 55px rgba(23, 14, 10, 0.34);
+    box-shadow: 0 20px 44px rgba(35, 16, 8, 0.28);
 }
 
 #modalGroom .modal-content::before,
@@ -1437,20 +1420,55 @@ img {
 #modalGroom .modal-body,
 #modalBride .modal-body {
     text-align: left;
-    padding: clamp(14px, 3.4vw, 24px) clamp(18px, 4.2vw, 30px) clamp(18px, 4vw, 30px);
+    padding: clamp(22px, 4vw, 30px) clamp(16px, 4vw, 28px) clamp(18px, 4vw, 28px);
     position: relative;
     z-index: 1;
 }
 
+.modal-cute {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+    opacity: 0.88;
+    z-index: 1;
+    filter: drop-shadow(0 3px 8px rgba(72, 24, 20, 0.24));
+}
+
+.modal-cute-bow {
+    width: 24px;
+    top: 14px;
+    left: 16px;
+    transform: rotate(-10deg);
+}
+
+.modal-cute-flower {
+    width: 24px;
+    top: 14px;
+    right: 56px;
+    transform: rotate(12deg) scaleX(-1);
+}
+
+.modal-cute-cheer,
+.modal-cute-fish {
+    width: 22px;
+    right: 16px;
+    bottom: 18px;
+    transform: rotate(8deg);
+}
+
+.modal-cute-fish {
+    transform: rotate(-8deg);
+}
+
 #modalGroom .modal-close,
 #modalBride .modal-close {
-    top: 14px;
-    right: 14px;
+    top: 12px;
+    right: 12px;
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(139, 0, 0, 0.09);
-    border: 1px solid rgba(139, 0, 0, 0.2);
+    background: rgba(255, 251, 244, 0.95);
+    border: 1px solid rgba(139, 0, 0, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1466,18 +1484,18 @@ img {
 #modalGroom .modal-header,
 #modalBride .modal-header {
     text-align: center;
-    margin-bottom: 12px;
+    margin: 2px 0 14px;
 }
 
 #modalGroom .modal-icon,
 #modalBride .modal-icon {
-    width: clamp(118px, 24vw, 154px);
+    width: clamp(108px, 22vw, 138px);
     display: block;
-    padding: 8px;
-    border-radius: 20px;
+    padding: 7px;
+    border-radius: 18px;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 246, 232, 0.82));
     border: 1px solid rgba(139, 0, 0, 0.16);
-    box-shadow: 0 8px 20px rgba(139, 0, 0, 0.12);
+    box-shadow: 0 8px 18px rgba(139, 0, 0, 0.1);
     margin: 0 auto;
 }
 
@@ -1512,9 +1530,9 @@ img {
     overflow: hidden;
     border-radius: 15px;
     border-color: rgba(139, 0, 0, 0.2);
-    background: rgba(255, 251, 242, 0.95);
+    background: linear-gradient(180deg, rgba(255, 253, 248, 0.98) 0%, rgba(251, 242, 230, 0.94) 100%);
     padding: 12px 14px 12px 16px;
-    box-shadow: 0 4px 14px rgba(71, 31, 18, 0.08);
+    box-shadow: 0 5px 14px rgba(71, 31, 18, 0.08);
     transition: transform 0.22s ease, box-shadow 0.22s ease;
 }
 
@@ -1546,12 +1564,12 @@ img {
 #modalGroom .modal-timeline,
 #modalBride .modal-timeline {
     width: 100%;
-    background: linear-gradient(180deg, rgba(255, 253, 248, 0.95) 0%, rgba(255, 248, 236, 0.9) 100%);
+    background: linear-gradient(180deg, rgba(255, 253, 248, 0.97) 0%, rgba(255, 247, 235, 0.93) 100%);
     border: 1px solid rgba(139, 0, 0, 0.16);
     border-radius: 16px;
     padding: 10px 14px 4px;
     margin-bottom: 16px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.44), 0 6px 14px rgba(70, 26, 14, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.44), 0 5px 12px rgba(70, 26, 14, 0.07);
 }
 
 #modalGroom .timeline-item,
@@ -1648,17 +1666,18 @@ img {
 }
 
 #modalRsvp .modal-close {
-    top: 13px;
-    right: 13px;
+    top: 10px;
+    right: 10px;
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(139, 0, 0, 0.1);
+    background: rgba(255, 251, 244, 0.95);
     border: 1px solid rgba(139, 0, 0, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
+    z-index: 35;
 }
 
 #modalRsvp .modal-close:hover {
@@ -1669,24 +1688,26 @@ img {
 #modalRsvp .modal-header {
     position: relative;
     margin-bottom: 18px;
+    padding-top: 8px;
 }
 
 .rsvp-header-flower {
     position: absolute;
-    top: 2px;
-    width: 30px;
+    top: 30px;
+    width: 24px;
     height: auto;
-    opacity: 0.9;
+    opacity: 0.85;
     pointer-events: none;
+    z-index: 1;
 }
 
 .rsvp-header-flower-left {
-    left: 4px;
+    left: 6px;
     transform: rotate(-14deg);
 }
 
 .rsvp-header-flower-right {
-    right: 4px;
+    right: 6px;
     transform: rotate(14deg) scaleX(-1);
 }
 
@@ -1698,6 +1719,11 @@ img {
     border: 1px solid rgba(139, 0, 0, 0.16);
     box-shadow: 0 9px 20px rgba(139, 0, 0, 0.12);
     margin-bottom: 10px;
+}
+
+.rsvp-car-icon {
+    width: clamp(112px, 23vw, 150px) !important;
+    padding: 10px 12px 8px !important;
 }
 
 #modalRsvp .modal-title {
@@ -2091,9 +2117,13 @@ textarea::placeholder {
         font-size: clamp(21px, 6.2vw, 28px);
     }
 
-    .cover-open-btn {
-        letter-spacing: 2.6px;
-        width: min(84%, 280px);
+    .cover-scroll-hint {
+        margin-top: 14px;
+    }
+
+    .cover-scroll-hint span {
+        font-size: 11px;
+        letter-spacing: 1.8px;
     }
     
     .choose-characters {
@@ -2287,6 +2317,31 @@ textarea::placeholder {
     #modalBride .modal-content {
         width: min(96vw, 430px);
         border-radius: 18px;
+        max-height: calc(100vh - 14px);
+    }
+
+    #modalGroom .modal-body,
+    #modalBride .modal-body {
+        padding-top: 20px;
+    }
+
+    .modal-cute-bow {
+        width: 20px;
+        top: 12px;
+        left: 12px;
+    }
+
+    .modal-cute-flower {
+        width: 20px;
+        top: 12px;
+        right: 48px;
+    }
+
+    .modal-cute-cheer,
+    .modal-cute-fish {
+        width: 18px;
+        right: 12px;
+        bottom: 14px;
     }
 
     #modalGroom .modal-title,
@@ -2346,8 +2401,8 @@ textarea::placeholder {
     }
 
     .rsvp-header-flower {
-        width: 24px;
-        top: 2px;
+        width: 18px;
+        top: 28px;
     }
 
     #modalRsvp .rsvp-form {

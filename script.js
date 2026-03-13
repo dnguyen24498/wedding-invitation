@@ -9,17 +9,6 @@ window.addEventListener('orientationchange', function() {
     setTimeout(setVH, 100);
 });
 
-// ========== COVER OPEN BUTTON ==========
-var openBtn = document.getElementById('openBtn');
-if (openBtn) {
-    openBtn.addEventListener('click', function() {
-        var section2 = document.getElementById('section2');
-        if (section2) {
-            section2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    });
-}
-
 // ========== MODAL SYSTEM ==========
 var modalGroom = document.getElementById('modalGroom');
 var modalBride = document.getElementById('modalBride');
