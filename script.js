@@ -112,8 +112,8 @@ document.addEventListener('keydown', function(e) {
 document.querySelectorAll('.modal-calendar-btn').forEach(function(btn) {
     btn.addEventListener('click', function() {
         var eventType = this.getAttribute('data-event');
-        var icsContent;
-        
+
+        var icsContent = '';
         if (eventType === 'groom') {
             icsContent = [
                 'BEGIN:VCALENDAR',
@@ -151,7 +151,7 @@ document.querySelectorAll('.modal-calendar-btn').forEach(function(btn) {
                 'END:VCALENDAR'
             ].join('\r\n');
         }
-        
+
         var blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
         var url = URL.createObjectURL(blob);
         var a = document.createElement('a');
