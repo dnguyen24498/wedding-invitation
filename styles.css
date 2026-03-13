@@ -377,17 +377,20 @@ img {
 }
 
 .choose-characters {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     justify-content: center;
     align-items: flex-start;
-    gap: 30px;
+    column-gap: clamp(12px, 2.8vw, 30px);
     margin-bottom: 6px;
+    width: min(100%, 760px);
 }
 
 .character-card {
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-width: 0;
 }
 
 .choose-center {
@@ -402,7 +405,7 @@ img {
     border: 2px solid #8b0000;
     border-radius: 20px;
     padding: 12px 18px;
-    margin-bottom: 15px;
+    margin-bottom: 8px;
     position: relative;
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
 }
@@ -439,8 +442,8 @@ img {
 }
 
 .character-img {
-    margin-bottom: 15px;
-    height: 150px;
+    margin-bottom: 8px;
+    height: 132px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -464,29 +467,30 @@ img {
 .character-img .choose-character-img {
     --tilt: 0deg;
     --offset-x: 0px;
+    --offset-y: -8px;
     width: 126px;
     height: 126px;
     object-fit: contain;
     object-position: center bottom;
     transform-origin: center bottom;
-    transform: rotate(var(--tilt)) translateX(var(--offset-x));
+    transform: rotate(var(--tilt)) translate(var(--offset-x), var(--offset-y));
     transition: transform 0.25s ease, filter 0.25s ease;
     filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.15));
 }
 
 .choose-groom-img {
     --tilt: -5deg;
-    --offset-x: 2px;
+    --offset-x: 0px;
 }
 
 .choose-bride-img {
     --tilt: 5deg;
-    --offset-x: -2px;
+    --offset-x: 0px;
 }
 
 .choose-trigger:hover .choose-character-img,
 .choose-trigger:focus-visible .choose-character-img {
-    transform: rotate(var(--tilt)) translateX(var(--offset-x)) translateY(-3px) scale(1.03);
+    transform: rotate(var(--tilt)) translate(var(--offset-x), calc(var(--offset-y) - 3px)) scale(1.03);
 }
 
 .groom-name-text,
@@ -501,6 +505,8 @@ img {
     display: block;
     margin-top: 2px;
     line-height: 1;
+    width: 100%;
+    text-align: center;
 }
 
 .and-symbol {
@@ -550,17 +556,19 @@ img {
 }
 
 .about-couple {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     justify-content: center;
     align-items: flex-start;
     gap: 30px;
     margin-bottom: 40px;
-    flex-wrap: wrap;
+    width: min(100%, 760px);
 }
 
 .about-person {
     text-align: center;
-    max-width: 160px;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .person-frame {
@@ -615,6 +623,8 @@ img {
     font-size: 14px;
     color: #555;
     line-height: 1.6;
+    max-width: 220px;
+    margin: 0 auto;
 }
 
 .about-heart {
@@ -2075,47 +2085,54 @@ textarea::placeholder {
     }
     
     .choose-characters {
-        gap: 15px;
+        column-gap: 10px;
         align-items: flex-start;
+        width: min(100%, 430px);
     }
 
     .choose-center {
-        width: 36px;
-        padding-top: 114px;
+        width: 22px;
+        padding-top: 108px;
     }
     
     .character-img {
-        height: 122px;
+        height: 106px;
     }
 
     .character-img .choose-character-img {
-        width: 98px;
-        height: 98px;
+        --offset-y: -5px;
+        width: 90px;
+        height: 90px;
     }
 
     .choose-groom-img {
-        transform: rotate(-4deg) translateX(1px);
+        --tilt: -4deg;
+        --offset-x: 0px;
     }
 
     .choose-bride-img {
-        transform: rotate(4deg) translateX(-1px);
+        --tilt: 4deg;
+        --offset-x: 0px;
     }
     
     .speech-bubble {
-        padding: 10px 14px;
+        padding: 8px 10px;
+        border-radius: 16px;
+        margin-bottom: 6px;
     }
     
     .speech-bubble p {
-        font-size: 12px;
+        font-size: 11px;
+        line-height: 1.3;
     }
     
     .groom-name-text,
     .bride-name-text {
-        font-size: 34px;
+        font-size: 31px;
     }
 
     .and-symbol {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .story-gallery {
@@ -2172,7 +2189,17 @@ textarea::placeholder {
     }
     
     .about-couple {
-        gap: 20px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+
+    .about-heart {
+        display: none;
+    }
+
+    .about-person {
+        max-width: 100%;
     }
 
     .about-groom-avatar {
@@ -2184,8 +2211,26 @@ textarea::placeholder {
     }
     
     .person-frame {
-        width: 100px;
-        height: 100px;
+        width: 92px;
+        height: 92px;
+        margin-bottom: 10px;
+    }
+
+    .person-name {
+        font-size: 21px;
+        margin-bottom: 2px;
+    }
+
+    .person-role {
+        font-size: 10px;
+        letter-spacing: 1.1px;
+        margin-bottom: 6px;
+    }
+
+    .person-desc {
+        font-size: 12px;
+        line-height: 1.45;
+        max-width: 100%;
     }
     
     .color-swatch {
@@ -2322,8 +2367,7 @@ textarea::placeholder {
     }
 
     .choose-characters {
-        gap: 20px;
-        flex-wrap: nowrap;
+        column-gap: 16px;
     }
 
     .our-story,
@@ -2333,6 +2377,12 @@ textarea::placeholder {
     .dresscode-note,
     .thankyou-content {
         width: min(100%, 500px);
+    }
+}
+
+@media (hover: none) {
+    .choose-trigger:hover .choose-character-img {
+        transform: rotate(var(--tilt)) translate(var(--offset-x), var(--offset-y));
     }
 }
 
