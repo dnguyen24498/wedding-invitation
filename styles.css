@@ -608,9 +608,7 @@ img {
     font-size: 14px;
     color: #555;
     line-height: 1.6;
-    text-align: justify;
-    text-justify: inter-word;
-    text-align-last: center;
+    text-align: center;
     max-width: 220px;
     margin: 0 auto;
 }
@@ -2276,11 +2274,11 @@ textarea::placeholder {
 
     /* === MOBILE: chỉnh avatar tại đây === */
     .person-frame img.about-groom-avatar {
-        transform: translateX(-14px) translateY(-4px) scale(1.45);
+        transform: translateX(-36px) translateY(-22px) scale(2.8) !important;
     }
 
     .person-frame img.about-bride-avatar {
-        transform: translateX(8px) translateY(-8px) scale(1.65);
+        transform: translateX(16px) translateY(-22px) scale(2.8) !important;
     }
     
     .person-frame {
