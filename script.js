@@ -5,6 +5,62 @@ function setVH() {
 }
 setVH();
 
+// ========== BACKGROUND MUSIC ==========
+(function() {
+    function initMusic() {
+        var music = document.getElementById('bgMusic');
+        var btn = document.getElementById('musicToggle');
+        var splash = document.getElementById('welcomeSplash');
+        var enterBtn = document.getElementById('welcomeEnter');
+        if (!music || !btn) return;
+
+        var isPlaying = false;
+        music.volume = 0.5;
+
+        function play() {
+            var p = music.play();
+            if (p !== undefined) {
+                p.then(function() {
+                    isPlaying = true;
+                    btn.classList.add('playing');
+                    btn.classList.remove('muted');
+                }).catch(function() {});
+            }
+        }
+
+        function toggle(e) {
+            if (e) e.stopPropagation();
+            if (isPlaying) {
+                music.pause();
+                isPlaying = false;
+                btn.classList.remove('playing');
+                btn.classList.add('muted');
+            } else {
+                play();
+            }
+        }
+
+        btn.addEventListener('click', toggle);
+
+        // Welcome splash — tap to enter & start music
+        if (splash && enterBtn) {
+            enterBtn.addEventListener('click', function() {
+                play(); // User gesture → guaranteed to work
+                splash.classList.add('hidden');
+                setTimeout(function() {
+                    splash.style.display = 'none';
+                }, 900);
+            });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMusic);
+    } else {
+        initMusic();
+    }
+})();
+
 var lastViewportWidth = window.innerWidth;
 var viewportResizeTimer = null;
 

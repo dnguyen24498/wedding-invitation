@@ -5,6 +5,162 @@
     box-sizing: border-box;
 }
 
+/* ========== MUSIC TOGGLE BUTTON ========== */
+.music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid rgba(139, 0, 0, 0.3);
+    background: rgba(255, 250, 243, 0.92);
+    color: #8b0000;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.music-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.2);
+}
+
+.music-toggle.playing {
+    animation: musicPulse 1.5s ease-in-out infinite;
+    border-color: rgba(139, 0, 0, 0.5);
+}
+
+.music-toggle.muted {
+    opacity: 0.6;
+}
+
+.music-toggle.muted::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background: #8b0000;
+    transform: rotate(45deg);
+    border-radius: 1px;
+}
+
+@keyframes musicPulse {
+    0%, 100% { box-shadow: 0 4px 14px rgba(139, 0, 0, 0.15); }
+    50% { box-shadow: 0 4px 20px rgba(139, 0, 0, 0.35); }
+}
+
+/* ========== WELCOME SPLASH SCREEN ========== */
+.welcome-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(247, 239, 228, 0.95) 0%, rgba(237, 224, 206, 0.98) 60%, rgba(220, 200, 175, 1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.welcome-splash.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.welcome-content {
+    text-align: center;
+    padding: 30px;
+    animation: welcomeFadeIn 1.2s ease-out;
+}
+
+.welcome-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 4.5vw, 28px);
+    color: #8b6f5e;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.welcome-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(32px, 8vw, 56px);
+    color: #5a1a20;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    text-align: center;
+}
+
+.welcome-ampersand {
+    text-align: center;
+    font-size: 0.7em;
+    color: #8b6f5e;
+    line-height: 1;
+}
+
+.welcome-name-right {
+    text-align: center;
+}
+
+.welcome-date {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 3.2vw, 20px);
+    color: #8b6f5e;
+    letter-spacing: 0.2em;
+    margin-bottom: 36px;
+}
+
+.welcome-enter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 36px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 3vw, 18px);
+    color: #fff;
+    background: linear-gradient(135deg, #8b0000 0%, #5a1a20 100%);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    box-shadow: 0 8px 28px rgba(139, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: welcomeBtnPulse 2s ease-in-out infinite;
+}
+
+.welcome-enter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px rgba(139, 0, 0, 0.4);
+}
+
+.welcome-enter-btn i {
+    font-size: 1.1em;
+}
+
+@keyframes welcomeFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes welcomeBtnPulse {
+    0%, 100% { box-shadow: 0 8px 28px rgba(139, 0, 0, 0.3); }
+    50% { box-shadow: 0 8px 36px rgba(139, 0, 0, 0.5); }
+}
+
 html {
     overscroll-behavior: none;
     scrollbar-width: none;

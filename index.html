@@ -6,9 +6,33 @@
     <title>Hoàng Anh & Dương Nguyên</title>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Mrs+Saint+Delafield&family=Tangerine:wght@400;700&family=Cormorant:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css?v=20260317-01">
+    <link rel="stylesheet" href="styles.css?v=20260317-07">
 </head>
 <body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="images/new/music.mp3" type="audio/mpeg">
+    </audio>
+    <button id="musicToggle" class="music-toggle" aria-label="Toggle music">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Welcome Splash (tap to enter & unlock audio) -->
+    <div id="welcomeSplash" class="welcome-splash">
+        <div class="welcome-content">
+            <p class="welcome-subtitle">The Wedding of</p>
+            <div class="welcome-names">
+                <span class="welcome-name-left">Hoàng Anh</span>
+                <span class="welcome-ampersand">&amp;</span>
+                <span class="welcome-name-right">Dương Nguyên</span>
+            </div>
+            <button id="welcomeEnter" class="welcome-enter-btn">
+                <i class="fas fa-envelope-open"></i>
+                <span>Mở Thiệp Cưới</span>
+            </button>
+        </div>
+    </div>
+
     <!-- ===== SECTION 1: COVER PAGE ===== -->
     <section class="section-cover" id="section1">
         <!-- Sparkle stars background -->
