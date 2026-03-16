@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { background: #f3eee2; padding: 20px; font-family: monospace; }
+h2 { color: #8b0000; margin: 30px 0 15px; border-bottom: 2px solid #8b0000; padding-bottom: 5px; }
+.row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
+.test { text-align: center; }
+.circle {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 3px solid #8b0000;
+    overflow: hidden;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    margin: 0 auto 8px;
+}
+.label { font-size: 11px; color: #333; max-width: 140px; }
+.optimal { border-color: gold; box-shadow: 0 0 10px gold; }
+
+/* GROOM: face at Y≈60% in 1600x2400 image */
+/* With COVER, displayed = 120x180, overflow = 60px */
+/* face_y=60% → disp_y=108 → offset=48 → pos=80% */
+.g-cover-70 { background-image: url('images/new/groom_nguyen.JPG'); background-size: cover; background-position: center 70%; }
+.g-cover-75 { background-image: url('images/new/groom_nguyen.JPG'); background-size: cover; background-position: center 75%; }
+.g-cover-80 { background-image: url('images/new/groom_nguyen.JPG'); background-size: cover; background-position: center 80%; }
+.g-cover-85 { background-image: url('images/new/groom_nguyen.JPG'); background-size: cover; background-position: center 85%; }
+.g-cover-90 { background-image: url('images/new/groom_nguyen.JPG'); background-size: cover; background-position: center 90%; }
+
+/* BRIDE: face at Y≈38% in 3903x5855 image */
+/* With COVER, displayed = 120x180, overflow = 60px */
+/* face_y=38% → disp_y=68.4 → offset=8.4 → pos=14% */
+.b-cover-5  { background-image: url('images/new/bride_jinnie.JPG'); background-size: cover; background-position: center 5%; }
+.b-cover-10 { background-image: url('images/new/bride_jinnie.JPG'); background-size: cover; background-position: center 10%; }
+.b-cover-14 { background-image: url('images/new/bride_jinnie.JPG'); background-size: cover; background-position: center 14%; }
+.b-cover-20 { background-image: url('images/new/bride_jinnie.JPG'); background-size: cover; background-position: center 20%; }
+.b-cover-25 { background-image: url('images/new/bride_jinnie.JPG'); background-size: cover; background-position: center 25%; }
+</style>
+</head>
+<body>
+<h1 style="color:#8b0000">Avatar Test - Corrected Face Positions</h1>
+<p>Viền VÀNG = giá trị tính toán tối ưu. Pixel analysis: Groom face Y≈60%, Bride face Y≈38%.</p>
+
+<h2>CHÚ RỂ (cover + center Y%)</h2>
+<div class="row">
+    <div class="test"><div class="circle g-cover-70"></div><div class="label">cover 70%</div></div>
+    <div class="test"><div class="circle g-cover-75"></div><div class="label">cover 75%</div></div>
+    <div class="test"><div class="circle optimal g-cover-80"></div><div class="label">⭐ cover 80% (optimal)</div></div>
+    <div class="test"><div class="circle g-cover-85"></div><div class="label">cover 85%</div></div>
+    <div class="test"><div class="circle g-cover-90"></div><div class="label">cover 90%</div></div>
+</div>
+
+<h2>CÔ DÂU (cover + center Y%)</h2>
+<div class="row">
+    <div class="test"><div class="circle b-cover-5"></div><div class="label">cover 5%</div></div>
+    <div class="test"><div class="circle b-cover-10"></div><div class="label">cover 10%</div></div>
+    <div class="test"><div class="circle optimal b-cover-14"></div><div class="label">⭐ cover 14% (optimal)</div></div>
+    <div class="test"><div class="circle b-cover-20"></div><div class="label">cover 20%</div></div>
+    <div class="test"><div class="circle b-cover-25"></div><div class="label">cover 25%</div></div>
+</div>
+
+<h2>KẾT QUẢ CHỌN (preview cặp đôi)</h2>
+<div class="row" style="align-items: center;">
+    <div class="test">
+        <div class="circle optimal g-cover-80"></div>
+        <div class="label" style="font-weight:bold">Dương Nguyên</div>
+    </div>
+    <div style="font-size:24px; color:#8b0000; padding-top: 20px;">❤️</div>
+    <div class="test">
+        <div class="circle optimal b-cover-14"></div>
+        <div class="label" style="font-weight:bold">Hoàng Anh</div>
+    </div>
+</div>
+
+</body>
+</html>

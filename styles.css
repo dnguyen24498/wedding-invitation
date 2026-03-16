@@ -564,27 +564,26 @@ img {
     border: 3px solid #8b0000;
     padding: 0;
     overflow: hidden;
-    background: #fff;
+    background-color: #fff;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-.person-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+/* === Chỉnh avatar: dùng background-image + cover
+   cover = ảnh lấp đầy chiều ngang, chỉ cắt trên/dưới
+   background-position: center Y% → Y% cao = thấy phần thấp hơn
+   Dữ liệu pixel: groom face ~Y=60%, bride face ~Y=38% === */
+.person-frame.groom-avatar {
+    background-image: url('images/new/groom_nguyen.JPG');
+    background-size: cover;
+    background-position: center 80%;
 }
 
-/* === DESKTOP: chỉnh avatar tại đây === */
-.person-frame img.about-groom-avatar {
-    object-position: center 33% !important;
-    transform: translateX(-56px) translateY(-36px) scale(3.2) !important;
-    transform-origin: center 30% !important;
-}
-
-.person-frame img.about-bride-avatar {
-    object-position: center 33% !important;
-    transform: translateX(24px) translateY(-36px) scale(3.2) !important;
-    transform-origin: center 30% !important;
+.person-frame.bride-avatar {
+    background-image: url('images/new/bride_jinnie.JPG') !important;
+    background-size: 170% !important;
+    background-position: 42% 30% !important;
 }
 
 .person-name {
@@ -2272,15 +2271,7 @@ textarea::placeholder {
         max-width: 100%;
     }
 
-    /* === MOBILE: chỉnh avatar tại đây === */
-    .person-frame img.about-groom-avatar {
-        transform: translateX(-36px) translateY(-22px) scale(2.8) !important;
-    }
-
-    .person-frame img.about-bride-avatar {
-        transform: translateX(16px) translateY(-22px) scale(2.8) !important;
-    }
-    
+    /* === MOBILE: avatar kích thước nhỏ hơn, không cần chỉnh gì thêm === */
     .person-frame {
         width: 92px;
         height: 92px;
