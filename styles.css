@@ -1403,7 +1403,9 @@ img {
 #modalBride .modal-content {
     width: min(92vw, 480px);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     background:
         radial-gradient(circle at 12% 10%, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0) 38%),
         radial-gradient(circle at 88% 92%, rgba(139, 0, 0, 0.08) 0%, rgba(139, 0, 0, 0) 42%),
@@ -2332,6 +2334,8 @@ textarea::placeholder {
         width: min(96vw, 430px);
         border-radius: 18px;
         max-height: calc(100vh - 14px);
+        max-height: calc(100dvh - 14px);
+        overflow-y: auto;
     }
 
     #modalGroom .modal-body,
@@ -2570,6 +2574,8 @@ textarea::placeholder {
     #modalGroom .modal-content,
     #modalBride .modal-content {
         max-height: calc(100vh - 12px);
+        max-height: calc(100dvh - 12px);
+        overflow-y: auto;
     }
 
     #modalGroom .modal-body,
@@ -2617,51 +2623,31 @@ textarea::placeholder {
 #modalBride .modal-content {
     width: min(94vw, 520px);
     max-width: 520px;
+    max-height: calc(100vh - 40px);
+    max-height: calc(100dvh - 40px);
     border-radius: 0;
     border: 2px solid #4f1e24;
     background: #f7efe4;
     box-shadow:
         0 26px 58px rgba(33, 16, 13, 0.36),
         inset 0 0 100px rgba(200, 170, 130, 0.12);
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
     position: relative;
 }
 
-/* Paper texture + warm gradient overlay */
+/* Paper texture — disabled for scroll compatibility */
 #modalGroom .modal-content::before,
 #modalBride .modal-content::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-        repeating-linear-gradient(
-            120deg,
-            transparent,
-            transparent 3px,
-            rgba(170, 130, 80, 0.018) 3px,
-            rgba(170, 130, 80, 0.018) 6px
-        ),
-        linear-gradient(180deg,
-            rgba(255, 252, 246, 0.35) 0%,
-            rgba(255, 250, 242, 0.08) 40%,
-            rgba(240, 225, 200, 0.18) 100%
-        );
-    pointer-events: none;
-    z-index: 0;
+    content: none;
 }
 
-/* Inner frame — 1px sides, 3px double top/bottom, sharp corners */
+/* Inner frame — disabled to allow proper scrolling */
 #modalGroom .modal-content::after,
 #modalBride .modal-content::after {
-    content: '';
-    position: absolute;
-    inset: clamp(6px, 1.5vw, 10px);
-    border: 1px solid rgba(79, 30, 36, 0.18);
-    border-top: 3px double rgba(79, 30, 36, 0.22);
-    border-bottom: 3px double rgba(79, 30, 36, 0.22);
-    border-radius: 0;
-    pointer-events: none;
-    z-index: 0;
+    content: none;
 }
 
 /* --- Modal body: responsive padding --- */
@@ -2720,6 +2706,11 @@ textarea::placeholder {
     flex-direction: column;
     align-items: center;
     gap: 0;
+    /* Inner decorative border via box-shadow on poster */
+    border: 1px solid rgba(79, 30, 36, 0.15);
+    border-top: 3px double rgba(79, 30, 36, 0.20);
+    border-bottom: 3px double rgba(79, 30, 36, 0.20);
+    padding: clamp(12px, 2vw, 20px) clamp(8px, 2vw, 16px);
 }
 
 /* Hero: script title + car illustration */
